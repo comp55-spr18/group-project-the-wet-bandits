@@ -12,11 +12,11 @@ import acm.graphics.GObject;
  */
 public abstract class Screen extends GraphicsPane {
 
-	protected final MainApplication application;
+	protected final MatchThreeGame application;
 	private final ArrayList<GObject> objects = new ArrayList<>();
 	private final ArrayList<Displayable> displayables = new ArrayList<>();
 
-	public Screen(MainApplication app) {
+	public Screen(MatchThreeGame app) {
 		this.application = app;
 	}
 

@@ -16,7 +16,7 @@ public class MainApplication extends GraphicsApplication {
 	public void run() {
 		System.out.println("Hello, world!");
 		somePane = new SomePane(this);
-		testScreen = new TestScreen(this);
+		//testScreen = new TestScreen(this);
 		menu = new MenuPane(this);
 		//switchToMenu();
 		switchToScreen(testScreen);

@@ -6,6 +6,7 @@ public class MainApplication extends GraphicsApplication {
 
 	private SomePane somePane;
 	private MenuPane menu;
+	private TestScreen testScreen;
 	private int count;
 
 	public void init() {
@@ -15,8 +16,10 @@ public class MainApplication extends GraphicsApplication {
 	public void run() {
 		System.out.println("Hello, world!");
 		somePane = new SomePane(this);
+		testScreen = new TestScreen(this);
 		menu = new MenuPane(this);
-		switchToMenu();
+		//switchToMenu();
+		switchToScreen(testScreen);
 	}
 
 	public void switchToMenu() {

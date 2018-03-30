@@ -10,6 +10,9 @@ import thewetbandits.MatchThreeGame;
  */
 public class TestGameScreen extends Screen
 {
+	private static final Color YELLOW = new Color(250, 240, 66);
+	private static final Color GREEN = new Color(67, 153, 58);
+	private static final Color BLUE = new Color(24, 30, 219);
 	private GamePiece[][] testBoard;
 	private Random rand = new Random();
 
@@ -33,15 +36,15 @@ public class TestGameScreen extends Screen
 					tempColor = Color.RED;
 					break;
 				case 1:
-					tempColor = Color.BLUE;
+					tempColor = BLUE;
 					break;
 				case 2:
-					tempColor = Color.GREEN;
+					tempColor = GREEN;
 					break;
 				default:
-					tempColor = Color.YELLOW;
+					tempColor = YELLOW;
 				}
-				testBoard[r][c] = new GamePiece(30 * (r + 1), 30 * (c + 1), 30, tempColor);
+				testBoard[r][c] = new GamePiece(70 * (r + 1), 70 * (c + 1), 50, tempColor);
 				this.add(testBoard[r][c]);
 			}
 		}

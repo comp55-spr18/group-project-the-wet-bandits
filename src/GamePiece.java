@@ -15,6 +15,7 @@ public class GamePiece
 	public void paint (Graphics g)
 	{
 		//Starting colors for the gamepiece will be blue, red, green, and yellow.
+		//More to come
 		g.setColor(Color.BLUE);
 		g.fillOval(10, 20, 100, 100);
 	}

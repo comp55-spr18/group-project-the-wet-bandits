@@ -19,7 +19,7 @@ public class MatchThreeGame extends GraphicsApplication
 
 	public void run()
 	{
-		System.out.println("Running class MatchThreeGame");
+		System.out.println("Running class MatchThreeGame\nWe are only getting the bare bones down first.\nMostly backend stuff.\n");
 		testScreen = new TestScreen(this);
 		switchToScreen(testScreen);
 	}

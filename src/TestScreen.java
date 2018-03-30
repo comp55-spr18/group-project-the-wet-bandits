@@ -14,6 +14,7 @@ public class TestScreen extends Screen
 {
 
 	private GButton rect;
+	private GamePiece piece;
 	private boolean test = false;
 
 	public TestScreen(MatchThreeGame app)
@@ -26,7 +27,8 @@ public class TestScreen extends Screen
 	{
 		rect = new GButton("WOW", 200, 200, 200, 200);
 		rect.setFillColor(Color.RED);
-
+		piece = new GamePiece(10,10,20,Color.BLUE);
+		this.add(piece);
 		this.add(rect);
 	}
 

@@ -11,7 +11,7 @@ import thewetbandits.screens.TestGameScreen;
 
 public class MatchThreeGame extends GraphicsApplication
 {
-	public static final int WINDOW_WIDTH = 1000;
+	public static final int WINDOW_WIDTH = 700;
 	public static final int WINDOW_HEIGHT = 700;
 	private TestGameScreen testScreen;
 	
@@ -22,7 +22,7 @@ public class MatchThreeGame extends GraphicsApplication
 
 	public void run()
 	{
-		System.out.println("Running class MatchThreeGame\nWe are only getting the bare bones down first.\nMostly backend stuff.\n");
+		//System.out.println("Running class MatchThreeGame\nWe are only getting the bare bones down first.\nMostly backend stuff.\n");
 		testScreen = new TestGameScreen(this);
 		switchToScreen(testScreen);
 	}

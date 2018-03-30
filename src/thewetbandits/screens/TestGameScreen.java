@@ -1,7 +1,9 @@
 package thewetbandits.screens;
+
 import java.awt.Color;
 import java.util.Random;
 
+import acm.graphics.GRect;
 import thewetbandits.GamePiece;
 import thewetbandits.MatchThreeGame;
 
@@ -10,11 +12,15 @@ import thewetbandits.MatchThreeGame;
  */
 public class TestGameScreen extends Screen
 {
+	private static final int PIECE_SIZE = 50;
+	private static final int BOARD_SIZE = 8;
+	private static final int SPACE_SIZE = PIECE_SIZE + (PIECE_SIZE / 5 * 2);
 	private static final Color YELLOW = new Color(250, 240, 66);
 	private static final Color GREEN = new Color(67, 153, 58);
 	private static final Color BLUE = new Color(24, 30, 219);
 	private GamePiece[][] testBoard;
 	private Random rand = new Random();
+	private GRect border;
 
 	public TestGameScreen(MatchThreeGame app)
 	{
@@ -24,7 +30,10 @@ public class TestGameScreen extends Screen
 
 	private void addComponents()
 	{
-		testBoard = new GamePiece[8][8];
+		border = new GRect(SPACE_SIZE - ((SPACE_SIZE - PIECE_SIZE) / 2), SPACE_SIZE - ((SPACE_SIZE - PIECE_SIZE) / 2),
+				SPACE_SIZE * BOARD_SIZE, SPACE_SIZE * BOARD_SIZE);
+		add(border);
+		testBoard = new GamePiece[BOARD_SIZE][BOARD_SIZE];
 		Color tempColor = Color.BLACK;
 		for(int r = 0; r < testBoard.length; r++)
 		{
@@ -44,7 +53,7 @@ public class TestGameScreen extends Screen
 				default:
 					tempColor = YELLOW;
 				}
-				testBoard[r][c] = new GamePiece(70 * (r + 1), 70 * (c + 1), 50, tempColor);
+				testBoard[r][c] = new GamePiece(SPACE_SIZE * (r + 1), SPACE_SIZE * (c + 1), PIECE_SIZE, tempColor);
 				this.add(testBoard[r][c]);
 			}
 		}

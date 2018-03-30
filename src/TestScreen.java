@@ -10,41 +10,25 @@ import acm.graphics.GRect;
  * @author Austin
  *
  */
-public class TestScreen extends Screen
-{
-
+public class TestScreen extends Screen {
 	private GButton rect;
-	private boolean test = false;
 
-	public TestScreen(MatchThreeGame app)
-	{
+	public TestScreen(MatchThreeGame app) {
 		super(app);
 		this.addComponents();
 	}
 
-	private void addComponents()
-	{
+	private void addComponents() {
 		rect = new GButton("WOW", 200, 200, 200, 200);
 		rect.setFillColor(Color.RED);
 
-		this.add(rect);
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e)
-	{
-		GObject obj = this.application.getElementAt(e.getX(), e.getY());
-		if(obj == rect)
-		{
-			if(test)
-				this.application.switchToSome();
-			if(!test)
-			{
-				test = true;
-				GRect rect = new GRect(0, 0, 10, 10);
-				rect.setFillColor(Color.GREEN);
-				this.add(rect);
+		rect.setAction(new ClickAction() {
+			@Override
+			public void onClick(MouseEvent event) {
+				System.out.println("You clicked the thing!");
 			}
-		}
+		});
+
+		this.add(rect);
 	}
 }

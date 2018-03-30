@@ -19,11 +19,22 @@ import acm.graphics.GRoundRect;
 public class GButton extends GCompound {
 	private GRoundRect rect;
 	private GLabel message;
+	private ClickAction action;
 
 	public static final int BUFFER = 20;
 
 	public GButton(String label, double x, double y, double width, double height) {
 		this(label, x, y, width, height, Color.white);
+	}
+	
+	public GButton(String label, double x, double y, double width, double height, ClickAction action) {
+		this(label, x, y, width, height, Color.white);
+		this.action = action;
+	}
+	
+	public GButton(String label, double x, double y, double width, double height, int r, int g, int b, ClickAction action) {
+		this(label, x, y, width, height, r, g, b);
+		this.action = action;
 	}
 
 	public GButton(String label, double x, double y, double width, double height, int r, int g, int b) {
@@ -64,5 +75,13 @@ public class GButton extends GCompound {
 
 	public void setColor(Color col) {
 		message.setColor(col);
+	}
+	
+	public void setAction(ClickAction runnable) {
+		this.action = runnable;
+	}
+	
+	public ClickAction getAction() {
+		return this.action;
 	}
 }

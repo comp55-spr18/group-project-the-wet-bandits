@@ -1,9 +1,6 @@
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 
-import acm.graphics.GObject;
-import acm.graphics.GRect;
-
 /**
  * A test screen testing the {@link Screen} functionality
  * 
@@ -12,6 +9,8 @@ import acm.graphics.GRect;
  */
 public class TestScreen extends Screen {
 	private GButton rect;
+
+	private GamePiece piece;
 
 	public TestScreen(MatchThreeGame app) {
 		super(app);
@@ -28,7 +27,8 @@ public class TestScreen extends Screen {
 				System.out.println("You clicked the thing!");
 			}
 		});
-
+		piece = new GamePiece(10,10,20,Color.BLUE);
+		this.add(piece);
 		this.add(rect);
 	}
 }

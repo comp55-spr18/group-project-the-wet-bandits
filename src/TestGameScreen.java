@@ -29,15 +29,15 @@ public class TestGameScreen extends Screen
 					tempColor = Color.RED;
 					break;
 				case 1:
-					tempColor = Color.BLUE;
+					tempColor = new Color(24, 30, 219);
 					break;
 				case 2:
-					tempColor = Color.GREEN;
+					tempColor = new Color(67, 153, 58);
 					break;
 				default:
-					tempColor = Color.YELLOW;
+					tempColor = new Color(250, 240, 66);
 				}
-				testBoard[r][c] = new GamePiece(30 * (r + 1), 30 * (c + 1), 30, tempColor);
+				testBoard[r][c] = new GamePiece(70 * (r + 1), 70 * (c + 1), 50, tempColor);
 				this.add(testBoard[r][c]);
 			}
 		}

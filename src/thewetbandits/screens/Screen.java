@@ -1,7 +1,12 @@
+package thewetbandits.screens;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import acm.graphics.GObject;
+import thewetbandits.MatchThreeGame;
+import thewetbandits.utils.Displayable;
+import thewetbandits.utils.GButton;
+import thewetbandits.utils.GraphicsPane;
 
 /**
  * A class extending the functionality of {@link GraphicsPane} by automatically

@@ -1,7 +1,9 @@
+package thewetbandits.utils;
 import java.awt.event.MouseEvent;
 
 import acm.graphics.GImage;
 import acm.graphics.GObject;
+import thewetbandits.MainApplication;
 
 public class SomePane extends GraphicsPane {
 	private MainApplication program; // you will use program to get access to

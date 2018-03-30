@@ -1,3 +1,4 @@
+package thewetbandits.utils;
 
 /*
  * Typical usage of the AudioPlayer.java

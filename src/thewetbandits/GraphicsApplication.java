@@ -1,3 +1,4 @@
+package thewetbandits;
 
 /*
  * File: GraphicsApplication
@@ -16,6 +17,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import acm.program.GraphicsProgram;
+import thewetbandits.utils.GraphicsPane;
 
 public abstract class GraphicsApplication extends GraphicsProgram {
 	private GraphicsPane curScreen;

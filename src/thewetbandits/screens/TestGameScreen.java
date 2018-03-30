@@ -1,5 +1,9 @@
+package thewetbandits.screens;
 import java.awt.Color;
 import java.util.Random;
+
+import thewetbandits.GamePiece;
+import thewetbandits.MatchThreeGame;
 
 /**
  * @author JacobFaulk Created Mar 30, 2018

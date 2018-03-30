@@ -1,3 +1,4 @@
+package thewetbandits.screens;
 import acm.program.GraphicsProgram;
 import acm.graphics.GRect;
 import acm.graphics.GLabel;

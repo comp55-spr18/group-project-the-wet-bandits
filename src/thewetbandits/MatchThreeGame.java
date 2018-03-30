@@ -1,4 +1,7 @@
+package thewetbandits;
 import java.awt.event.MouseEvent;
+
+import thewetbandits.screens.TestGameScreen;
 
 
 /**

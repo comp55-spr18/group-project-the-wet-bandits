@@ -1,3 +1,9 @@
+package thewetbandits;
+import thewetbandits.screens.TestScreen;
+import thewetbandits.utils.AudioPlayer;
+import thewetbandits.utils.MenuPane;
+import thewetbandits.utils.SomePane;
+
 public class MainApplication extends GraphicsApplication {
 	public static final int WINDOW_WIDTH = 800;
 	public static final int WINDOW_HEIGHT = 600;

@@ -1,5 +1,11 @@
+package thewetbandits.screens;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
+
+import thewetbandits.GamePiece;
+import thewetbandits.MatchThreeGame;
+import thewetbandits.utils.ClickAction;
+import thewetbandits.utils.GButton;
 
 /**
  * A test screen testing the {@link Screen} functionality

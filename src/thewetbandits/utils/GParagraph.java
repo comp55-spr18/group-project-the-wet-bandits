@@ -1,3 +1,4 @@
+package thewetbandits.utils;
 /*
  * File: GParagraph.java
  * ---------------------

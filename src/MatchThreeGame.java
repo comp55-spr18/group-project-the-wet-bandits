@@ -10,7 +10,7 @@ public class MatchThreeGame extends GraphicsApplication
 {
 	public static final int WINDOW_WIDTH = 1000;
 	public static final int WINDOW_HEIGHT = 700;
-	private TestScreen testScreen;
+	private TestGameScreen testScreen;
 	
 	public void init()
 	{
@@ -20,7 +20,7 @@ public class MatchThreeGame extends GraphicsApplication
 	public void run()
 	{
 		System.out.println("Running class MatchThreeGame\nWe are only getting the bare bones down first.\nMostly backend stuff.\n");
-		testScreen = new TestScreen(this);
+		testScreen = new TestGameScreen(this);
 		switchToScreen(testScreen);
 	}
 
@@ -32,7 +32,7 @@ public class MatchThreeGame extends GraphicsApplication
 	@Override
 	public void mousePressed(MouseEvent e)
 	{
-		System.out.println("MatchThreeGame clicked");
+		//System.out.println("MatchThreeGame clicked");
 		super.mouseClicked(e);
 	}
 	

@@ -1,3 +1,4 @@
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import acm.graphics.GObject;
@@ -100,6 +101,15 @@ public abstract class Screen extends GraphicsPane {
 		}
 		for (GObject obj : this.objects) {
 			this.application.remove(obj);
+		}
+	}
+	
+	@Override
+	public void mouseClicked(MouseEvent event) {
+		GObject obj = this.application.getElementAt(event.getX(), event.getY());
+		if(obj instanceof GButton) {
+			GButton button = (GButton) obj;
+			button.getAction().onClick(event);
 		}
 	}
 }

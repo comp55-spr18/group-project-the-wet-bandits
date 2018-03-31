@@ -4,8 +4,7 @@ import thewetbandits.Board;
 import thewetbandits.MatchThreeGame;
 
 /**
- * @author Jacob Faulk
- * Created Mar 30, 2018
+ * @author Jacob Faulk Created Mar 30, 2018
  */
 public class TestGameScreen extends Screen
 {
@@ -15,10 +14,15 @@ public class TestGameScreen extends Screen
 	private int height;
 
 	/**
-	 * Constructor that specifies the MatchThreeGame and the dimensions of that MatchThreeGame
-	 * @param app the GraphicsApplication that this Screen will be added to
-	 * @param width the width of the GraphicsApplication
-	 * @param height the height of the GraphicsApplication
+	 * Constructor that specifies the MatchThreeGame and the dimensions of that
+	 * MatchThreeGame
+	 * 
+	 * @param app
+	 *            the GraphicsApplication that this Screen will be added to
+	 * @param width
+	 *            the width of the GraphicsApplication
+	 * @param height
+	 *            the height of the GraphicsApplication
 	 */
 	public TestGameScreen(MatchThreeGame app, int width, int height)
 	{

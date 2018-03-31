@@ -15,10 +15,6 @@ import acm.graphics.GRectangle;
 
 public class Board extends GObject
 {
-	private static final Color YELLOW = new Color(250, 240, 66);
-	private static final Color GREEN = new Color(67, 153, 58);
-	private static final Color BLUE = new Color(24, 30, 219);
-	private Random rand;
 	private GamePiece[][] board;
 	private int pieceSize;
 	private int boardLength;
@@ -26,14 +22,22 @@ public class Board extends GObject
 	private GRectangle border;
 	private int screenSize;
 
+	/**
+	 * Constructor for Board specifying the dimensions of the Screen it will reside
+	 * in
+	 * 
+	 * @param screenSize
+	 *            the size (in pixels) of the Screen the Board will be added to
+	 * @param boardLength
+	 *            the length of both sides of the array holding the GamePieces
+	 */
 	public Board(int screenSize, int boardLength)
 	{
 		super();
 		this.screenSize = screenSize;
 		this.boardLength = boardLength;
-		this.spaceSize = screenSize / (boardLength + 2);
+		this.spaceSize = this.screenSize / (boardLength + 2);
 		this.pieceSize = (spaceSize / 7) * 5;
-		rand = new Random();
 		border = new GRectangle(spaceSize - ((spaceSize - pieceSize) / 2), spaceSize - ((spaceSize - pieceSize) / 2),
 				spaceSize * boardLength, spaceSize * boardLength);
 		board = new GamePiece[boardLength][boardLength];
@@ -46,12 +50,23 @@ public class Board extends GObject
 		}
 	}
 
+	/**
+	 * returns the bounding box surrounding the Board
+	 * 
+	 * @return GRectangle the bounds of the Board
+	 */
 	@Override
 	public GRectangle getBounds()
 	{
 		return border;
 	}
 
+	/**
+	 * draws the Board and all of its elements
+	 * 
+	 * @param g
+	 *            the Graphics object used to draw the Board
+	 */
 	@Override
 	public void paint(Graphics g)
 	{

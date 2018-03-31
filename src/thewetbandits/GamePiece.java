@@ -2,11 +2,14 @@ package thewetbandits;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 
-import acm.graphics.GImage;
+import javax.imageio.ImageIO;
+
 import acm.graphics.GObject;
-import acm.graphics.GOval;
 import acm.graphics.GRectangle;
 
 /*
@@ -24,7 +27,7 @@ public class GamePiece extends GObject
 	private int y;
 	private int size;
 	private Color color;
-	private GImage img;
+	private BufferedImage img;
 
 	public GamePiece(int x, int y, int size, Color color)
 	{
@@ -41,6 +44,39 @@ public class GamePiece extends GObject
 		this.x = x;
 		this.y = y;
 		this.size = size;
+		try
+		{
+			switch(rand.nextInt(4))
+			{
+			case 0:
+				this.color = Color.RED;
+				this.img = ImageIO.read(new File("red_gem.png"));
+				break;
+			case 1:
+				this.color = BLUE;
+				this.img = ImageIO.read(new File("blue_gem.png"));
+				break;
+			case 2:
+				this.color = GREEN;
+				this.img = ImageIO.read(new File("green_gem.png"));
+				break;
+			default:
+				this.img = ImageIO.read(new File("yellow_gem.png"));
+				this.color = YELLOW;
+			}
+		}catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public GamePiece(int x, int y, int size, BufferedImage img)
+	{
+		super();
+		this.x = x;
+		this.y = y;
+		this.size = size;
+		this.img = img;
 		switch(rand.nextInt(4))
 		{
 		case 0:
@@ -59,10 +95,15 @@ public class GamePiece extends GObject
 
 	public void paint(Graphics g)
 	{
-		// Starting colors for the gamepiece will be blue, red, green, and yellow.
-		// More to come
-		g.setColor(color);
-		g.fillOval(x, y, size, size);
+		if(img == null)
+		{
+			g.setColor(color);
+			g.fillOval(x, y, size, size);
+		}
+		else
+		{
+			g.drawImage(img, x, y, size, size, null);
+		}
 	}
 
 	@Override

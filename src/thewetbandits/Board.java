@@ -1,3 +1,8 @@
+/**
+ * @author JacobFaulk
+ * Created Mar 30, 2018
+ */
+
 package thewetbandits;
 
 import java.awt.Color;
@@ -8,9 +13,6 @@ import acm.graphics.GObject;
 import acm.graphics.GRect;
 import acm.graphics.GRectangle;
 
-/**
- * @author JacobFaulk Created Mar 30, 2018
- */
 public class Board extends GObject
 {
 	private static final Color YELLOW = new Color(250, 240, 66);
@@ -22,13 +24,15 @@ public class Board extends GObject
 	private int boardLength;
 	private int spaceSize;
 	private GRectangle border;
+	private int screenSize;
 
-	public Board(int boardLength, int pieceSize)
+	public Board(int screenSize, int boardLength)
 	{
 		super();
+		this.screenSize = screenSize;
 		this.boardLength = boardLength;
-		this.pieceSize = pieceSize;
-		this.spaceSize = pieceSize + (pieceSize / 5 * 2);
+		this.spaceSize = screenSize / (boardLength + 2);
+		this.pieceSize = (spaceSize / 7) * 5;
 		rand = new Random();
 		border = new GRectangle(spaceSize - ((spaceSize - pieceSize) / 2), spaceSize - ((spaceSize - pieceSize) / 2),
 				spaceSize * boardLength, spaceSize * boardLength);

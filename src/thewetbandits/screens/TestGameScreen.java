@@ -13,6 +13,8 @@ import thewetbandits.MatchThreeGame;
  */
 public class TestGameScreen extends Screen
 {
+	// public static final int WINDOW_WIDTH = 800;
+	// public static final int WINDOW_HEIGHT = 800;
 	private static final int PIECE_SIZE = 50;
 	private static final int BOARD_SIZE = 8;
 	private static final int SPACE_SIZE = PIECE_SIZE + (PIECE_SIZE / 5 * 2);
@@ -23,43 +25,49 @@ public class TestGameScreen extends Screen
 	private Random rand = new Random();
 	private GRect border;
 	private Board board;
+	private int width;
+	private int height;
 
-	public TestGameScreen(MatchThreeGame app)
+	public TestGameScreen(MatchThreeGame app, int width, int height)
 	{
 		super(app);
+		this.width = width;
+		this.height = height;
 		this.addComponents();
 	}
 
 	private void addComponents()
 	{
-		board = new Board(BOARD_SIZE, PIECE_SIZE);
+		board = new Board(width < height ? width : height, BOARD_SIZE);
 		this.add(board);
-//		border = new GRect(SPACE_SIZE - ((SPACE_SIZE - PIECE_SIZE) / 2), SPACE_SIZE - ((SPACE_SIZE - PIECE_SIZE) / 2),
-//				SPACE_SIZE * BOARD_SIZE, SPACE_SIZE * BOARD_SIZE);
-//		add(border);
-//		testBoard = new GamePiece[BOARD_SIZE][BOARD_SIZE];
-//		Color tempColor = Color.BLACK;
-//		for(int r = 0; r < testBoard.length; r++)
-//		{
-//			for(int c = 0; c < testBoard[0].length; c++)
-//			{
-//				switch(rand.nextInt(4))
-//				{
-//				case 0:
-//					tempColor = Color.RED;
-//					break;
-//				case 1:
-//					tempColor = BLUE;
-//					break;
-//				case 2:
-//					tempColor = GREEN;
-//					break;
-//				default:
-//					tempColor = YELLOW;
-//				}
-//				testBoard[r][c] = new GamePiece(SPACE_SIZE * (r + 1), SPACE_SIZE * (c + 1), PIECE_SIZE, tempColor);
-//				this.add(testBoard[r][c]);
-//			}
-//		}
+		// border = new GRect(SPACE_SIZE - ((SPACE_SIZE - PIECE_SIZE) / 2), SPACE_SIZE -
+		// ((SPACE_SIZE - PIECE_SIZE) / 2),
+		// SPACE_SIZE * BOARD_SIZE, SPACE_SIZE * BOARD_SIZE);
+		// add(border);
+		// testBoard = new GamePiece[BOARD_SIZE][BOARD_SIZE];
+		// Color tempColor = Color.BLACK;
+		// for(int r = 0; r < testBoard.length; r++)
+		// {
+		// for(int c = 0; c < testBoard[0].length; c++)
+		// {
+		// switch(rand.nextInt(4))
+		// {
+		// case 0:
+		// tempColor = Color.RED;
+		// break;
+		// case 1:
+		// tempColor = BLUE;
+		// break;
+		// case 2:
+		// tempColor = GREEN;
+		// break;
+		// default:
+		// tempColor = YELLOW;
+		// }
+		// testBoard[r][c] = new GamePiece(SPACE_SIZE * (r + 1), SPACE_SIZE * (c + 1),
+		// PIECE_SIZE, tempColor);
+		// this.add(testBoard[r][c]);
+		// }
+		// }
 	}
 }

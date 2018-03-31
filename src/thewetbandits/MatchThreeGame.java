@@ -1,5 +1,6 @@
 package thewetbandits;
 
+import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 
 import thewetbandits.screens.TestGameScreen;
@@ -12,7 +13,7 @@ public class MatchThreeGame extends GraphicsApplication
 {
 	public static final int WINDOW_WIDTH = 700;
 	public static final int WINDOW_HEIGHT = 700;
-	private TestGameScreen testScreen;
+	private TestGameScreen testScreen = new TestGameScreen(this, WINDOW_WIDTH, WINDOW_HEIGHT);;
 
 	/**
 	 * initializes MatchThreeGame according to the specified width and height
@@ -27,7 +28,7 @@ public class MatchThreeGame extends GraphicsApplication
 	 */
 	public void run()
 	{
-		testScreen = new TestGameScreen(this, WINDOW_WIDTH, WINDOW_HEIGHT);
+		// testScreen = new TestGameScreen(this, WINDOW_WIDTH, WINDOW_HEIGHT);
 		switchToScreen(testScreen);
 	}
 
@@ -42,6 +43,14 @@ public class MatchThreeGame extends GraphicsApplication
 	public void mousePressed(MouseEvent e)
 	{
 		super.mouseClicked(e);
+	}
+
+	@Override
+	public void paint(Graphics g)
+	{
+		super.paint(g);
+		testScreen.board.updateBounds(getWidth() < getHeight() ? getWidth() : getHeight());
+		switchToScreen(testScreen);
 	}
 
 }

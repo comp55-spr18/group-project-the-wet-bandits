@@ -128,6 +128,13 @@ public class GamePiece extends GObject
 		}
 	}
 
+	public void reposition(int x, int y, int size)
+	{
+		this.x = x;
+		this.y = y;
+		this.size = size;
+	}
+
 	/**
 	 * draws the GamePiece in its position with the specified image if img is null,
 	 * its backup color is displayed

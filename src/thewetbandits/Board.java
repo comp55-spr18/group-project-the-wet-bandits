@@ -22,6 +22,7 @@ public class Board extends GObject
 	private Line2D.Double[] verticalLines;
 	private Line2D.Double[] horizontalLines;
 	private int screenSize;
+	private MatchThreeGame app;
 
 	/**
 	 * Constructor for Board specifying the dimensions of the Screen it will reside
@@ -32,9 +33,10 @@ public class Board extends GObject
 	 * @param boardLength
 	 *            the length of both sides of the array holding the GamePieces
 	 */
-	public Board(int screenSize, int boardLength)
+	public Board(int screenSize, int boardLength, MatchThreeGame app)
 	{
 		super();
+		this.app = app;
 		this.screenSize = screenSize;
 		this.boardLength = boardLength;
 		this.spaceSize = this.screenSize / (boardLength + 2);
@@ -68,6 +70,30 @@ public class Board extends GObject
 	public GRectangle getBounds()
 	{
 		return border;
+	}
+
+	public void updateBounds(int screenSize)
+	{
+		// TODO don't copy code here
+		this.screenSize = screenSize;
+		this.spaceSize = this.screenSize / (boardLength + 2);
+		this.pieceSize = (spaceSize / 7) * 5;
+		border.setBounds(spaceSize - ((spaceSize - pieceSize) / 2), spaceSize - ((spaceSize - pieceSize) / 2),
+				spaceSize * boardLength, spaceSize * boardLength);
+		for(int r = 0; r < board.length; r++)
+			for(int c = 0; c < board[0].length; c++)
+				board[r][c].reposition(spaceSize * (r + 1), spaceSize * (c + 1), pieceSize);
+		for(int i = 2; i <= boardLength; i++)
+		{
+			verticalLines[i - 2].setLine(spaceSize * i - ((spaceSize - pieceSize) / 2),
+					spaceSize - ((spaceSize - pieceSize) / 2), spaceSize * i - ((spaceSize - pieceSize) / 2),
+					spaceSize * (boardLength + 1) - ((spaceSize - pieceSize) / 2));
+			horizontalLines[i - 2].setLine(spaceSize - ((spaceSize - pieceSize) / 2),
+					spaceSize * i - ((spaceSize - pieceSize) / 2),
+					spaceSize * (boardLength + 1) - ((spaceSize - pieceSize) / 2),
+					spaceSize * i - ((spaceSize - pieceSize) / 2));
+		}
+
 	}
 
 	/**

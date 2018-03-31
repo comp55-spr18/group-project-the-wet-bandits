@@ -9,7 +9,7 @@ import thewetbandits.MatchThreeGame;
 public class TestGameScreen extends Screen
 {
 	private static final int BOARD_SIZE = 8;
-	private Board board;
+	public Board board;
 	private int width;
 	private int height;
 
@@ -29,6 +29,7 @@ public class TestGameScreen extends Screen
 		super(app);
 		this.width = width;
 		this.height = height;
+		board = new Board(width < height ? width : height, BOARD_SIZE, app);
 		this.addComponents();
 	}
 
@@ -37,7 +38,6 @@ public class TestGameScreen extends Screen
 	 */
 	private void addComponents()
 	{
-		board = new Board(width < height ? width : height, BOARD_SIZE);
 		this.add(board);
 	}
 }

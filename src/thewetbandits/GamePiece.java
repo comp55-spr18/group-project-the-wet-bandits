@@ -13,8 +13,8 @@ import acm.graphics.GObject;
 import acm.graphics.GRectangle;
 
 /*
- * 
  * @author Miguel
+ * @author Jacob Faulk
  */
 
 public class GamePiece extends GObject
@@ -29,6 +29,13 @@ public class GamePiece extends GObject
 	private Color color;
 	private BufferedImage img;
 
+	/**
+	 * Constructor where color is provided and image is null
+	 * @param x the x position of the piece
+	 * @param y the y position of the piece
+	 * @param size the width and height of the piece
+	 * @param color the color of the piece
+	 */
 	public GamePiece(int x, int y, int size, Color color)
 	{
 		super();
@@ -38,6 +45,12 @@ public class GamePiece extends GObject
 		this.color = color;
 	}
 
+	/**
+	 * Constructor where color and image are randomly chosen out of a predefined set
+	 * @param x the x position of the piece
+	 * @param y the y position of the piece
+	 * @param size the width and height of the piece
+	 */
 	public GamePiece(int x, int y, int size)
 	{
 		super();
@@ -70,6 +83,13 @@ public class GamePiece extends GObject
 		}
 	}
 
+	/**
+	 * Constructor where image is provided and color is randomly chosen in case img is null
+	 * @param x the x position of the piece
+	 * @param y the y position of the piece
+	 * @param size the width and height of the piece
+	 * @param img the image that the piece displays when paint() is called
+	 */
 	public GamePiece(int x, int y, int size, BufferedImage img)
 	{
 		super();
@@ -93,6 +113,11 @@ public class GamePiece extends GObject
 		}
 	}
 
+	/**
+	 * draws the GamePiece in its position with the specified image
+	 * if img is null, its backup color is displayed
+	 * @param g the graphics element that draws the piece
+	 */
 	public void paint(Graphics g)
 	{
 		if(img == null)
@@ -106,6 +131,10 @@ public class GamePiece extends GObject
 		}
 	}
 
+	/**
+	 * returns a GRectangle detailing the bounds of the piece
+	 * @return the bounding box of the piece
+	 */
 	@Override
 	public GRectangle getBounds()
 	{

@@ -9,7 +9,8 @@ import thewetbandits.GamePiece;
 import thewetbandits.MatchThreeGame;
 
 /**
- * @author JacobFaulk Created Mar 30, 2018
+ * @author Jacob Faulk
+ * Created Mar 30, 2018
  */
 public class TestGameScreen extends Screen
 {

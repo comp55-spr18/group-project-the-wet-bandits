@@ -1,5 +1,5 @@
 /**
- * @author JacobFaulk
+ * @author Jacob Faulk
  * Created Mar 30, 2018
  */
 

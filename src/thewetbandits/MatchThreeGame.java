@@ -5,7 +5,7 @@ import java.awt.event.MouseEvent;
 import thewetbandits.screens.TestGameScreen;
 
 /**
- * @author JacobFaulk
+ * @author Jacob Faulk
  * Created Mar 28, 2018
  */
 

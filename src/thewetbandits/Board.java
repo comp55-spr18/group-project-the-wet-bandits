@@ -37,26 +37,11 @@ public class Board extends GObject
 		border = new GRectangle(spaceSize - ((spaceSize - pieceSize) / 2), spaceSize - ((spaceSize - pieceSize) / 2),
 				spaceSize * boardLength, spaceSize * boardLength);
 		board = new GamePiece[boardLength][boardLength];
-		Color tempColor = Color.BLACK;
 		for(int r = 0; r < board.length; r++)
 		{
 			for(int c = 0; c < board[0].length; c++)
 			{
-				switch(rand.nextInt(4))
-				{
-				case 0:
-					tempColor = Color.RED;
-					break;
-				case 1:
-					tempColor = BLUE;
-					break;
-				case 2:
-					tempColor = GREEN;
-					break;
-				default:
-					tempColor = YELLOW;
-				}
-				board[r][c] = new GamePiece(spaceSize * (r + 1), spaceSize * (c + 1), pieceSize, tempColor);
+				board[r][c] = new GamePiece(spaceSize * (r + 1), spaceSize * (c + 1), pieceSize);
 			}
 		}
 	}
@@ -70,6 +55,7 @@ public class Board extends GObject
 	@Override
 	public void paint(Graphics g)
 	{
+		g.setColor(Color.BLACK);
 		g.drawRect(spaceSize - ((spaceSize - pieceSize) / 2), spaceSize - ((spaceSize - pieceSize) / 2),
 				spaceSize * boardLength, spaceSize * boardLength);
 		for(int r = 0; r < board.length; r++)

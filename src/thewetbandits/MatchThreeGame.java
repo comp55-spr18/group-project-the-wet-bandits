@@ -5,7 +5,8 @@ import java.awt.event.MouseEvent;
 import thewetbandits.screens.TestGameScreen;
 
 /**
- * @author JacobFaulk Created Mar 28, 2018
+ * @author JacobFaulk
+ * Created Mar 28, 2018
  */
 
 public class MatchThreeGame extends GraphicsApplication

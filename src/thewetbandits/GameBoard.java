@@ -1,4 +1,4 @@
-package test;
+package thewetbandits;
 
 import java.awt.event.MouseEvent;
 
@@ -14,7 +14,7 @@ import thewetbandits.utils.Clickable;
  *
  *         Created; Mar 31, 2018
  */
-public class BetterBoard extends GCompound implements Clickable {
+public class GameBoard extends GCompound implements Clickable {
 
 	private static final int PADDING = 10;
 
@@ -24,14 +24,14 @@ public class BetterBoard extends GCompound implements Clickable {
 
 	private GRect rectangle;
 
-	private BetterPiece[][] board;
+	private GamePiece[][] board;
 
-	public BetterBoard(int x, int y, int pieceSize, int boardSize) {
+	public GameBoard(int x, int y, int pieceSize, int boardSize) {
 		this.x = x;
 		this.y = y;
 		this.pieceSize = pieceSize;
 		this.boardSize = boardSize;
-		this.board = new BetterPiece[boardSize][boardSize];
+		this.board = new GamePiece[boardSize][boardSize];
 		this.initialize();
 	}
 
@@ -42,7 +42,7 @@ public class BetterBoard extends GCompound implements Clickable {
 		add(rectangle);
 		for (int i = 0; i < boardSize; i++) {
 			for (int j = 0; j < boardSize; j++) {
-				this.board[i][j] = new BetterPiece(((pieceSize + PADDING) * i) + PADDING,
+				this.board[i][j] = new GamePiece(((pieceSize + PADDING) * i) + PADDING,
 						((pieceSize + PADDING) * j) + PADDING, pieceSize);
 				add(this.board[i][j]);
 			}
@@ -52,8 +52,8 @@ public class BetterBoard extends GCompound implements Clickable {
 	@Override
 	public void onClick(MouseEvent evt) {
 		GObject o = this.getElementAt(translateXToLocalSpace(evt.getX()), translateYToLocalSpace(evt.getY()));
-		if (o != null && o instanceof BetterPiece) {
-			((BetterPiece) o).toggleActive();
+		if (o != null && o instanceof GamePiece) {
+			((GamePiece) o).toggleActive();
 		}
 	}
 

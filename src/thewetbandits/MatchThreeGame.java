@@ -45,12 +45,4 @@ public class MatchThreeGame extends GraphicsApplication
 		super.mouseClicked(e);
 	}
 
-	@Override
-	public void paint(Graphics g)
-	{
-		super.paint(g);
-		testScreen.board.updateBounds(getWidth() < getHeight() ? getWidth() : getHeight());
-		switchToScreen(testScreen);
-	}
-
 }

@@ -1,169 +1,74 @@
 package thewetbandits;
 
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.util.Random;
 
-import javax.imageio.ImageIO;
+import acm.graphics.GCompound;
+import acm.graphics.GImage;
 
-import acm.graphics.GObject;
-import acm.graphics.GRectangle;
+public class GamePiece extends GCompound {
 
-/*
- * @author Miguel
- * @author Jacob Faulk
- */
+	private static final Random random = new Random();
 
-public class GamePiece extends GObject
-{
-	private static Random rand = new Random();
-	private static final Color YELLOW = new Color(250, 240, 66);
-	private static final Color GREEN = new Color(67, 153, 58);
-	private static final Color BLUE = new Color(24, 30, 219);
-	private int x;
-	private int y;
-	private int size;
 	private Color color;
-	private BufferedImage img;
 
-	/**
-	 * Constructor where color is provided and image is null
-	 * 
-	 * @param x
-	 *            the x position of the piece
-	 * @param y
-	 *            the y position of the piece
-	 * @param size
-	 *            the width and height of the piece
-	 * @param color
-	 *            the color of the piece
-	 */
-	public GamePiece(int x, int y, int size, Color color)
-	{
-		super();
-		this.x = x;
-		this.y = y;
-		this.size = size;
+	private GImage image;
+	private GImage imageAnimated;
+
+	private int x, y, size;
+	
+	private boolean active = false;
+
+	public GamePiece(int x, int y, int size) {
+		this(x, y, size, getRandomColor());
+	}
+
+	public GamePiece(int x, int y, int size, Color color) {
 		this.color = color;
-	}
-
-	/**
-	 * Constructor where color and image are randomly chosen out of a predefined set
-	 * 
-	 * @param x
-	 *            the x position of the piece
-	 * @param y
-	 *            the y position of the piece
-	 * @param size
-	 *            the width and height of the piece
-	 */
-	public GamePiece(int x, int y, int size)
-	{
-		super();
 		this.x = x;
 		this.y = y;
 		this.size = size;
-		try
-		{
-			switch(rand.nextInt(4))
-			{
-			case 0:
-				this.color = Color.RED;
-				this.img = ImageIO.read(new File("red_gem.png"));
-				break;
-			case 1:
-				this.color = BLUE;
-				this.img = ImageIO.read(new File("blue_gem.png"));
-				break;
-			case 2:
-				this.color = GREEN;
-				this.img = ImageIO.read(new File("green_gem.png"));
-				break;
-			default:
-				this.img = ImageIO.read(new File("yellow_gem.png"));
-				this.color = YELLOW;
-			}
-		}catch(IOException e)
-		{
-			e.printStackTrace();
+		this.initImage();
+	}
+
+	private static Color getRandomColor() {
+		return Color.values()[random.nextInt(Color.values().length)];
+	}
+
+	private void initImage() {
+		this.image = new GImage(this.color.toString().toLowerCase() + "_gem.png");
+		this.imageAnimated = new GImage(this.color.toString().toLowerCase()+"_gem_animated.gif");
+		this.imageAnimated.setLocation(this.x, this.y);
+		this.imageAnimated.setSize(this.size, this.size);
+		this.image.setLocation(this.x, this.y);
+		this.image.setSize(this.size, this.size);
+		updateImage();
+	}
+	
+	private void updateImage() {
+		remove(this.image);
+		remove(this.imageAnimated);
+		add(active ? this.imageAnimated : this.image);
+	}
+	
+	public void toggleActive() {
+		this.active = !this.active;
+		this.updateImage();
+	}
+
+	public enum Color {
+		YELLOW(new java.awt.Color(250, 240, 66)), GREEN(new java.awt.Color(67, 153, 58)), BLUE(
+				new java.awt.Color(24, 30, 219)), RED(java.awt.Color.RED);
+
+		private java.awt.Color color;
+
+		private Color(java.awt.Color color) {
+			this.color = color;
+		}
+
+		public java.awt.Color getColor() {
+			return this.color;
 		}
 	}
-
-	/**
-	 * Constructor where image is provided and color is randomly chosen in case img
-	 * is null
-	 * 
-	 * @param x
-	 *            the x position of the piece
-	 * @param y
-	 *            the y position of the piece
-	 * @param size
-	 *            the width and height of the piece
-	 * @param img
-	 *            the image that the piece displays when paint() is called
-	 */
-	public GamePiece(int x, int y, int size, BufferedImage img)
-	{
-		super();
-		this.x = x;
-		this.y = y;
-		this.size = size;
-		this.img = img;
-		switch(rand.nextInt(4))
-		{
-		case 0:
-			this.color = Color.RED;
-			break;
-		case 1:
-			this.color = BLUE;
-			break;
-		case 2:
-			this.color = GREEN;
-			break;
-		default:
-			this.color = YELLOW;
-		}
-	}
-
-	public void reposition(int x, int y, int size)
-	{
-		this.x = x;
-		this.y = y;
-		this.size = size;
-	}
-
-	/**
-	 * draws the GamePiece in its position with the specified image if img is null,
-	 * its backup color is displayed
-	 * 
-	 * @param g
-	 *            the graphics element that draws the piece
-	 */
-	public void paint(Graphics g)
-	{
-		if(img == null)
-		{
-			g.setColor(color);
-			g.fillOval(x, y, size, size);
-		}
-		else
-		{
-			g.drawImage(img, x, y, size, size, null);
-		}
-	}
-
-	/**
-	 * returns a GRectangle detailing the bounds of the piece
-	 * 
-	 * @return the bounding box of the piece
-	 */
-	@Override
-	public GRectangle getBounds()
-	{
-		return new GRectangle(x, y, size, size);
-	}
-
 }

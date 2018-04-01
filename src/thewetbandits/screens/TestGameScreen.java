@@ -3,8 +3,9 @@ package thewetbandits.screens;
 import java.awt.event.MouseEvent;
 
 import acm.graphics.GObject;
-import thewetbandits.GameBoard;
-import thewetbandits.GamePiece;
+import test.BetterBoard;
+import test.BetterPiece;
+import thewetbandits.Board;
 import thewetbandits.MatchThreeGame;
 
 /**
@@ -13,10 +14,9 @@ import thewetbandits.MatchThreeGame;
 public class TestGameScreen extends Screen
 {
 	private static final int BOARD_SIZE = 8;
+	public Board board;
 	private int width;
 	private int height;
-	
-	private GameBoard board;
 
 	/**
 	 * Constructor that specifies the MatchThreeGame and the dimensions of that
@@ -34,7 +34,7 @@ public class TestGameScreen extends Screen
 		super(app);
 		this.width = width;
 		this.height = height;
-		this.board = new GameBoard(30, 30, 50, BOARD_SIZE);
+		board = new Board(width < height ? width : height, BOARD_SIZE, app);
 		this.addComponents();
 	}
 
@@ -43,6 +43,6 @@ public class TestGameScreen extends Screen
 	 */
 	private void addComponents()
 	{
-		this.add(board);
+		this.add(new BetterBoard(30, 30, 50, 8));
 	}
 }

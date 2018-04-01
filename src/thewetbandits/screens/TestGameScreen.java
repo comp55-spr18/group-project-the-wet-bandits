@@ -1,5 +1,10 @@
 package thewetbandits.screens;
 
+import java.awt.event.MouseEvent;
+
+import acm.graphics.GObject;
+import test.BetterBoard;
+import test.BetterPiece;
 import thewetbandits.Board;
 import thewetbandits.MatchThreeGame;
 
@@ -38,6 +43,14 @@ public class TestGameScreen extends Screen
 	 */
 	private void addComponents()
 	{
-		this.add(board);
+		this.add(new BetterBoard(30, 30, 50, 8));
+	}
+	
+	@Override
+	public void mouseReleased(MouseEvent event) {
+		GObject obj = this.application.getElementAt(event.getX(), event.getY());
+		if(obj != null && obj instanceof BetterBoard) {
+			((BetterBoard) obj).onClick(event);
+		}
 	}
 }

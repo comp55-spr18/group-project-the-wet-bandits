@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import acm.graphics.GObject;
 import thewetbandits.MatchThreeGame;
+import thewetbandits.utils.Clickable;
 import thewetbandits.utils.Displayable;
 import thewetbandits.utils.GButton;
 import thewetbandits.utils.GraphicsPane;
@@ -115,6 +116,14 @@ public abstract class Screen extends GraphicsPane {
 		if(obj instanceof GButton) {
 			GButton button = (GButton) obj;
 			button.getAction().onClick(event);
+		}
+	}
+	
+	@Override
+	public void mouseReleased(MouseEvent event) {
+		GObject obj = this.application.getElementAt(event.getX(), event.getY());
+		if(obj instanceof Clickable) {
+			((Clickable) obj).onClick(event);
 		}
 	}
 }

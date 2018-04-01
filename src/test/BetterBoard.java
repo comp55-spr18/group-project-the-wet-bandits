@@ -6,6 +6,7 @@ import acm.graphics.GCompound;
 import acm.graphics.GLine;
 import acm.graphics.GObject;
 import acm.graphics.GRect;
+import thewetbandits.utils.Clickable;
 
 /**
  * 
@@ -13,7 +14,7 @@ import acm.graphics.GRect;
  *
  *         Created; Mar 31, 2018
  */
-public class BetterBoard extends GCompound {
+public class BetterBoard extends GCompound implements Clickable {
 
 	private static final int PADDING = 10;
 
@@ -48,6 +49,7 @@ public class BetterBoard extends GCompound {
 		}
 	}
 
+	@Override
 	public void onClick(MouseEvent evt) {
 		GObject o = this.getElementAt(translateXToLocalSpace(evt.getX()), translateYToLocalSpace(evt.getY()));
 		if (o != null && o instanceof BetterPiece) {

@@ -36,6 +36,9 @@ public class GamePiece extends GCompound {
 		return Color.values()[random.nextInt(Color.values().length)];
 	}
 
+	/**
+	 * Initializes the image in the compound
+	 */
 	private void initImage() {
 		this.image = new GImage(this.color.toString().toLowerCase() + "_gem.png");
 		this.imageAnimated = new GImage(this.color.toString().toLowerCase()+"_gem_animated.gif");
@@ -46,17 +49,29 @@ public class GamePiece extends GCompound {
 		updateImage();
 	}
 	
+	/**
+	 * Update the compound to display the animated or static image
+	 */
 	private void updateImage() {
 		remove(this.image);
 		remove(this.imageAnimated);
 		add(active ? this.imageAnimated : this.image);
 	}
 	
+	/**
+	 * Toggles the active state of the image
+	 */
 	public void toggleActive() {
 		this.active = !this.active;
 		this.updateImage();
 	}
 
+	/**
+	 * An enum representing the color of the piece
+	 * @author Austin
+	 *
+	 * Created; Mar 31, 2018
+	 */
 	public enum Color {
 		YELLOW(new java.awt.Color(250, 240, 66)), GREEN(new java.awt.Color(67, 153, 58)), BLUE(
 				new java.awt.Color(24, 30, 219)), RED(java.awt.Color.RED);
@@ -67,6 +82,10 @@ public class GamePiece extends GCompound {
 			this.color = color;
 		}
 
+		/**
+		 * Gets the object's raw color
+		 * @return The object's raw color
+		 */
 		public java.awt.Color getColor() {
 			return this.color;
 		}

@@ -35,11 +35,17 @@ public class GameBoard extends GCompound implements Clickable {
 		this.initialize();
 	}
 
+	/**
+	 * Initializes the board (adds all the components)
+	 */
 	private void initialize() {
 		setLocation(this.x, this.y);
 		int effectiveSize = boardSize * pieceSize + PADDING * (boardSize + 1);
+		// Draws the outline on the board
 		this.rectangle = new GRect(0, 0, effectiveSize, effectiveSize);
 		add(rectangle);
+
+		// Add the pieces
 		for (int i = 0; i < boardSize; i++) {
 			for (int j = 0; j < boardSize; j++) {
 				this.board[i][j] = new GamePiece(((pieceSize + PADDING) * i) + PADDING,
@@ -51,16 +57,32 @@ public class GameBoard extends GCompound implements Clickable {
 
 	@Override
 	public void onClick(MouseEvent evt) {
+		// Toggle the "active" part of the GamePiece (makes it spin!)
 		GObject o = this.getElementAt(translateXToLocalSpace(evt.getX()), translateYToLocalSpace(evt.getY()));
 		if (o != null && o instanceof GamePiece) {
 			((GamePiece) o).toggleActive();
 		}
 	}
 
+	/**
+	 * Translates an absolute position on the applet into a relative position in the
+	 * GCompound
+	 * 
+	 * @param x
+	 *            The X position
+	 * @return The local X position
+	 */
 	private int translateXToLocalSpace(int x) {
 		return x - this.x;
 	}
 
+	/**
+	 * Translates an absolute Y position on the applet into a relative position
+	 * 
+	 * @param y
+	 *            The Y position
+	 * @return THe local Y position
+	 */
 	private int translateYToLocalSpace(int y) {
 		return y - this.y;
 	}

@@ -35,7 +35,6 @@ public class Board extends GObject
 	 */
 	public Board(int screenSize, int boardLength, MatchThreeGame app)
 	{
-		super();
 		this.app = app;
 		this.screenSize = screenSize;
 		this.boardLength = boardLength;

@@ -43,6 +43,6 @@ public class TestGameScreen extends Screen
 	 */
 	private void addComponents()
 	{
-		this.add(new BetterBoard(30, 30, 50, 8));
+		this.add(board);//new BetterBoard(30, 30, 50, 8));
 	}
 }

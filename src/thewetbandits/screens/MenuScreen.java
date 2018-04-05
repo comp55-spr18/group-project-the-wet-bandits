@@ -1,9 +1,9 @@
 package thewetbandits.screens;
-import acm.program.GraphicsProgram;
 import thewetbandits.GraphicsApplication;
+import thewetbandits.MatchThreeGame;
 import thewetbandits.MenuButton;
-import acm.graphics.GRect;
-import acm.graphics.GLabel;
+import java.awt.event.MouseEvent;
+import acm.graphics.*;
 import java.awt.Color;
 
 /**
@@ -13,70 +13,27 @@ import java.awt.Color;
  *
  */
 
-public class MenuScreen extends GraphicsApplication {
+public class MenuScreen extends Screen {
 	private MenuButton button;
-	public static final int WINDOW_WIDTH = 1000;
-	public static final int WINDOW_HEIGHT = 700;	
 	
-	
-	public void init() {
-		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-		requestFocus();
-	}
-	
-	public void run() {
-		displayTitle();
-		showPlayButton();
-		showQuitButton();
-		showTutorialButton();
-	}
-	
-	/**
-	 * Display title: "Three's A Company
-	 */
-	private void displayTitle() {
-		GLabel displayTitle = new GLabel("Three's A Company", 175, 150);
-
-		add(displayTitle);
-		displayTitle.setColor(Color.RED);
-		displayTitle.setFont("Bradley Hand ITC-Italic-75");
+	public MenuScreen(MatchThreeGame app) {
+		super(app);
 	}
 
-	/**
-	 * Displays the playButton
-	 */
-	public void showPlayButton() {
-		GRect playButton = new GRect(435, 315, 115, 50);
-		GLabel displayPlay = new GLabel("PLAY", 450, 350);
+	public MenuButton playButton() {
 		
-		add(playButton);
-		add(displayPlay);
-		displayPlay.setFont("Bradley Hand ITC-Bold-30");
-		
+		return button;
 	}
 	
-	/**
-	 * Displays the quitButton
-	 */
-	public void showQuitButton() {
-		GRect quitButton = new GRect(435, 440, 115, 50);
-		GLabel displayQuit = new GLabel("QUIT", 450, 475);
+	public MenuButton quitButton() {
 		
-		add(quitButton);
-		add(displayQuit);
-		displayQuit.setFont("Bradley Hand ITC-Bold-30");
+		return button;
 	}
 	
-	/**
-	 * Display the tutorialButton
-	 */
-	public void showTutorialButton() {
-		GRect tutorialButton = new GRect(885, 615, 50, 50);
-		GLabel displayTutorial = new GLabel("?", 900, 650);
+	public MenuButton tutorialButton() {
 		
-		add(tutorialButton);
-		add(displayTutorial);
-		displayTutorial.setColor(Color.RED);
-		displayTutorial.setFont("Arial-Bold-30");
+		return button;
 	}
+
 }
+

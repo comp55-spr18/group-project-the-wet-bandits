@@ -130,10 +130,16 @@ public class Board extends GCompound implements Clickable
 							|| inBounds(r + 1, c + 2) && board[r + 1][c + 2].getColorType() == p.getColorType())
 						numPossible++;
 				}
+				else if(inBounds(r, c + 2) && board[r][c + 2].getColorType() == p.getColorType())
+				{
+					if((inBounds(r - 1, c + 1) && board[r - 1][c + 1].getColorType() == p.getColorType())
+							|| (inBounds(r + 1, c + 1) && board[r + 1][c + 1].getColorType() == p.getColorType()))
+						numPossible++;
+				}
 			}
 		}
 
-		return 0;
+		return numPossible;
 	}
 
 	/**

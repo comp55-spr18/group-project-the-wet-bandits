@@ -7,14 +7,18 @@ package thewetbandits;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
 
+import acm.graphics.GCompound;
 import acm.graphics.GObject;
 import acm.graphics.GRectangle;
+import test.BetterPiece;
+import thewetbandits.utils.Clickable;
 
-public class Board extends GObject
+public class Board extends GCompound implements Clickable
 {
-	private GamePiece[][] board;
+	private BetterPiece[][] board;
 	private int pieceSize;
 	private int boardLength;
 	private int spaceSize;
@@ -42,10 +46,10 @@ public class Board extends GObject
 		this.pieceSize = (spaceSize / 7) * 5;
 		border = new GRectangle(spaceSize - ((spaceSize - pieceSize) / 2), spaceSize - ((spaceSize - pieceSize) / 2),
 				spaceSize * boardLength, spaceSize * boardLength);
-		board = new GamePiece[boardLength][boardLength];
+		board = new BetterPiece[boardLength][boardLength];
 		for(int r = 0; r < board.length; r++)
 			for(int c = 0; c < board[0].length; c++)
-				board[r][c] = new GamePiece(spaceSize * (r + 1), spaceSize * (c + 1), pieceSize);
+				board[r][c] = new BetterPiece(spaceSize * (r + 1), spaceSize * (c + 1), pieceSize);
 		verticalLines = new Line2D.Double[boardLength - 1];
 		horizontalLines = new Line2D.Double[boardLength - 1];
 		for(int i = 2; i <= boardLength; i++)
@@ -117,6 +121,26 @@ public class Board extends GObject
 		for(int r = 0; r < board.length; r++)
 			for(int c = 0; c < board[0].length; c++)
 				board[r][c].paint(g);
+	}
+
+	@Override
+	public void onClick(MouseEvent evt)
+	{
+		GObject o = this.getElementAt(translateXToLocalSpace(evt.getX()), translateYToLocalSpace(evt.getY()));
+		if(o != null && o instanceof BetterPiece)
+		{
+			((BetterPiece) o).toggleActive();
+		}
+	}
+
+	private int translateXToLocalSpace(int x)
+	{
+		return x;// - this.x;
+	}
+
+	private int translateYToLocalSpace(int y)
+	{
+		return y;// - this.y;
 	}
 
 }

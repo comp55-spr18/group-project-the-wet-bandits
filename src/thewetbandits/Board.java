@@ -50,6 +50,10 @@ public class Board extends GCompound implements Clickable
 		for(int r = 0; r < board.length; r++)
 			for(int c = 0; c < board[0].length; c++)
 				board[r][c] = new BetterPiece(spaceSize * (r + 1), spaceSize * (c + 1), pieceSize);
+		while (rerandomizer(board) != true)
+		{
+			rerandomizer(board);
+		}
 		verticalLines = new Line2D.Double[boardLength - 1];
 		horizontalLines = new Line2D.Double[boardLength - 1];
 		for(int i = 2; i <= boardLength; i++)
@@ -141,6 +145,32 @@ public class Board extends GCompound implements Clickable
 	private int translateYToLocalSpace(int y)
 	{
 		return y;// - this.y;
+	}
+	
+	public boolean rerandomizer(BetterPiece[][] b)
+	{
+		int comparison = 0;
+		for(int r = 0; r < b.length; r++)
+		{
+			for(int c = 0; c < b.length; c++)
+			{
+				if (comparison < 2)
+				{
+					if (r < b.length - 1  && c < b.length - 1)
+					{
+						while (b[r][c].getColor() != b[r][c + 1].getColor())
+						{
+							b[r][c + 1].setColor(b);
+						}
+						while (b[r][c].getColor() != b[r + 1][c].getColor())
+						{
+							b[r + 1][c].setColor(b);
+						}
+					}
+				}
+			}
+		}
+		return true;
 	}
 
 }

@@ -103,4 +103,10 @@ public class BetterPiece extends GCompound
 			return this.color;
 		}
 	}
+	
+	public Color setColor(BetterPiece[][] b)
+	{
+		return Color.values()[random.nextInt(Color.values().length)];
+	}
+		
 }

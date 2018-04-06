@@ -13,7 +13,7 @@ public class MatchThreeGame extends GraphicsApplication
 {
 	public static final int WINDOW_WIDTH = 700;
 	public static final int WINDOW_HEIGHT = 700;
-	private TestGameScreen testScreen = new TestGameScreen(this, WINDOW_WIDTH, WINDOW_HEIGHT);;
+	private TestGameScreen testScreen = new TestGameScreen(this, WINDOW_WIDTH, WINDOW_HEIGHT);
 
 	/**
 	 * initializes MatchThreeGame according to the specified width and height

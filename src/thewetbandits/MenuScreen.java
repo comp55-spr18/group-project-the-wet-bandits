@@ -1,6 +1,7 @@
 package thewetbandits;
 import thewetbandits.MatchThreeGame;
 import thewetbandits.MenuScreen;
+import thewetbandits.Context;
 import thewetbandits.screens.Screen;
 import thewetbandits.screens.TestGameScreen;
 import thewetbandits.utils.ClickAction;
@@ -75,6 +76,7 @@ public class MenuScreen extends Screen {
 			@Override
 			public void onClick(MouseEvent event) {
 				System.out.println("click on tutorial");
+				game.switchToScreen(new Context(game));
 			}});
 		add(tutorialButton);
 	}

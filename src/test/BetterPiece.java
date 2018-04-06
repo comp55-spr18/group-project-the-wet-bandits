@@ -85,6 +85,11 @@ public class BetterPiece extends GCompound
 		this.active = !this.active;
 		this.updateImage();
 	}
+	
+	public Color getColorType()
+	{
+		return color;
+	}
 
 	public enum Color
 	{

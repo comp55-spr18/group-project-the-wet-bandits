@@ -100,6 +100,43 @@ public class Board extends GCompound implements Clickable
 	}
 
 	/**
+	 * helper method to find out if certain coordinates are valid
+	 * 
+	 * @param r
+	 *            the row number
+	 * @param c
+	 *            the column number
+	 * @return whether the r,c is a valid set of coordinates in the board
+	 */
+	private boolean inBounds(int r, int c)
+	{
+		return r >= 0 && r < boardLength && c >= 0 && c < boardLength;
+	}
+
+	public int numberOfPossibleMoves()
+	{
+		int numPossible = 0;
+		BetterPiece p;
+		for(int r = 0; r < boardLength; r++)
+		{
+			for(int c = 0; c < boardLength; c++)
+			{
+				p = board[r][c];
+				if(inBounds(r, c + 1) && board[r][c + 1].getColorType() == p.getColorType())
+				{
+					if((inBounds(r - 1, c - 1) && board[r - 1][c - 1].getColorType() == p.getColorType())
+							|| (inBounds(r + 1, c - 1) && board[r + 1][c - 1].getColorType() == p.getColorType())
+							|| (inBounds(r - 1, c + 2) && board[r - 1][c + 2].getColorType() == p.getColorType())
+							|| inBounds(r + 1, c + 2) && board[r + 1][c + 2].getColorType() == p.getColorType())
+						numPossible++;
+				}
+			}
+		}
+
+		return 0;
+	}
+
+	/**
 	 * draws the Board and all of its elements
 	 * 
 	 * @param g

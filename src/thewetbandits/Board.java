@@ -11,9 +11,12 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
 
 import acm.graphics.GCompound;
+import acm.graphics.GLine;
 import acm.graphics.GObject;
+import acm.graphics.GRect;
 import acm.graphics.GRectangle;
 import test.BetterPiece;
+import thewetbandits.utils.ClickAction;
 import thewetbandits.utils.Clickable;
 
 public class Board extends GCompound implements Clickable
@@ -62,17 +65,7 @@ public class Board extends GCompound implements Clickable
 					spaceSize * (boardLength + 1) - ((spaceSize - pieceSize) / 2),
 					spaceSize * i - ((spaceSize - pieceSize) / 2));
 		}
-	}
-
-	/**
-	 * returns the bounding box surrounding the Board
-	 * 
-	 * @return GRectangle the bounds of the Board
-	 */
-	@Override
-	public GRectangle getBounds()
-	{
-		return border;
+		this.addComponents();
 	}
 
 	public void updateBounds(int screenSize)
@@ -142,28 +135,27 @@ public class Board extends GCompound implements Clickable
 		return numPossible;
 	}
 
-	/**
-	 * draws the Board and all of its elements
-	 * 
-	 * @param g
-	 *            the Graphics object used to draw the Board
-	 */
-	@Override
-	public void paint(Graphics g)
+	private void addComponents()
 	{
-		g.setColor(Color.BLACK);
-		g.drawRect(spaceSize - ((spaceSize - pieceSize) / 2), spaceSize - ((spaceSize - pieceSize) / 2),
+		GRect r = new GRect(spaceSize - ((spaceSize - pieceSize)) / 2, spaceSize - ((spaceSize - pieceSize) / 2),
 				spaceSize * boardLength, spaceSize * boardLength);
+		add(r);
 		for(int i = 0; i < verticalLines.length; i++)
 		{
-			g.drawLine((int) verticalLines[i].getX1(), (int) verticalLines[i].getY1(), (int) verticalLines[i].getX2(),
-					(int) verticalLines[i].getY2());
-			g.drawLine((int) horizontalLines[i].getX1(), (int) horizontalLines[i].getY1(),
-					(int) horizontalLines[i].getX2(), (int) horizontalLines[i].getY2());
+			GLine horizLine = new GLine(verticalLines[i].getX1(), verticalLines[i].getY1(), verticalLines[i].getX2(),
+					verticalLines[i].getY2());
+			add(horizLine);
+			GLine vertLine = new GLine(horizontalLines[i].getX1(), horizontalLines[i].getY1(),
+					horizontalLines[i].getX2(), horizontalLines[i].getY2());
+			add(vertLine);
 		}
-		for(int r = 0; r < board.length; r++)
-			for(int c = 0; c < board[0].length; c++)
-				board[r][c].paint(g);
+		for(int i = 0; i < board.length; i++)
+		{
+			for(int j = 0; j < board[i].length; j++)
+			{
+				add(board[i][j]);
+			}
+		}
 	}
 
 	@Override

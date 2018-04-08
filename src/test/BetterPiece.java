@@ -55,22 +55,20 @@ public class BetterPiece extends GCompound
 		this.x = x;
 		this.y = y;
 		this.size = size;
-		this.image.setLocation(x, y);
 		this.image.setSize(size, size);
-		this.imageAnimated.setLocation(x, y);
 		this.imageAnimated.setSize(size, size);
 		this.updateImage();
+		this.setLocation(x, y);
 	}
 
 	private void initImage()
 	{
 		this.image = new GImage(this.color.toString().toLowerCase() + "_gem.png");
 		this.imageAnimated = new GImage(this.color.toString().toLowerCase() + "_gem_animated.gif");
-		this.imageAnimated.setLocation(this.x, this.y);
 		this.imageAnimated.setSize(this.size, this.size);
-		this.image.setLocation(this.x, this.y);
 		this.image.setSize(this.size, this.size);
 		updateImage();
+		this.setLocation(this.x, this.y);
 	}
 
 	private void updateImage()

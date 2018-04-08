@@ -15,7 +15,7 @@ import thewetbandits.utils.GButton;
  */
 public class TestGameScreen extends Screen
 {
-	private static final int BOARD_SIZE = 4;
+	private static final int BOARD_SIZE = 8;
 	public Board board;
 	private int width;
 	private int height;
@@ -37,6 +37,8 @@ public class TestGameScreen extends Screen
 		this.width = width;
 		this.height = height;
 		board = new Board(width < height ? width : height, BOARD_SIZE, app);
+		while(board.numberOfMatches() > 0 || board.numberOfPossibleMoves() <= 0)
+			board.shuffleBoard();
 		this.add(new GButton("Randomize", 20, 20, 100, 50, new ClickAction() {
 
 			@Override

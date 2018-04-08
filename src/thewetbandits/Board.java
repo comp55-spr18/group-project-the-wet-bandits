@@ -9,6 +9,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import acm.graphics.GCompound;
 import acm.graphics.GLine;
@@ -66,6 +69,26 @@ public class Board extends GCompound implements Clickable
 					spaceSize * i - ((spaceSize - pieceSize) / 2));
 		}
 		this.addComponents();
+	}
+	
+	
+	public void shuffleBoard() {
+		List<BetterPiece> pieces = new ArrayList<>();
+		Random r = new Random();
+		// Randomly shuffle the board
+		for(int i = 0; i < this.board.length; i++) {
+			for(int j = 0; j < this.board[i].length; j++) {
+				pieces.add(board[i][j]);
+				board[i][j] = null;
+			}
+		}
+		
+		for(int i = 0; i < this.board.length; i++) {
+			for(int j = 0; j < this.board[i].length; j++) {
+				board[i][j] = pieces.remove(r.nextInt(pieces.size()));
+				board[i][j].setTargetLocation(spaceSize * (i+1), spaceSize * (j+1));
+			}
+		}
 	}
 
 	public void updateBounds(int screenSize)

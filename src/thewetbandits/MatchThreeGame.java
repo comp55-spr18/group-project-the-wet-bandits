@@ -30,7 +30,7 @@ public class MatchThreeGame extends GraphicsApplication
 	public void run()
 	{
 		// testScreen = new TestGameScreen(this, WINDOW_WIDTH, WINDOW_HEIGHT);
-		switchToScreen(new MovementTestScreen(this));
+		switchToScreen(testScreen);
 	}
 
 	/**

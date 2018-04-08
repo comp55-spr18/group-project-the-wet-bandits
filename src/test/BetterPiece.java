@@ -10,6 +10,7 @@ import acm.graphics.GImage;
 public class BetterPiece extends GCompound
 {
 
+	private static final int MOVEMENT_SPEED = 1;
 	private static final Random random = new Random();
 
 	private Color color;
@@ -18,6 +19,8 @@ public class BetterPiece extends GCompound
 	private GImage imageAnimated;
 
 	private int x, y, size;
+	
+	private int targetX, targetY;
 
 	private boolean active = false;
 
@@ -43,6 +46,8 @@ public class BetterPiece extends GCompound
 		this.y = y;
 		this.size = size;
 		this.initImage();
+		this.targetX = this.x;
+		this.targetY = this.y;
 	}
 
 	private static Color getRandomColor()
@@ -88,6 +93,26 @@ public class BetterPiece extends GCompound
 	{
 		return color;
 	}
+	
+	public void updateLocation() 
+	{
+		double deltaX = this.targetX - this.getX();
+		double deltaY = this.targetY - this.getY();
+		
+		if(deltaX < -MOVEMENT_SPEED)
+			deltaX = -MOVEMENT_SPEED;
+		if(deltaX > MOVEMENT_SPEED)
+			deltaX = MOVEMENT_SPEED;
+		if(deltaY < -MOVEMENT_SPEED)
+			deltaY = -MOVEMENT_SPEED;
+		if(deltaY > MOVEMENT_SPEED)
+			deltaY = MOVEMENT_SPEED;
+		
+		this.move(deltaX, deltaY);
+		
+		this.x = (int) this.getX();
+		this.y = (int) this.getY();
+	}
 
 	public enum Color
 	{
@@ -105,5 +130,12 @@ public class BetterPiece extends GCompound
 		{
 			return this.color;
 		}
+	}
+
+	public void setTargetLocation(int x, int y) {
+		System.out.println("Setting Target to " + x +", "+y);
+		this.targetX = x;
+		this.targetY = y;
+		
 	}
 }

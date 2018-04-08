@@ -3,6 +3,7 @@ package thewetbandits;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 
+import thewetbandits.screens.MovementTestScreen;
 import thewetbandits.screens.TestGameScreen;
 
 /**
@@ -29,7 +30,7 @@ public class MatchThreeGame extends GraphicsApplication
 	public void run()
 	{
 		// testScreen = new TestGameScreen(this, WINDOW_WIDTH, WINDOW_HEIGHT);
-		switchToScreen(new MenuScreen(this));
+		switchToScreen(new MovementTestScreen(this));
 	}
 
 	/**

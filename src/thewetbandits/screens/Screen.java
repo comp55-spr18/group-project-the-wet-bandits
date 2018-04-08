@@ -112,15 +112,6 @@ public abstract class Screen extends GraphicsPane {
 	}
 	
 	@Override
-	public void mouseClicked(MouseEvent event) {
-		GObject obj = this.application.getElementAt(event.getX(), event.getY());
-		if(obj instanceof GButton) {
-			GButton button = (GButton) obj;
-			button.getAction().onClick(event);
-		}
-	}
-	
-	@Override
 	public void mouseReleased(MouseEvent event) {
 		GObject obj = this.application.getElementAt(event.getX(), event.getY());
 		System.out.println("Clicked on "+obj);

@@ -148,7 +148,9 @@ public class Board extends GCompound implements Clickable
 					if((inBounds(r - 1, c - 1) && board[r - 1][c - 1].getColorType() == p.getColorType())
 							|| (inBounds(r + 1, c - 1) && board[r + 1][c - 1].getColorType() == p.getColorType())
 							|| (inBounds(r - 1, c + 2) && board[r - 1][c + 2].getColorType() == p.getColorType())
-							|| inBounds(r + 1, c + 2) && board[r + 1][c + 2].getColorType() == p.getColorType())
+							|| (inBounds(r + 1, c + 2) && board[r + 1][c + 2].getColorType() == p.getColorType())
+							|| (inBounds(r, c - 2) && board[r][c - 2].getColorType() == p.getColorType())
+							|| (inBounds(r, c + 3) && board[r][c + 3].getColorType() == p.getColorType()))
 						numPossible++;
 				}
 				else if(inBounds(r, c + 2) && board[r][c + 2].getColorType() == p.getColorType())
@@ -162,7 +164,9 @@ public class Board extends GCompound implements Clickable
 					if((inBounds(r - 1, c - 1) && board[r - 1][c - 1].getColorType() == p.getColorType())
 							|| (inBounds(r - 1, c + 1) && board[r - 1][c + 1].getColorType() == p.getColorType())
 							|| (inBounds(r + 2, c - 1) && board[r + 2][c - 1].getColorType() == p.getColorType())
-							|| inBounds(r + 2, c + 1) && board[r + 2][c + 1].getColorType() == p.getColorType())
+							|| (inBounds(r + 2, c + 1) && board[r + 2][c + 1].getColorType() == p.getColorType())
+							|| (inBounds(r - 2, c) && board[r - 1][c].getColorType() == p.getColorType())
+							|| (inBounds(r + 3, c) && board[r + 3][c].getColorType() == p.getColorType()))
 						numPossible++;
 				}
 				else if(inBounds(r + 2, c) && board[r + 2][c].getColorType() == p.getColorType())

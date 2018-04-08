@@ -94,6 +94,7 @@ public class Board extends GCompound implements Clickable
 			}
 		}
 		System.out.println(numberOfPossibleMoves());
+		System.out.println(numberOfMatches());
 	}
 
 	public void updateBounds(int screenSize)
@@ -134,6 +135,11 @@ public class Board extends GCompound implements Clickable
 		return r >= 0 && r < boardLength && c >= 0 && c < boardLength;
 	}
 
+	/**
+	 * returns the number of possible moves the user could make to get matches
+	 * 
+	 * @return the number of possible moves that would make matches
+	 */
 	public int numberOfPossibleMoves()
 	{
 		int numPossible = 0;
@@ -179,6 +185,32 @@ public class Board extends GCompound implements Clickable
 		}
 
 		return numPossible;
+	}
+
+	/**
+	 * returns the number of instances where the same color GamePiece is present 3
+	 * times in a row
+	 * 
+	 * @return the number of matches on the board
+	 */
+	public int numberOfMatches()
+	{
+		int numMatches = 0;
+		BetterPiece p;
+		for(int r = 0; r < boardLength; r++)
+		{
+			for(int c = 0; c < boardLength; c++)
+			{
+				p = board[r][c];
+				if(inBounds(r, c + 1) && p.getColorType() == board[r][c + 1].getColorType() && inBounds(r, c + 2)
+						&& p.getColorType() == board[r][c + 2].getColorType())
+					numMatches++;
+				if(inBounds(r + 1, c) && p.getColorType() == board[r + 1][c].getColorType() && inBounds(r + 2, c)
+						&& p.getColorType() == board[r + 2][c].getColorType())
+					numMatches++;
+			}
+		}
+		return numMatches;
 	}
 
 	private void addComponents()

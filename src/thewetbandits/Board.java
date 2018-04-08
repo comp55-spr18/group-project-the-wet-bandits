@@ -70,25 +70,30 @@ public class Board extends GCompound implements Clickable
 		}
 		this.addComponents();
 	}
-	
-	
-	public void shuffleBoard() {
+
+	public void shuffleBoard()
+	{
 		List<BetterPiece> pieces = new ArrayList<>();
 		Random r = new Random();
 		// Randomly shuffle the board
-		for(int i = 0; i < this.board.length; i++) {
-			for(int j = 0; j < this.board[i].length; j++) {
+		for(int i = 0; i < this.board.length; i++)
+		{
+			for(int j = 0; j < this.board[i].length; j++)
+			{
 				pieces.add(board[i][j]);
 				board[i][j] = null;
 			}
 		}
-		
-		for(int i = 0; i < this.board.length; i++) {
-			for(int j = 0; j < this.board[i].length; j++) {
+
+		for(int i = 0; i < this.board.length; i++)
+		{
+			for(int j = 0; j < this.board[i].length; j++)
+			{
 				board[i][j] = pieces.remove(r.nextInt(pieces.size()));
-				board[i][j].setTargetLocation(spaceSize * (i+1), spaceSize * (j+1));
+				board[i][j].setTargetLocation(spaceSize * (i + 1), spaceSize * (j + 1));
 			}
 		}
+		System.out.println(numberOfPossibleMoves());
 	}
 
 	public void updateBounds(int screenSize)
@@ -149,6 +154,20 @@ public class Board extends GCompound implements Clickable
 				else if(inBounds(r, c + 2) && board[r][c + 2].getColorType() == p.getColorType())
 				{
 					if((inBounds(r - 1, c + 1) && board[r - 1][c + 1].getColorType() == p.getColorType())
+							|| (inBounds(r + 1, c + 1) && board[r + 1][c + 1].getColorType() == p.getColorType()))
+						numPossible++;
+				}
+				if(inBounds(r + 1, c) && board[r + 1][c].getColorType() == p.getColorType())
+				{
+					if((inBounds(r - 1, c - 1) && board[r - 1][c - 1].getColorType() == p.getColorType())
+							|| (inBounds(r - 1, c + 1) && board[r - 1][c + 1].getColorType() == p.getColorType())
+							|| (inBounds(r + 2, c - 1) && board[r + 2][c - 1].getColorType() == p.getColorType())
+							|| inBounds(r + 2, c + 1) && board[r + 2][c + 1].getColorType() == p.getColorType())
+						numPossible++;
+				}
+				else if(inBounds(r + 2, c) && board[r + 2][c].getColorType() == p.getColorType())
+				{
+					if((inBounds(r + 1, c - 1) && board[r + 1][c - 1].getColorType() == p.getColorType())
 							|| (inBounds(r + 1, c + 1) && board[r + 1][c + 1].getColorType() == p.getColorType()))
 						numPossible++;
 				}

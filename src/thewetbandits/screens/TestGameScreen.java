@@ -15,7 +15,7 @@ import thewetbandits.utils.GButton;
  */
 public class TestGameScreen extends Screen
 {
-	private static final int BOARD_SIZE = 8;
+	private static final int BOARD_SIZE = 5;
 	public Board board;
 	private int width;
 	private int height;

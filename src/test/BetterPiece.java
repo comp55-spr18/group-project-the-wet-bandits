@@ -1,17 +1,54 @@
 package test;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
+
+import javax.swing.Timer;
 
 import acm.graphics.GCompound;
 import acm.graphics.GImage;
+import thewetbandits.screens.MovementTestScreen;
 
 public class BetterPiece extends GCompound
 {
 
 	private static final int MOVEMENT_SPEED = 1;
+	private static final int MOVEMENT_FREQUENCY = 13;
 	private static final Random random = new Random();
+	
+	// Store a list of weak references (so the pieces can be garbage collected correctly) of pieces to update
+	private static ArrayList<WeakReference<BetterPiece>> pieces = new ArrayList<>();
+	private static Timer updateTimer;
+	
+	static {
+		updateTimer = new Timer(MOVEMENT_FREQUENCY, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// Timers are async so synchronize access to the array list so we don't break everything with CMEs
+				synchronized(pieces) {
+					Iterator<WeakReference<BetterPiece>> iterator = pieces.iterator();
+					while(iterator.hasNext()) {
+						WeakReference<BetterPiece> pieceReference =  iterator.next();
+						BetterPiece piece = pieceReference.get();
+						if(piece == null) {
+							// The piece has been garbage collected, remove it from the list
+							iterator.remove();
+						} else {
+							// The piece is still in memory, tell it to update its location
+							piece.updateLocation();
+						}
+					}
+				}
+			}
+		});
+		updateTimer.start();
+	}
 
 	private Color color;
 
@@ -48,6 +85,11 @@ public class BetterPiece extends GCompound
 		this.initImage();
 		this.targetX = this.x;
 		this.targetY = this.y;
+		
+		// Add the piece to the list of pieces to update
+		synchronized(pieces) {
+			pieces.add(new WeakReference<>(this));
+		}
 	}
 
 	private static Color getRandomColor()
@@ -133,9 +175,7 @@ public class BetterPiece extends GCompound
 	}
 
 	public void setTargetLocation(int x, int y) {
-		System.out.println("Setting Target to " + x +", "+y);
 		this.targetX = x;
 		this.targetY = y;
-		
 	}
 }

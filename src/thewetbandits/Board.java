@@ -147,6 +147,11 @@ public class Board extends GCompound implements Clickable
 		return y;// - this.y;
 	}
 	
+	/**
+	 * 
+	 * @param b the array of
+	 * @return true if the board has been successfully rerandomized
+	 */
 	public boolean rerandomizer(BetterPiece[][] b)
 	{
 		int comparison = 0;
@@ -156,15 +161,15 @@ public class Board extends GCompound implements Clickable
 			{
 				if (comparison < 2)
 				{
-					if (r < b.length - 1  && c < b.length - 1)
+					if (r < b.length - 2  && c < b.length - 2)
 					{
-						while (b[r][c].getColor() != b[r][c + 1].getColor())
+						while (b[r][c].getColor() == b[r][c + 2].getColor() )
 						{
-							b[r][c + 1].setColor(b);
+							b[r][c + 2].setGemColor(b);
 						}
-						while (b[r][c].getColor() != b[r + 1][c].getColor())
+						while (b[r][c].getColor() != b[r + 2][c].getColor())
 						{
-							b[r + 1][c].setColor(b);
+							b[r + 2][c].setGemColor(b);
 						}
 					}
 				}

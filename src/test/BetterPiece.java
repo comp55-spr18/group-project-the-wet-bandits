@@ -50,6 +50,11 @@ public class BetterPiece extends GCompound
 		return Color.values()[random.nextInt(Color.values().length)];
 	}
 	
+	public Color setGemColor(BetterPiece[][] b)
+	{
+		return Color.values()[random.nextInt(Color.values().length)];
+	}
+	
 	public void reposition(int x, int y, int size)
 	{
 		this.x = x;
@@ -102,11 +107,6 @@ public class BetterPiece extends GCompound
 		{
 			return this.color;
 		}
-	}
-	
-	public Color setColor(BetterPiece[][] b)
-	{
-		return Color.values()[random.nextInt(Color.values().length)];
 	}
 		
 }

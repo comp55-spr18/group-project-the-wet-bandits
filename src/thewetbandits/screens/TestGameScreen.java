@@ -7,6 +7,8 @@ import test.BetterBoard;
 import test.BetterPiece;
 import thewetbandits.Board;
 import thewetbandits.MatchThreeGame;
+import thewetbandits.utils.ClickAction;
+import thewetbandits.utils.GButton;
 
 /**
  * @author Jacob Faulk Created Mar 30, 2018
@@ -35,6 +37,17 @@ public class TestGameScreen extends Screen
 		this.width = width;
 		this.height = height;
 		board = new Board(width < height ? width : height, BOARD_SIZE, app);
+		while(board.numberOfMatches() > 0 || board.numberOfPossibleMoves() <= 0)
+			board.shuffleBoard();
+		this.add(new GButton("Randomize", 20, 20, 100, 50, new ClickAction() {
+
+			@Override
+			public void onClick(MouseEvent event) {
+				System.out.println("Shuffling board");
+				board.shuffleBoard();
+			}
+			
+		}));
 		this.addComponents();
 	}
 

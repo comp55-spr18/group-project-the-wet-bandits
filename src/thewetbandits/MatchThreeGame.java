@@ -3,6 +3,7 @@ package thewetbandits;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 
+import thewetbandits.screens.MovementTestScreen;
 import thewetbandits.screens.TestGameScreen;
 
 /**
@@ -44,13 +45,4 @@ public class MatchThreeGame extends GraphicsApplication
 	{
 		super.mouseClicked(e);
 	}
-
-	@Override
-	public void paint(Graphics g)
-	{
-		super.paint(g);
-		testScreen.board.updateBounds(getWidth() < getHeight() ? getWidth() : getHeight());
-		switchToScreen(testScreen);
-	}
-
 }

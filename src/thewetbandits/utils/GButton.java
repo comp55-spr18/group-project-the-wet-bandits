@@ -12,12 +12,13 @@ package thewetbandits.utils;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.MouseEvent;
 
 import acm.graphics.GCompound;
 import acm.graphics.GLabel;
 import acm.graphics.GRoundRect;
 
-public class GButton extends GCompound {
+public class GButton extends GCompound implements Clickable {
 	private GRoundRect rect;
 	private GLabel message;
 	private ClickAction action;
@@ -81,8 +82,9 @@ public class GButton extends GCompound {
 	public void setAction(ClickAction runnable) {
 		this.action = runnable;
 	}
-	
-	public ClickAction getAction() {
-		return this.action;
+
+	@Override
+	public void onClick(MouseEvent event) {
+		this.action.onClick(event);
 	}
 }

@@ -9,11 +9,17 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import acm.graphics.GCompound;
+import acm.graphics.GLine;
 import acm.graphics.GObject;
+import acm.graphics.GRect;
 import acm.graphics.GRectangle;
 import test.BetterPiece;
+import thewetbandits.utils.ClickAction;
 import thewetbandits.utils.Clickable;
 
 public class Board extends GCompound implements Clickable
@@ -66,17 +72,33 @@ public class Board extends GCompound implements Clickable
 					spaceSize * (boardLength + 1) - ((spaceSize - pieceSize) / 2),
 					spaceSize * i - ((spaceSize - pieceSize) / 2));
 		}
+		this.addComponents();
 	}
 
-	/**
-	 * returns the bounding box surrounding the Board
-	 * 
-	 * @return GRectangle the bounds of the Board
-	 */
-	@Override
-	public GRectangle getBounds()
+	public void shuffleBoard()
 	{
-		return border;
+		List<BetterPiece> pieces = new ArrayList<>();
+		Random r = new Random();
+		// Randomly shuffle the board
+		for(int i = 0; i < this.board.length; i++)
+		{
+			for(int j = 0; j < this.board[i].length; j++)
+			{
+				pieces.add(board[i][j]);
+				board[i][j] = null;
+			}
+		}
+
+		for(int i = 0; i < this.board.length; i++)
+		{
+			for(int j = 0; j < this.board[i].length; j++)
+			{
+				board[i][j] = pieces.remove(r.nextInt(pieces.size()));
+				board[i][j].setTargetLocation(spaceSize * (i + 1), spaceSize * (j + 1));
+			}
+		}
+		System.out.println(numberOfPossibleMoves());
+		System.out.println(numberOfMatches());
 	}
 
 	public void updateBounds(int screenSize)
@@ -104,27 +126,118 @@ public class Board extends GCompound implements Clickable
 	}
 
 	/**
-	 * draws the Board and all of its elements
+	 * helper method to find out if certain coordinates are valid
 	 * 
-	 * @param g
-	 *            the Graphics object used to draw the Board
+	 * @param r
+	 *            the row number
+	 * @param c
+	 *            the column number
+	 * @return whether the r,c is a valid set of coordinates in the board
 	 */
-	@Override
-	public void paint(Graphics g)
+	private boolean inBounds(int r, int c)
 	{
-		g.setColor(Color.BLACK);
-		g.drawRect(spaceSize - ((spaceSize - pieceSize) / 2), spaceSize - ((spaceSize - pieceSize) / 2),
+		return r >= 0 && r < boardLength && c >= 0 && c < boardLength;
+	}
+
+	/**
+	 * returns the number of possible moves the user could make to get matches
+	 * 
+	 * @return the number of possible moves that would make matches
+	 */
+	public int numberOfPossibleMoves()
+	{
+		int numPossible = 0;
+		BetterPiece p;
+		for(int r = 0; r < boardLength; r++)
+		{
+			for(int c = 0; c < boardLength; c++)
+			{
+				p = board[r][c];
+				if(inBounds(r, c + 1) && board[r][c + 1].getColorType() == p.getColorType())
+				{
+					if((inBounds(r - 1, c - 1) && board[r - 1][c - 1].getColorType() == p.getColorType())
+							|| (inBounds(r + 1, c - 1) && board[r + 1][c - 1].getColorType() == p.getColorType())
+							|| (inBounds(r - 1, c + 2) && board[r - 1][c + 2].getColorType() == p.getColorType())
+							|| (inBounds(r + 1, c + 2) && board[r + 1][c + 2].getColorType() == p.getColorType())
+							|| (inBounds(r, c - 2) && board[r][c - 2].getColorType() == p.getColorType())
+							|| (inBounds(r, c + 3) && board[r][c + 3].getColorType() == p.getColorType()))
+						numPossible++;
+				}
+				else if(inBounds(r, c + 2) && board[r][c + 2].getColorType() == p.getColorType())
+				{
+					if((inBounds(r - 1, c + 1) && board[r - 1][c + 1].getColorType() == p.getColorType())
+							|| (inBounds(r + 1, c + 1) && board[r + 1][c + 1].getColorType() == p.getColorType()))
+						numPossible++;
+				}
+				if(inBounds(r + 1, c) && board[r + 1][c].getColorType() == p.getColorType())
+				{
+					if((inBounds(r - 1, c - 1) && board[r - 1][c - 1].getColorType() == p.getColorType())
+							|| (inBounds(r - 1, c + 1) && board[r - 1][c + 1].getColorType() == p.getColorType())
+							|| (inBounds(r + 2, c - 1) && board[r + 2][c - 1].getColorType() == p.getColorType())
+							|| (inBounds(r + 2, c + 1) && board[r + 2][c + 1].getColorType() == p.getColorType())
+							|| (inBounds(r - 2, c) && board[r - 1][c].getColorType() == p.getColorType())
+							|| (inBounds(r + 3, c) && board[r + 3][c].getColorType() == p.getColorType()))
+						numPossible++;
+				}
+				else if(inBounds(r + 2, c) && board[r + 2][c].getColorType() == p.getColorType())
+				{
+					if((inBounds(r + 1, c - 1) && board[r + 1][c - 1].getColorType() == p.getColorType())
+							|| (inBounds(r + 1, c + 1) && board[r + 1][c + 1].getColorType() == p.getColorType()))
+						numPossible++;
+				}
+			}
+		}
+
+		return numPossible;
+	}
+
+	/**
+	 * returns the number of instances where the same color GamePiece is present 3
+	 * times in a row
+	 * 
+	 * @return the number of matches on the board
+	 */
+	public int numberOfMatches()
+	{
+		int numMatches = 0;
+		BetterPiece p;
+		for(int r = 0; r < boardLength; r++)
+		{
+			for(int c = 0; c < boardLength; c++)
+			{
+				p = board[r][c];
+				if(inBounds(r, c + 1) && p.getColorType() == board[r][c + 1].getColorType() && inBounds(r, c + 2)
+						&& p.getColorType() == board[r][c + 2].getColorType())
+					numMatches++;
+				if(inBounds(r + 1, c) && p.getColorType() == board[r + 1][c].getColorType() && inBounds(r + 2, c)
+						&& p.getColorType() == board[r + 2][c].getColorType())
+					numMatches++;
+			}
+		}
+		return numMatches;
+	}
+
+	private void addComponents()
+	{
+		GRect r = new GRect(spaceSize - ((spaceSize - pieceSize)) / 2, spaceSize - ((spaceSize - pieceSize) / 2),
 				spaceSize * boardLength, spaceSize * boardLength);
+		add(r);
 		for(int i = 0; i < verticalLines.length; i++)
 		{
-			g.drawLine((int) verticalLines[i].getX1(), (int) verticalLines[i].getY1(), (int) verticalLines[i].getX2(),
-					(int) verticalLines[i].getY2());
-			g.drawLine((int) horizontalLines[i].getX1(), (int) horizontalLines[i].getY1(),
-					(int) horizontalLines[i].getX2(), (int) horizontalLines[i].getY2());
+			GLine horizLine = new GLine(verticalLines[i].getX1(), verticalLines[i].getY1(), verticalLines[i].getX2(),
+					verticalLines[i].getY2());
+			add(horizLine);
+			GLine vertLine = new GLine(horizontalLines[i].getX1(), horizontalLines[i].getY1(),
+					horizontalLines[i].getX2(), horizontalLines[i].getY2());
+			add(vertLine);
 		}
-		for(int r = 0; r < board.length; r++)
-			for(int c = 0; c < board[0].length; c++)
-				board[r][c].paint(g);
+		for(int i = 0; i < board.length; i++)
+		{
+			for(int j = 0; j < board[i].length; j++)
+			{
+				add(board[i][j]);
+			}
+		}
 	}
 
 	@Override

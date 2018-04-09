@@ -22,7 +22,7 @@ public class MovementTestScreen extends Screen {
 	
 	public MovementTestScreen(MatchThreeGame app) {
 		super(app);
-		piece = new BetterPiece(60, 60, 30);
+		piece = new BetterPiece(60, 60, 30, 0 ,0);
 		button = new GButton("Click me", 30, 30, 20, 20, new ClickAction() {
 			@Override
 			public void onClick(MouseEvent event) {

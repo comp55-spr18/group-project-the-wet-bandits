@@ -34,6 +34,7 @@ public class Board extends GCompound implements Clickable
 	private Line2D.Double[] horizontalLines;
 	private int screenSize;
 	private MatchThreeGame app;
+	private BetterPiece selectedPiece;
 
 	/**
 	 * Constructor for Board specifying the dimensions of the Screen it will reside
@@ -56,7 +57,7 @@ public class Board extends GCompound implements Clickable
 		board = new BetterPiece[boardLength][boardLength];
 		for(int r = 0; r < board.length; r++)
 			for(int c = 0; c < board[0].length; c++)
-				board[r][c] = new BetterPiece(spaceSize * (r + 1), spaceSize * (c + 1), pieceSize);
+				board[r][c] = new BetterPiece(spaceSize * (r + 1), spaceSize * (c + 1), pieceSize, r, c);
 		verticalLines = new Line2D.Double[boardLength - 1];
 		horizontalLines = new Line2D.Double[boardLength - 1];
 		for(int i = 2; i <= boardLength; i++)
@@ -85,33 +86,43 @@ public class Board extends GCompound implements Clickable
 				board[i][j] = null;
 			}
 		}
+		BetterPiece b;
 		for(int i = 0; i < this.board.length; i++)
 		{
 			for(int j = 0; j < this.board[i].length; j++)
 			{
-				board[i][j] = pieces.remove(r.nextInt(pieces.size()));
+				b = pieces.remove(r.nextInt(pieces.size()));
+				b.updateRowCol(i, j);
+				board[i][j] = b;
 			}
 		}
 
 		this.updatePieceLocations();
 	}
-	
-	public void clearBoard() {
-		for(int i = 0; i < this.board.length; i++) {
-			for(int j = 0; j < this.board[i].length; j++) {
+
+	public void clearBoard()
+	{
+		for(int i = 0; i < this.board.length; i++)
+		{
+			for(int j = 0; j < this.board[i].length; j++)
+			{
 				remove(board[i][j]);
 				board[i][j] = null;
 			}
 		}
 	}
 
-	public void updatePieceLocations() {
-		for(int i = 0; i < this.board.length; i++) {
-			for(int j = 0; j < this.board[i].length; j++) {
-				board[i][j].setTargetLocation(spaceSize * (i+1), spaceSize*(j+1));
+	public void updatePieceLocations()
+	{
+		for(int i = 0; i < this.board.length; i++)
+		{
+			for(int j = 0; j < this.board[i].length; j++)
+			{
+				board[i][j].setTargetLocation(spaceSize * (i + 1), spaceSize * (j + 1));
 			}
 		}
 	}
+
 	public void updateBounds(int screenSize)
 	{
 		// TODO don't copy code here
@@ -257,7 +268,31 @@ public class Board extends GCompound implements Clickable
 		GObject o = this.getElementAt(translateXToLocalSpace(evt.getX()), translateYToLocalSpace(evt.getY()));
 		if(o != null && o instanceof BetterPiece)
 		{
-			((BetterPiece) o).toggleActive();
+			if(selectedPiece == null)
+			{
+				((BetterPiece) o).toggleActive();
+				selectedPiece = (BetterPiece) o;
+			}
+			else
+			{
+				selectedPiece.toggleActive();
+				if((Math.abs(((BetterPiece) o).getR() - selectedPiece.getR()) == 1
+						&& Math.abs(((BetterPiece) o).getC() - selectedPiece.getC()) == 0)
+						|| (Math.abs(((BetterPiece) o).getR() - selectedPiece.getR()) == 0
+								&& Math.abs(((BetterPiece) o).getC() - selectedPiece.getC()) == 1))
+				{
+					int newR, newC;
+					newR = selectedPiece.getR();
+					newC = selectedPiece.getC();
+					selectedPiece.updateRowCol(((BetterPiece) o).getR(), ((BetterPiece) o).getC());
+					((BetterPiece) o).updateRowCol(newR, newC);
+					selectedPiece.setTargetLocation((int) ((BetterPiece) o).getX(), (int) ((BetterPiece) o).getY());
+					((BetterPiece) o).setTargetLocation((int) selectedPiece.getX(), (int) selectedPiece.getY());
+					((BetterPiece) o).updateLocation();
+					selectedPiece.updateLocation();
+				}
+				selectedPiece = null;
+			}
 		}
 	}
 

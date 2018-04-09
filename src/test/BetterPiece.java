@@ -55,7 +55,7 @@ public class BetterPiece extends GCompound
 	private GImage image;
 	private GImage imageAnimated;
 
-	private int x, y, size;
+	private int x, y, size, r, c;
 	
 	private int targetX, targetY;
 
@@ -71,12 +71,12 @@ public class BetterPiece extends GCompound
 	 * @param size
 	 *            the width and height of the piece
 	 */
-	public BetterPiece(int x, int y, int size)
+	public BetterPiece(int x, int y, int size, int r, int c)
 	{
-		this(x, y, size, getRandomColor());
+		this(x, y, size, getRandomColor(), r, c);
 	}
 
-	public BetterPiece(int x, int y, int size, Color color)
+	public BetterPiece(int x, int y, int size, Color color, int r, int c)
 	{
 		this.color = color;
 		this.x = x;
@@ -85,6 +85,8 @@ public class BetterPiece extends GCompound
 		this.initImage();
 		this.targetX = this.x;
 		this.targetY = this.y;
+		this.r = r;
+		this.c = c;
 		
 		// Add the piece to the list of pieces to update
 		synchronized(pieces) {
@@ -111,6 +113,22 @@ public class BetterPiece extends GCompound
 		this.imageAnimated.setSize(size, size);
 		this.updateImage();
 		this.setLocation(x, y);
+	}
+	
+	public void updateRowCol(int r, int c)
+	{
+		this.r = r;
+		this.c = c;
+	}
+
+	public int getR()
+	{
+		return r;
+	}
+
+	public int getC()
+	{
+		return c;
 	}
 
 	private void initImage()

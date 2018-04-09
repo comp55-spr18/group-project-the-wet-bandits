@@ -43,7 +43,7 @@ public class BetterBoard extends GCompound implements Clickable {
 		for (int i = 0; i < boardSize; i++) {
 			for (int j = 0; j < boardSize; j++) {
 				this.board[i][j] = new BetterPiece(((pieceSize + PADDING) * i) + PADDING,
-						((pieceSize + PADDING) * j) + PADDING, pieceSize);
+						((pieceSize + PADDING) * j) + PADDING, pieceSize,  i, j);
 				add(this.board[i][j]);
 			}
 		}

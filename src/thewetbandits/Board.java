@@ -93,8 +93,15 @@ public class Board extends GCompound implements Clickable
 				board[i][j].setTargetLocation(spaceSize * (i + 1), spaceSize * (j + 1));
 			}
 		}
-		System.out.println(numberOfPossibleMoves());
-		System.out.println(numberOfMatches());
+	}
+	
+	public void clearBoard() {
+		for(int i = 0; i < this.board.length; i++) {
+			for(int j = 0; j < this.board[i].length; j++) {
+				remove(board[i][j]);
+				board[i][j] = null;
+			}
+		}
 	}
 
 	public void updateBounds(int screenSize)

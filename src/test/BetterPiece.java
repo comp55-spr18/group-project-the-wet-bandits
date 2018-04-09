@@ -178,4 +178,12 @@ public class BetterPiece extends GCompound
 		this.targetX = x;
 		this.targetY = y;
 	}
+	
+	public void setPosition(double x, double y) {
+		this.targetX = (int) x;
+		this.targetY = (int) y;
+		super.setLocation(x, y);
+		this.x = (int) x;
+		this.y = (int) y;
+	}
 }

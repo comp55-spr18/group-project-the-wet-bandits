@@ -56,10 +56,10 @@ public class Board extends GCompound implements Clickable
 		for(int r = 0; r < board.length; r++)
 			for(int c = 0; c < board[0].length; c++)
 				board[r][c] = new BetterPiece(spaceSize * (r + 1), spaceSize * (c + 1), pieceSize);
-		while (rerandomizer(board) != true)
+	/*	while (rerandomizer(board) != true)
 		{
 			rerandomizer(board);
-		}
+		} */
 		verticalLines = new Line2D.Double[boardLength - 1];
 		horizontalLines = new Line2D.Double[boardLength - 1];
 		for(int i = 2; i <= boardLength; i++)
@@ -265,7 +265,7 @@ public class Board extends GCompound implements Clickable
 	 * @param b the array of
 	 * @return true if the board has been successfully rerandomized
 	 */
-	public boolean rerandomizer(BetterPiece[][] b)
+/*	public boolean rerandomizer(BetterPiece[][] b)
 	{
 		int comparison = 0;
 		for(int r = 0; r < b.length; r++)
@@ -290,5 +290,5 @@ public class Board extends GCompound implements Clickable
 		}
 		return true;
 	}
-
+*/
 }

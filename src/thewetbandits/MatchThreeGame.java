@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 
 import thewetbandits.screens.MovementTestScreen;
-import thewetbandits.screens.TestGameScreen;
+import thewetbandits.screens.MainGameplayScreen;
 
 /**
  * @author Jacob Faulk Created Mar 28, 2018
@@ -14,7 +14,7 @@ public class MatchThreeGame extends GraphicsApplication
 {
 	public static final int WINDOW_WIDTH = 700;
 	public static final int WINDOW_HEIGHT = 700;
-	private TestGameScreen testScreen = new TestGameScreen(this, WINDOW_WIDTH, WINDOW_HEIGHT);
+	private MainGameplayScreen testScreen = new MainGameplayScreen(this, WINDOW_WIDTH, WINDOW_HEIGHT);
 	private MenuScreen testMenu = new MenuScreen(this);
 
 	/**

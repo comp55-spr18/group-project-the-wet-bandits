@@ -13,7 +13,7 @@ import thewetbandits.utils.GButton;
 /**
  * @author Jacob Faulk Created Mar 30, 2018
  */
-public class TestGameScreen extends Screen
+public class MainGameplayScreen extends Screen
 {
 	private static final int BOARD_SIZE = 10;
 	public Board board;
@@ -31,7 +31,7 @@ public class TestGameScreen extends Screen
 	 * @param height
 	 *            the height of the GraphicsApplication
 	 */
-	public TestGameScreen(MatchThreeGame app, int width, int height)
+	public MainGameplayScreen(MatchThreeGame app, int width, int height)
 	{
 		super(app);
 		this.width = width;

@@ -3,7 +3,7 @@ import thewetbandits.MatchThreeGame;
 import thewetbandits.MenuScreen;
 import thewetbandits.Context;
 import thewetbandits.screens.Screen;
-import thewetbandits.screens.TestGameScreen;
+import thewetbandits.screens.MainGameplayScreen;
 import thewetbandits.utils.ClickAction;
 import thewetbandits.utils.GButton;
 
@@ -51,7 +51,7 @@ public class MenuScreen extends Screen {
 		playButton = new GButton("PLAY", 300, 315, 115, 50, new ClickAction() {
 				@Override
 				public void onClick(MouseEvent event) {
-					game.switchToScreen(new TestGameScreen(game, WINDOW_WIDTH, WINDOW_HEIGHT));
+					game.switchToScreen(new MainGameplayScreen(game, WINDOW_WIDTH, WINDOW_HEIGHT));
 				}});
 		add(playButton);
 	};

@@ -15,7 +15,7 @@ import thewetbandits.utils.GButton;
  */
 public class TestGameScreen extends Screen
 {
-	private static final int BOARD_SIZE = 8;
+	private static final int BOARD_SIZE = 10;
 	public Board board;
 	private int width;
 	private int height;
@@ -44,7 +44,9 @@ public class TestGameScreen extends Screen
 			@Override
 			public void onClick(MouseEvent event) {
 				System.out.println("Shuffling board");
-				board.shuffleBoard();
+				do {
+					board.shuffleBoard();
+				} while(board.numberOfMatches() > 0 || board.numberOfPossibleMoves() <= 0);
 			}
 			
 		}));

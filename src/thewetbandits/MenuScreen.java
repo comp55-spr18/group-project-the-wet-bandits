@@ -64,6 +64,7 @@ public class MenuScreen extends Screen {
 				@Override
 				public void onClick(MouseEvent event) {
 					System.out.println("click on quit");
+					System.exit(0);
 				}});
 		add(quitButton);
 	};

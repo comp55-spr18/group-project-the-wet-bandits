@@ -15,6 +15,7 @@ public class MatchThreeGame extends GraphicsApplication
 	public static final int WINDOW_WIDTH = 700;
 	public static final int WINDOW_HEIGHT = 700;
 	private TestGameScreen testScreen = new TestGameScreen(this, WINDOW_WIDTH, WINDOW_HEIGHT);
+	private MenuScreen testMenu = new MenuScreen(this);
 
 	/**
 	 * initializes MatchThreeGame according to the specified width and height
@@ -31,6 +32,7 @@ public class MatchThreeGame extends GraphicsApplication
 	{
 		// testScreen = new TestGameScreen(this, WINDOW_WIDTH, WINDOW_HEIGHT);
 		switchToScreen(testScreen);
+		switchToScreen(testMenu);
 	}
 
 	/**

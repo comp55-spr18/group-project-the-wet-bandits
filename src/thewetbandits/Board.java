@@ -10,6 +10,7 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -84,15 +85,15 @@ public class Board extends GCompound implements Clickable
 				board[i][j] = null;
 			}
 		}
-
 		for(int i = 0; i < this.board.length; i++)
 		{
 			for(int j = 0; j < this.board[i].length; j++)
 			{
 				board[i][j] = pieces.remove(r.nextInt(pieces.size()));
-				board[i][j].setTargetLocation(spaceSize * (i + 1), spaceSize * (j + 1));
 			}
 		}
+
+		this.updatePieceLocations();
 	}
 	
 	public void clearBoard() {
@@ -104,6 +105,13 @@ public class Board extends GCompound implements Clickable
 		}
 	}
 
+	public void updatePieceLocations() {
+		for(int i = 0; i < this.board.length; i++) {
+			for(int j = 0; j < this.board[i].length; j++) {
+				board[i][j].setTargetLocation(spaceSize * (i+1), spaceSize*(j+1));
+			}
+		}
+	}
 	public void updateBounds(int screenSize)
 	{
 		// TODO don't copy code here

@@ -288,8 +288,6 @@ public class Board extends GCompound implements Clickable
 					((BetterPiece) o).updateRowCol(newR, newC);
 					selectedPiece.setTargetLocation((int) ((BetterPiece) o).getX(), (int) ((BetterPiece) o).getY());
 					((BetterPiece) o).setTargetLocation((int) selectedPiece.getX(), (int) selectedPiece.getY());
-					((BetterPiece) o).updateLocation();
-					selectedPiece.updateLocation();
 				}
 				selectedPiece = null;
 			}

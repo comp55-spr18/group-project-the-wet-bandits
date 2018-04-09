@@ -159,7 +159,7 @@ public class BetterPiece extends GCompound
 		return color;
 	}
 	
-	public void updateLocation() 
+	private void updateLocation() 
 	{
 		double deltaX = this.targetX - this.getX();
 		double deltaY = this.targetY - this.getY();

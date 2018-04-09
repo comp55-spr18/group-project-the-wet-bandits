@@ -34,13 +34,7 @@ public class MovementTestScreen extends Screen {
 				state = !state;
 			}
 		});
-		
-		this.updateTimer = new Timer(30, new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				MovementTestScreen.this.piece.updateLocation();
-			}
-		});
+	
 		
 		this.updateTimer.start();
 		

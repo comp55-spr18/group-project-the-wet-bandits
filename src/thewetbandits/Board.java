@@ -100,42 +100,46 @@ public class Board extends GCompound implements Clickable
 		this.updatePieceLocations();
 	}
 
-	public void clearBoard()
-	{
-		for(int i = 0; i < this.board.length; i++)
-		{
-			for(int j = 0; j < this.board[i].length; j++)
-			{
-				remove(board[i][j]);
+	public void clearBoard() {
+		for (int i = 0; i < this.board.length; i++) {
+			for (int j = 0; j < this.board[i].length; j++) {
+				if (board[i][j] != null)
+					remove(board[i][j]);
 				board[i][j] = null;
 			}
 		}
 	}
 
-	public void updatePieceLocations()
-	{
-		for(int i = 0; i < this.board.length; i++)
-		{
-			for(int j = 0; j < this.board[i].length; j++)
-			{
-				board[i][j].setTargetLocation(spaceSize * (i + 1), spaceSize * (j + 1));
+	public void resetBoard() {
+		this.clearBoard();
+		for (int r = 0; r < board.length; r++) {
+			for (int c = 0; c < board[0].length; c++) {
+				board[r][c] = new BetterPiece(spaceSize * (r + 1), spaceSize * (c + 1), pieceSize, r, c);
+				add(board[r][c]);
 			}
 		}
 	}
 
-	public void updateBounds(int screenSize)
-	{
+	public void updatePieceLocations() {
+		for (int i = 0; i < this.board.length; i++) {
+			for (int j = 0; j < this.board[i].length; j++) {
+				if (board[i][j] != null)
+					board[i][j].setTargetLocation(spaceSize * (i + 1), spaceSize * (j + 1));
+			}
+		}
+	}
+
+	public void updateBounds(int screenSize) {
 		// TODO don't copy code here
 		this.screenSize = screenSize;
 		this.spaceSize = this.screenSize / (boardLength + 2);
 		this.pieceSize = (spaceSize / 7) * 5;
 		border.setBounds(spaceSize - ((spaceSize - pieceSize) / 2), spaceSize - ((spaceSize - pieceSize) / 2),
 				spaceSize * boardLength, spaceSize * boardLength);
-		for(int r = 0; r < board.length; r++)
-			for(int c = 0; c < board[0].length; c++)
+		for (int r = 0; r < board.length; r++)
+			for (int c = 0; c < board[0].length; c++)
 				board[r][c].reposition(spaceSize * (r + 1), spaceSize * (c + 1), pieceSize);
-		for(int i = 2; i <= boardLength; i++)
-		{
+		for (int i = 2; i <= boardLength; i++) {
 			verticalLines[i - 2].setLine(spaceSize * i - ((spaceSize - pieceSize) / 2),
 					spaceSize - ((spaceSize - pieceSize) / 2), spaceSize * i - ((spaceSize - pieceSize) / 2),
 					spaceSize * (boardLength + 1) - ((spaceSize - pieceSize) / 2));

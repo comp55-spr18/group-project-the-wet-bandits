@@ -13,7 +13,7 @@ import java.awt.Color;
 
 
 public class MenuScreen extends Screen {
-	public static final int WINDOW_WIDTH = 700;
+	public static final int WINDOW_WIDTH = 1000;
 	public static final int WINDOW_HEIGHT = 700;
 	private GButton playButton;
 	private GButton quitButton;

@@ -12,7 +12,7 @@ import thewetbandits.screens.MainGameplayScreen;
 
 public class MatchThreeGame extends GraphicsApplication
 {
-	public static final int WINDOW_WIDTH = 700;
+	public static final int WINDOW_WIDTH = 1000;
 	public static final int WINDOW_HEIGHT = 700;
 	private MainGameplayScreen testScreen = new MainGameplayScreen(this, WINDOW_WIDTH, WINDOW_HEIGHT);
 	private MenuScreen testMenu = new MenuScreen(this);

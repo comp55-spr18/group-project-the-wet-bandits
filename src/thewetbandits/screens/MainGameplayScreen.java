@@ -52,7 +52,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		this.width = width;
 		this.height = height;
 		board = new Board(width < height ? width : height, BOARD_SIZE, app);
-		//board.setLocation(700, 1000);
+		//board.setLocation(300, 25);
 		while(board.numberOfMatches() > 0 || board.numberOfPossibleMoves() <= 0)
 			board.shuffleBoard();
 		this.add(new GButton("Randomize", 20, 20, 100, 50, new ClickAction() {

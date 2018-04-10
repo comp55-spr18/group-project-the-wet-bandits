@@ -19,6 +19,7 @@ public class MenuScreen extends Screen {
 	private GButton quitButton;
 	private GButton tutorialButton;
 	private MatchThreeGame game;
+	private Color buttonColor = new Color(0, 0, 125);
 	
 	public MenuScreen(MatchThreeGame app) {
 		super(app);
@@ -27,6 +28,10 @@ public class MenuScreen extends Screen {
 	}
 	
 	public void run() {
+		GImage background = new GImage("background.gif" ,0, 0);
+		background.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+		add(background);
+		
 		displayTitle();
 		showPlayButton();
 		showQuitButton();
@@ -40,12 +45,12 @@ public class MenuScreen extends Screen {
 		GLabel displayTitle = new GLabel("Three's A Company", 175, 150);
 
 		add(displayTitle);
-		displayTitle.setColor(Color.RED);
+		displayTitle.setColor(Color.BLUE);
 		displayTitle.setFont("Bradley Hand ITC-Italic-75");
 	}
 
 	/**
-	 * Displays the playButton
+	 * Displays the playButton, clicking on it would take you to the game
 	 */
 	public void showPlayButton() {
 		playButton = new GButton("PLAY", 450, 315, 115, 50, new ClickAction() {
@@ -53,11 +58,13 @@ public class MenuScreen extends Screen {
 				public void onClick(MouseEvent event) {
 					game.switchToScreen(new MainGameplayScreen(game, WINDOW_WIDTH, WINDOW_HEIGHT));
 				}});
+		playButton.setColor(Color.WHITE);
+		playButton.setFillColor(buttonColor);
 		add(playButton);
 	};
 	
 	/**
-	 * Displays the quitButton
+	 * Displays the quitButton, clicking on it would exit out of the game and close it
 	 */
 	public void showQuitButton() {
 		quitButton = new GButton("QUIT", 450, 440, 115, 50, new ClickAction() {
@@ -66,11 +73,13 @@ public class MenuScreen extends Screen {
 					System.out.println("click on quit");
 					System.exit(0);
 				}});
+		quitButton.setColor(Color.WHITE);
+		quitButton.setFillColor(buttonColor);
 		add(quitButton);
 	};
 	
 	/**
-	 * Display the tutorialButton
+	 * Display the tutorialButton, clicking on it would bring you to the instructions
 	 */
 	public void showTutorialButton() {
 		tutorialButton = new GButton("?", 900, 615, 50, 50, new ClickAction() {
@@ -79,6 +88,8 @@ public class MenuScreen extends Screen {
 				System.out.println("click on tutorial");
 				game.switchToScreen(new Context(game));
 			}});
+		tutorialButton.setColor(Color.WHITE);
+		tutorialButton.setFillColor(buttonColor);
 		add(tutorialButton);
 	}
 }

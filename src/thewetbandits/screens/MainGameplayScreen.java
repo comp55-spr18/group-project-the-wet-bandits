@@ -60,6 +60,9 @@ public class MainGameplayScreen extends Screen implements ActionListener
 			@Override
 			public void onClick(MouseEvent event) {
 				System.out.println("Shuffling board");
+				if(event.isShiftDown()) {
+					board.resetBoard();
+				}
 				do {
 					board.shuffleBoard();
 				} while(board.numberOfMatches() > 0 || board.numberOfPossibleMoves() <= 0);

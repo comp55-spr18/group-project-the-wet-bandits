@@ -87,6 +87,10 @@ public class BetterPiece extends GCompound
 	{
 		this(x, y, size, getRandomColor(), r, c);
 	}
+	
+	public BetterPiece(int spaceSize, int size, int r, int c) {
+		this(spaceSize * (r + 1), spaceSize * (c + 1), size, r, c);
+	}
 
 	public BetterPiece(int x, int y, int size, Color color, int r, int c)
 	{

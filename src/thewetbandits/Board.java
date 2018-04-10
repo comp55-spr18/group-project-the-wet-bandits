@@ -5,12 +5,9 @@
 
 package thewetbandits;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -20,11 +17,9 @@ import acm.graphics.GObject;
 import acm.graphics.GRect;
 import acm.graphics.GRectangle;
 import test.BetterPiece;
-import thewetbandits.utils.ClickAction;
 import thewetbandits.utils.Clickable;
 
-public class Board extends GCompound implements Clickable
-{
+public class Board extends GCompound implements Clickable {
 	private BetterPiece[][] board;
 	private int pieceSize;
 	private int boardLength;
@@ -45,8 +40,7 @@ public class Board extends GCompound implements Clickable
 	 * @param boardLength
 	 *            the length of both sides of the array holding the GamePieces
 	 */
-	public Board(int screenSize, int boardLength, MatchThreeGame app)
-	{
+	public Board(int screenSize, int boardLength, MatchThreeGame app) {
 		this.app = app;
 		this.screenSize = screenSize;
 		this.boardLength = boardLength;
@@ -55,13 +49,12 @@ public class Board extends GCompound implements Clickable
 		border = new GRectangle(spaceSize - ((spaceSize - pieceSize) / 2), spaceSize - ((spaceSize - pieceSize) / 2),
 				spaceSize * boardLength, spaceSize * boardLength);
 		board = new BetterPiece[boardLength][boardLength];
-		for(int r = 0; r < board.length; r++)
-			for(int c = 0; c < board[0].length; c++)
+		for (int r = 0; r < board.length; r++)
+			for (int c = 0; c < board[0].length; c++)
 				board[r][c] = new BetterPiece(spaceSize * (r + 1), spaceSize * (c + 1), pieceSize, r, c);
 		verticalLines = new Line2D.Double[boardLength - 1];
 		horizontalLines = new Line2D.Double[boardLength - 1];
-		for(int i = 2; i <= boardLength; i++)
-		{
+		for (int i = 2; i <= boardLength; i++) {
 			verticalLines[i - 2] = new Line2D.Double(spaceSize * i - ((spaceSize - pieceSize) / 2),
 					spaceSize - ((spaceSize - pieceSize) / 2), spaceSize * i - ((spaceSize - pieceSize) / 2),
 					spaceSize * (boardLength + 1) - ((spaceSize - pieceSize) / 2));
@@ -73,24 +66,19 @@ public class Board extends GCompound implements Clickable
 		this.addComponents();
 	}
 
-	public void shuffleBoard()
-	{
+	public void shuffleBoard() {
 		List<BetterPiece> pieces = new ArrayList<>();
 		Random r = new Random();
 		// Randomly shuffle the board
-		for(int i = 0; i < this.board.length; i++)
-		{
-			for(int j = 0; j < this.board[i].length; j++)
-			{
+		for (int i = 0; i < this.board.length; i++) {
+			for (int j = 0; j < this.board[i].length; j++) {
 				pieces.add(board[i][j]);
 				board[i][j] = null;
 			}
 		}
 		BetterPiece b;
-		for(int i = 0; i < this.board.length; i++)
-		{
-			for(int j = 0; j < this.board[i].length; j++)
-			{
+		for (int i = 0; i < this.board.length; i++) {
+			for (int j = 0; j < this.board[i].length; j++) {
 				b = pieces.remove(r.nextInt(pieces.size()));
 				b.updateRowCol(i, j);
 				board[i][j] = b;
@@ -160,8 +148,7 @@ public class Board extends GCompound implements Clickable
 	 *            the column number
 	 * @return whether the r,c is a valid set of coordinates in the board
 	 */
-	private boolean inBounds(int r, int c)
-	{
+	private boolean inBounds(int r, int c) {
 		return r >= 0 && r < boardLength && c >= 0 && c < boardLength;
 	}
 
@@ -170,44 +157,35 @@ public class Board extends GCompound implements Clickable
 	 * 
 	 * @return the number of possible moves that would make matches
 	 */
-	public int numberOfPossibleMoves()
-	{
+	public int numberOfPossibleMoves() {
 		int numPossible = 0;
 		BetterPiece p;
-		for(int r = 0; r < boardLength; r++)
-		{
-			for(int c = 0; c < boardLength; c++)
-			{
+		for (int r = 0; r < boardLength; r++) {
+			for (int c = 0; c < boardLength; c++) {
 				p = board[r][c];
-				if(inBounds(r, c + 1) && board[r][c + 1].getColorType() == p.getColorType())
-				{
-					if((inBounds(r - 1, c - 1) && board[r - 1][c - 1].getColorType() == p.getColorType())
+				if (inBounds(r, c + 1) && board[r][c + 1].getColorType() == p.getColorType()) {
+					if ((inBounds(r - 1, c - 1) && board[r - 1][c - 1].getColorType() == p.getColorType())
 							|| (inBounds(r + 1, c - 1) && board[r + 1][c - 1].getColorType() == p.getColorType())
 							|| (inBounds(r - 1, c + 2) && board[r - 1][c + 2].getColorType() == p.getColorType())
 							|| (inBounds(r + 1, c + 2) && board[r + 1][c + 2].getColorType() == p.getColorType())
 							|| (inBounds(r, c - 2) && board[r][c - 2].getColorType() == p.getColorType())
 							|| (inBounds(r, c + 3) && board[r][c + 3].getColorType() == p.getColorType()))
 						numPossible++;
-				}
-				else if(inBounds(r, c + 2) && board[r][c + 2].getColorType() == p.getColorType())
-				{
-					if((inBounds(r - 1, c + 1) && board[r - 1][c + 1].getColorType() == p.getColorType())
+				} else if (inBounds(r, c + 2) && board[r][c + 2].getColorType() == p.getColorType()) {
+					if ((inBounds(r - 1, c + 1) && board[r - 1][c + 1].getColorType() == p.getColorType())
 							|| (inBounds(r + 1, c + 1) && board[r + 1][c + 1].getColorType() == p.getColorType()))
 						numPossible++;
 				}
-				if(inBounds(r + 1, c) && board[r + 1][c].getColorType() == p.getColorType())
-				{
-					if((inBounds(r - 1, c - 1) && board[r - 1][c - 1].getColorType() == p.getColorType())
+				if (inBounds(r + 1, c) && board[r + 1][c].getColorType() == p.getColorType()) {
+					if ((inBounds(r - 1, c - 1) && board[r - 1][c - 1].getColorType() == p.getColorType())
 							|| (inBounds(r - 1, c + 1) && board[r - 1][c + 1].getColorType() == p.getColorType())
 							|| (inBounds(r + 2, c - 1) && board[r + 2][c - 1].getColorType() == p.getColorType())
 							|| (inBounds(r + 2, c + 1) && board[r + 2][c + 1].getColorType() == p.getColorType())
 							|| (inBounds(r - 2, c) && board[r - 1][c].getColorType() == p.getColorType())
 							|| (inBounds(r + 3, c) && board[r + 3][c].getColorType() == p.getColorType()))
 						numPossible++;
-				}
-				else if(inBounds(r + 2, c) && board[r + 2][c].getColorType() == p.getColorType())
-				{
-					if((inBounds(r + 1, c - 1) && board[r + 1][c - 1].getColorType() == p.getColorType())
+				} else if (inBounds(r + 2, c) && board[r + 2][c].getColorType() == p.getColorType()) {
+					if ((inBounds(r + 1, c - 1) && board[r + 1][c - 1].getColorType() == p.getColorType())
 							|| (inBounds(r + 1, c + 1) && board[r + 1][c + 1].getColorType() == p.getColorType()))
 						numPossible++;
 				}
@@ -223,19 +201,16 @@ public class Board extends GCompound implements Clickable
 	 * 
 	 * @return the number of matches on the board
 	 */
-	public int numberOfMatches()
-	{
+	public int numberOfMatches() {
 		int numMatches = 0;
 		BetterPiece p;
-		for(int r = 0; r < boardLength; r++)
-		{
-			for(int c = 0; c < boardLength; c++)
-			{
+		for (int r = 0; r < boardLength; r++) {
+			for (int c = 0; c < boardLength; c++) {
 				p = board[r][c];
-				if(inBounds(r, c + 1) && p.getColorType() == board[r][c + 1].getColorType() && inBounds(r, c + 2)
+				if (inBounds(r, c + 1) && p.getColorType() == board[r][c + 1].getColorType() && inBounds(r, c + 2)
 						&& p.getColorType() == board[r][c + 2].getColorType())
 					numMatches++;
-				if(inBounds(r + 1, c) && p.getColorType() == board[r + 1][c].getColorType() && inBounds(r + 2, c)
+				if (inBounds(r + 1, c) && p.getColorType() == board[r + 1][c].getColorType() && inBounds(r + 2, c)
 						&& p.getColorType() == board[r + 2][c].getColorType())
 					numMatches++;
 			}
@@ -243,42 +218,45 @@ public class Board extends GCompound implements Clickable
 		return numMatches;
 	}
 
-	private void removeMatches()
-	{
+	private void removeMatches() {
 		System.out.println("removeMatches() called");
 		BetterPiece p;
-		for(int r = 0; r < boardLength; r++)
-		{
-			for(int c = 0; c < boardLength; c++)
-			{
+		for (int r = 0; r < boardLength; r++) {
+			for (int c = 0; c < boardLength; c++) {
 				p = board[r][c];
-				if(inBounds(r, c + 1) && p.getColorType() == board[r][c + 1].getColorType() && inBounds(r, c + 2)
-						&& p.getColorType() == board[r][c + 2].getColorType())
-				{
+				if (p == null)
+					continue;
+				if (inBounds(r, c + 1) && board[r][c + 1] != null && p.getColorType() == board[r][c + 1].getColorType()
+						&& inBounds(r, c + 2) && board[r][c + 2] != null
+						&& p.getColorType() == board[r][c + 2].getColorType()) {
 					System.out.println("found match");
-					board[r][c].clearPiece();
-					board[r][c + 1].clearPiece();
-					board[r][c + 2].clearPiece();
+					remove(board[r][c]);
+					board[r][c] = null;
+					remove(board[r][c + 1]);
+					board[r][c + 1] = null;
+					remove(board[r][c + 2]);
+					board[r][c + 2] = null;
 				}
-				if(inBounds(r + 1, c) && p.getColorType() == board[r + 1][c].getColorType() && inBounds(r + 2, c)
-						&& p.getColorType() == board[r + 2][c].getColorType())
-				{
+				if (inBounds(r + 1, c) && board[r + 1][c] != null && p.getColorType() == board[r + 1][c].getColorType()
+						&& inBounds(r + 2, c) && board[r + 2][c] != null
+						&& p.getColorType() == board[r + 2][c].getColorType()) {
 					System.out.println("found match");
-					board[r][c].clearPiece();
-					board[r + 1][c].clearPiece();
-					board[r + 2][c].clearPiece();
+					remove(board[r][c]);
+					board[r][c] = null;
+					remove(board[r + 1][c]);
+					board[r + 1][c] = null;
+					remove(board[r + 2][c]);
+					board[r + 2][c] = null;
 				}
 			}
 		}
 	}
 
-	private void addComponents()
-	{
+	private void addComponents() {
 		GRect r = new GRect(spaceSize - ((spaceSize - pieceSize)) / 2, spaceSize - ((spaceSize - pieceSize) / 2),
 				spaceSize * boardLength, spaceSize * boardLength);
 		add(r);
-		for(int i = 0; i < verticalLines.length; i++)
-		{
+		for (int i = 0; i < verticalLines.length; i++) {
 			GLine horizLine = new GLine(verticalLines[i].getX1(), verticalLines[i].getY1(), verticalLines[i].getX2(),
 					verticalLines[i].getY2());
 			add(horizLine);
@@ -286,57 +264,116 @@ public class Board extends GCompound implements Clickable
 					horizontalLines[i].getX2(), horizontalLines[i].getY2());
 			add(vertLine);
 		}
-		for(int i = 0; i < board.length; i++)
-		{
-			for(int j = 0; j < board[i].length; j++)
-			{
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
 				add(board[i][j]);
 			}
 		}
 	}
 
-	@Override
-	public void onClick(MouseEvent evt)
-	{
-		GObject o = this.getElementAt(translateXToLocalSpace(evt.getX()), translateYToLocalSpace(evt.getY()));
-		if(o != null && o instanceof BetterPiece)
-		{
-			if(selectedPiece == null)
-			{
-				((BetterPiece) o).toggleActive();
-				selectedPiece = (BetterPiece) o;
+	private boolean shiftDown() {
+		boolean changed = false;
+		for (int r = 0; r < this.board.length; r++) {
+			for (int c = 0; c < this.board.length; c++) {
+				if (getPiece(r, c) == null)
+					continue;
+				if (!inBounds(r + 1, c))
+					continue;
+				if (getPiece(r + 1, c) != null)
+					continue;
+				// There is a blank space below the piece, shift it down a row
+				setPiece(getPiece(r, c), r + 1, c);
+				setPiece(null, r, c);
+				changed = true;
 			}
-			else
-			{
+		}
+		return changed;
+	}
+
+	public boolean fillTop() {
+		boolean filled = false;
+		for (int c = 0; c < this.board.length; c++) {
+			if (getPiece(0, c) == null) {
+				BetterPiece piece = new BetterPiece(spaceSize, pieceSize, c, 0);
+				add(piece);
+				setPiece(piece, 0, c);
+				filled = true;
+			}
+		}
+		return filled;
+	}
+
+	public void doGravity() {
+		do {
+			while (shiftDown()) {
+
+			}
+		} while (fillTop());
+	}
+
+	private BetterPiece getPiece(int row, int col) {
+		return this.board[col][row];
+	}
+
+	private void setPiece(BetterPiece piece, int row, int col) {
+		this.board[col][row] = piece;
+		if (piece != null)
+			piece.updateRowCol(row, col);
+	}
+
+	@Override
+	public void onClick(MouseEvent evt) {
+		GObject o = this.getElementAt(translateXToLocalSpace(evt.getX()), translateYToLocalSpace(evt.getY()));
+		if (o != null && o instanceof BetterPiece) {
+			BetterPiece clickedPiece = (BetterPiece) o;
+			if (selectedPiece == null) {
+				clickedPiece.toggleActive();
+				selectedPiece = clickedPiece;
+			} else {
 				selectedPiece.toggleActive();
-				if((Math.abs(((BetterPiece) o).getR() - selectedPiece.getR()) == 1
-						&& Math.abs(((BetterPiece) o).getC() - selectedPiece.getC()) == 0)
-						|| (Math.abs(((BetterPiece) o).getR() - selectedPiece.getR()) == 0
-								&& Math.abs(((BetterPiece) o).getC() - selectedPiece.getC()) == 1))
-				{
-					int newR, newC;
-					newR = selectedPiece.getR();
-					newC = selectedPiece.getC();
-					selectedPiece.updateRowCol(((BetterPiece) o).getR(), ((BetterPiece) o).getC());
-					((BetterPiece) o).updateRowCol(newR, newC);
-					selectedPiece.setTargetLocation((int) ((BetterPiece) o).getX(), (int) ((BetterPiece) o).getY());
-					((BetterPiece) o).setTargetLocation((int) selectedPiece.getX(), (int) selectedPiece.getY());
-					board[((BetterPiece) o).getR()][((BetterPiece) o).getC()] = ((BetterPiece) o);
-					board[selectedPiece.getR()][selectedPiece.getC()] = selectedPiece;
+				if ((Math.abs(clickedPiece.getR() - selectedPiece.getR()) == 1
+						&& Math.abs(clickedPiece.getC() - selectedPiece.getC()) == 0)
+						|| (Math.abs(clickedPiece.getR() - selectedPiece.getR()) == 0
+								&& Math.abs(clickedPiece.getC() - selectedPiece.getC()) == 1)) {
+					int targetRow, targetCol;
+					targetRow = clickedPiece.getR();
+					targetCol = clickedPiece.getC();
+
+					// Perform the swap
+					this.swapPiece(this.selectedPiece.getR(), this.selectedPiece.getC(), targetRow, targetCol);
+					this.updatePieceLocations();
+					if (this.numberOfMatches() > 0) {
+						this.removeMatches();
+						this.doGravity();
+						this.updatePieceLocations();
+					} else {
+						// The swap was invalid, swap it back
+//						this.swapPiece(this.selectedPiece.getR(), this.selectedPiece.getC(), targetRow, targetCol);
+//						this.updatePieceLocations();
+					}
 				}
 				selectedPiece = null;
 			}
 		}
-		removeMatches();
 	}
 
-	private int translateXToLocalSpace(int x)
-	{
+	private void swapPiece(int r1, int c1, int r2, int c2) {
+		BetterPiece p1 = this.board[r1][c1];
+		BetterPiece p2 = this.board[r2][c2];
+
+		if (p2 != null)
+			p2.updateRowCol(r1, c1);
+		this.board[r1][c1] = p2;
+		if (p1 != null)
+			p1.updateRowCol(r2, c2);
+		this.board[r2][c2] = p1;
+	}
+
+	private int translateXToLocalSpace(int x) {
 		return x;// - this.x;
 	}
 
-	private int translateYToLocalSpace(int y)
-	{
+	private int translateYToLocalSpace(int y) {
 		return y;// - this.y;
 	}
 }

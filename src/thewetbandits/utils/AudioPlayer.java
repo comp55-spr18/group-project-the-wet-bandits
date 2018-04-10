@@ -9,14 +9,14 @@ package thewetbandits.utils;
  * AudioPlayer supports mp3 files and is based on the javafx MediaPlayer class
  * Questions can be sent to ojimenez@pacific.edu
  */
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class AudioPlayer {
 	private final Map<String, MediaPlayer> players;
@@ -66,7 +66,7 @@ public final class AudioPlayer {
 	 * @param shouldLoop
 	 *            true will loop the sound.
 	 */
-	public void playSound(String folder, String filename, boolean shouldLoop) {
+	public void playSound(final String folder, final String filename, final boolean shouldLoop) {
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
@@ -135,7 +135,7 @@ public final class AudioPlayer {
 	 * @param filename
 	 *            filename for the sound, make sure to include the extension
 	 */
-	public void stopSound(String folder, String filename) {
+	public void stopSound(final String folder, final String filename) {
 		Platform.runLater(new Runnable() {
 			public void run() {
 				MediaPlayer sound = findSound(folder, filename);
@@ -157,7 +157,7 @@ public final class AudioPlayer {
 	 * @param filename
 	 *            filename for the sound, make sure to include the extension
 	 */
-	public void pauseSound(String folder, String filename) {
+	public void pauseSound(final String folder, final String filename) {
 		Platform.runLater(new Runnable() {
 			public void run() {
 				MediaPlayer sound = findSound(folder, filename);

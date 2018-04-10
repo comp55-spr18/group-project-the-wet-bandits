@@ -5,19 +5,15 @@
 
 package thewetbandits;
 
+import acm.graphics.*;
+import test.BetterPiece;
+import thewetbandits.utils.Clickable;
+
 import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import acm.graphics.GCompound;
-import acm.graphics.GLine;
-import acm.graphics.GObject;
-import acm.graphics.GRect;
-import acm.graphics.GRectangle;
-import test.BetterPiece;
-import thewetbandits.utils.Clickable;
 
 public class Board extends GCompound implements Clickable {
 	private BetterPiece[][] board;
@@ -34,11 +30,9 @@ public class Board extends GCompound implements Clickable {
 	/**
 	 * Constructor for Board specifying the dimensions of the Screen it will reside
 	 * in
-	 * 
-	 * @param screenSize
-	 *            the size (in pixels) of the Screen the Board will be added to
-	 * @param boardLength
-	 *            the length of both sides of the array holding the GamePieces
+	 *
+	 * @param screenSize  the size (in pixels) of the Screen the Board will be added to
+	 * @param boardLength the length of both sides of the array holding the GamePieces
 	 */
 	public Board(int screenSize, int boardLength, MatchThreeGame app) {
 		this.app = app;
@@ -141,11 +135,9 @@ public class Board extends GCompound implements Clickable {
 
 	/**
 	 * helper method to find out if certain coordinates are valid
-	 * 
-	 * @param r
-	 *            the row number
-	 * @param c
-	 *            the column number
+	 *
+	 * @param r the row number
+	 * @param c the column number
 	 * @return whether the r,c is a valid set of coordinates in the board
 	 */
 	private boolean inBounds(int r, int c) {
@@ -154,7 +146,7 @@ public class Board extends GCompound implements Clickable {
 
 	/**
 	 * returns the number of possible moves the user could make to get matches
-	 * 
+	 *
 	 * @return the number of possible moves that would make matches
 	 */
 	public int numberOfPossibleMoves() {
@@ -198,7 +190,7 @@ public class Board extends GCompound implements Clickable {
 	/**
 	 * returns the number of instances where the same color GamePiece is present 3
 	 * times in a row
-	 * 
+	 *
 	 * @return the number of matches on the board
 	 */
 	public int numberOfMatches() {
@@ -271,54 +263,60 @@ public class Board extends GCompound implements Clickable {
 		}
 	}
 
-	private boolean shiftDown() {
+	public boolean shiftDown() {
 		boolean changed = false;
-		for (int r = 0; r < this.board.length; r++) {
-			for (int c = 0; c < this.board.length; c++) {
-				if (getPiece(r, c) == null)
+		for (int screenCol = 0; screenCol < this.boardLength; screenCol++) {
+			for (int screenRow = 0; screenRow < this.boardLength; screenRow++) {
+				BetterPiece p = this.getPiece(screenRow, screenCol);
+				if (p == null)
 					continue;
-				if (!inBounds(r + 1, c))
+				int targetRow = screenRow + 1;
+				if (!this.inBounds(screenCol, targetRow)) {
 					continue;
-				if (getPiece(r + 1, c) != null)
-					continue;
-				// There is a blank space below the piece, shift it down a row
-				setPiece(getPiece(r, c), r + 1, c);
-				setPiece(null, r, c);
-				changed = true;
+				}
+				if (this.getPiece(targetRow, screenCol) == null) {
+					// We found a piece with an empty piece below it, shift down
+					this.setPiece(null, screenRow, screenCol);
+					this.setPiece(p, targetRow, screenCol);
+					changed = true;
+				}
 			}
 		}
 		return changed;
 	}
 
-	public boolean fillTop() {
-		boolean filled = false;
-		for (int c = 0; c < this.board.length; c++) {
-			if (getPiece(0, c) == null) {
-				BetterPiece piece = new BetterPiece(spaceSize, pieceSize, c, 0);
+	public boolean refill() {
+		boolean refilled = false;
+		for (int screenCol = 0; screenCol < this.boardLength; screenCol++) {
+			int screenRow = 0;
+			if (this.getPiece(screenRow, screenCol) == null) {
+				BetterPiece piece = new BetterPiece(spaceSize * (screenCol + 1), spaceSize * (screenRow + 1),
+						pieceSize, screenCol, screenRow);
 				add(piece);
-				setPiece(piece, 0, c);
-				filled = true;
+				this.setPiece(piece, screenRow, screenCol);
+				refilled = true;
 			}
 		}
-		return filled;
+		return refilled;
 	}
 
-	public void doGravity() {
+	public void doGravity(){
 		do {
-			while (shiftDown()) {
-
+			while(shiftDown()){
+				// Don't do anything
 			}
-		} while (fillTop());
+		} while(refill());
 	}
 
-	private BetterPiece getPiece(int row, int col) {
-		return this.board[col][row];
+	public BetterPiece getPiece(int screenRow, int screenCol) {
+		return this.board[screenCol][screenRow];
 	}
 
-	private void setPiece(BetterPiece piece, int row, int col) {
-		this.board[col][row] = piece;
-		if (piece != null)
-			piece.updateRowCol(row, col);
+	public void setPiece(BetterPiece piece, int screenRow, int screenCol) {
+		this.board[screenCol][screenRow] = piece;
+		if (piece != null) {
+			piece.updateRowCol(screenCol, screenRow);
+		}
 	}
 
 	@Override
@@ -334,7 +332,7 @@ public class Board extends GCompound implements Clickable {
 				if ((Math.abs(clickedPiece.getR() - selectedPiece.getR()) == 1
 						&& Math.abs(clickedPiece.getC() - selectedPiece.getC()) == 0)
 						|| (Math.abs(clickedPiece.getR() - selectedPiece.getR()) == 0
-								&& Math.abs(clickedPiece.getC() - selectedPiece.getC()) == 1)) {
+						&& Math.abs(clickedPiece.getC() - selectedPiece.getC()) == 1)) {
 					int targetRow, targetCol;
 					targetRow = clickedPiece.getR();
 					targetCol = clickedPiece.getC();
@@ -342,15 +340,11 @@ public class Board extends GCompound implements Clickable {
 					// Perform the swap
 					this.swapPiece(this.selectedPiece.getR(), this.selectedPiece.getC(), targetRow, targetCol);
 					this.updatePieceLocations();
-					if (this.numberOfMatches() > 0) {
+					while(this.numberOfMatches() > 0){
 						this.removeMatches();
 						this.doGravity();
-						this.updatePieceLocations();
-					} else {
-						// The swap was invalid, swap it back
-//						this.swapPiece(this.selectedPiece.getR(), this.selectedPiece.getC(), targetRow, targetCol);
-//						this.updatePieceLocations();
 					}
+					this.updatePieceLocations();
 				}
 				selectedPiece = null;
 			}

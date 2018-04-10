@@ -285,26 +285,29 @@ public class Board extends GCompound implements Clickable {
 		}
 	}
 
-	public boolean shiftDown() {
-		boolean changed = false;
-		for (int screenCol = 0; screenCol < this.boardLength; screenCol++) {
-			for (int screenRow = 0; screenRow < this.boardLength; screenRow++) {
-				BetterPiece p = this.getPiece(screenRow, screenCol);
-				if (p == null)
-					continue;
-				int targetRow = screenRow + 1;
-				if (!this.inBounds(screenCol, targetRow)) {
-					continue;
-				}
-				if (this.getPiece(targetRow, screenCol) == null) {
-					// We found a piece with an empty piece below it, shift down
-					this.setPiece(null, screenRow, screenCol);
-					this.setPiece(p, targetRow, screenCol);
-					changed = true;
+	public void shiftDown() {
+		boolean changed;
+		do {
+			changed = false;
+			for (int screenCol = 0; screenCol < this.boardLength; screenCol++) {
+				for (int screenRow = 0; screenRow < this.boardLength; screenRow++) {
+					BetterPiece p = this.getPiece(screenRow, screenCol);
+					if (p == null)
+						continue;
+					int targetRow = screenRow + 1;
+					if (!this.inBounds(screenCol, targetRow)) {
+						continue;
+					}
+					if (this.getPiece(targetRow, screenCol) == null) {
+						// We found a piece with an empty piece below it, shift down
+						this.setPiece(null, screenRow, screenCol);
+						this.setPiece(p, targetRow, screenCol);
+						changed = true;
+					}
 				}
 			}
-		}
-		return changed;
+		} while (changed);
+		updatePieceLocations();
 	}
 
 	public boolean refill() {
@@ -320,14 +323,6 @@ public class Board extends GCompound implements Clickable {
 			}
 		}
 		return refilled;
-	}
-
-	public void doGravity() {
-		do {
-			while (shiftDown()) {
-				// Don't do anything
-			}
-		} while (refill());
 	}
 
 	public BetterPiece getPiece(int screenRow, int screenCol) {

@@ -65,6 +65,13 @@ public class MainGameplayScreen extends Screen implements ActionListener
 			}
 			
 		}));
+		// TODO 4/10/18: This is only a temporary button for testing, we probably should remove this eventually
+		this.add(new GButton("Shift Down", 750, 600, 100, 50, new ClickAction() {
+			@Override
+			public void onClick(MouseEvent event) {
+				board.shiftDown();
+			}
+		}));
 		this.addComponents();
 		run();
 	}

@@ -37,7 +37,7 @@ public class MenuScreen extends Screen {
 	 * Display title: "Three's A Company
 	 */
 	public void displayTitle() {
-		GLabel displayTitle = new GLabel("Three's A Company", 40, 150);
+		GLabel displayTitle = new GLabel("Three's A Company", 175, 150);
 
 		add(displayTitle);
 		displayTitle.setColor(Color.RED);
@@ -48,7 +48,7 @@ public class MenuScreen extends Screen {
 	 * Displays the playButton
 	 */
 	public void showPlayButton() {
-		playButton = new GButton("PLAY", 300, 315, 115, 50, new ClickAction() {
+		playButton = new GButton("PLAY", 450, 315, 115, 50, new ClickAction() {
 				@Override
 				public void onClick(MouseEvent event) {
 					game.switchToScreen(new MainGameplayScreen(game, WINDOW_WIDTH, WINDOW_HEIGHT));
@@ -60,7 +60,7 @@ public class MenuScreen extends Screen {
 	 * Displays the quitButton
 	 */
 	public void showQuitButton() {
-		quitButton = new GButton("QUIT", 300, 440, 115, 50, new ClickAction() {
+		quitButton = new GButton("QUIT", 450, 440, 115, 50, new ClickAction() {
 				@Override
 				public void onClick(MouseEvent event) {
 					System.out.println("click on quit");
@@ -73,7 +73,7 @@ public class MenuScreen extends Screen {
 	 * Display the tutorialButton
 	 */
 	public void showTutorialButton() {
-		tutorialButton = new GButton("?", 600, 615, 50, 50, new ClickAction() {
+		tutorialButton = new GButton("?", 900, 615, 50, 50, new ClickAction() {
 			@Override
 			public void onClick(MouseEvent event) {
 				System.out.println("click on tutorial");

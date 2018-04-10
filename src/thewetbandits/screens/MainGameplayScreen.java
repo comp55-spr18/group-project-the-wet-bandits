@@ -170,8 +170,13 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	 * This implements the timer count down for TIMED MODE (Not yet implemented)
 	 */
 	public void actionPerformed(ActionEvent e) {
-		myTime.setLabel("Time: " + mins + ":" + secs);
-		secs--;
+		if(secs > 9) {
+			myTime.setLabel("Time: " + mins + ":" + secs);
+			secs--;
+		} else if (secs <= 9) {
+			myTime.setLabel("Time: " + mins + ":0" + secs);
+			secs--;
+		}
 		if(secs < 0) {
 			secs = 59;
 			mins--;

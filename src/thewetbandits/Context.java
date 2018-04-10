@@ -28,13 +28,13 @@ public class Context extends Screen {
 	
 	public void tutorial() {
 		tutorial = new GParagraph("-Minimum of 3 jewels in a row to get a match."
-				+ "\n-Scoring matches in a row will earn you a score multiplier.", 50, 250);
+				+ "\n-Scoring matches in a row will earn you a score multiplier.", 150, 250);
 		tutorial.setFont("Bradley Hand ITC-Bold-22");
 		add(tutorial);
 	}
 	
 	public void exit() {
-		exit = new GButton("X", 600, 100, 50, 50,  new ClickAction() {
+		exit = new GButton("X", 850, 75, 50, 50,  new ClickAction() {
 			@Override
 			public void onClick(MouseEvent event) {
 				System.out.println("click on tutorial");

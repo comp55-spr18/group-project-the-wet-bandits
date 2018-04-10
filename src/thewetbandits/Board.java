@@ -12,6 +12,7 @@ import thewetbandits.utils.Clickable;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
@@ -218,30 +219,51 @@ public class Board extends GCompound implements Clickable {
 				p = board[r][c];
 				if (p == null)
 					continue;
-				if (inBounds(r, c + 1) && board[r][c + 1] != null && p.getColorType() == board[r][c + 1].getColorType()
-						&& inBounds(r, c + 2) && board[r][c + 2] != null
-						&& p.getColorType() == board[r][c + 2].getColorType()) {
-					System.out.println("found match");
-					remove(board[r][c]);
-					board[r][c] = null;
-					remove(board[r][c + 1]);
-					board[r][c + 1] = null;
-					remove(board[r][c + 2]);
-					board[r][c + 2] = null;
+				HashSet<BetterPiece> rowChain = buildChain(r, c, 1, 0);
+				HashSet<BetterPiece> colChain = buildChain(r, c, 0, 1);
+
+				if (rowChain.size() >= 3) {
+					for (BetterPiece p1 : rowChain) {
+						board[p1.getR()][p1.getC()] = null;
+						remove(p1);
+					}
 				}
-				if (inBounds(r + 1, c) && board[r + 1][c] != null && p.getColorType() == board[r + 1][c].getColorType()
-						&& inBounds(r + 2, c) && board[r + 2][c] != null
-						&& p.getColorType() == board[r + 2][c].getColorType()) {
-					System.out.println("found match");
-					remove(board[r][c]);
-					board[r][c] = null;
-					remove(board[r + 1][c]);
-					board[r + 1][c] = null;
-					remove(board[r + 2][c]);
-					board[r + 2][c] = null;
+				if (colChain.size() >= 3) {
+					for (BetterPiece p1 : colChain) {
+						board[p1.getR()][p1.getC()] = null;
+						remove(p1);
+					}
 				}
 			}
 		}
+	}
+
+	/**
+	 * Constructs a chain of pieces (going in the positive row and col)
+	 *
+	 * @param row    The start row
+	 * @param col    The end row
+	 * @param deltaR The change in row
+	 * @param deltaC The change in column
+	 * @return The chain
+	 */
+	private HashSet<BetterPiece> buildChain(int row, int col, int deltaR, int deltaC) {
+		BetterPiece piece = board[row][col];
+		HashSet<BetterPiece> chain = new HashSet<>();
+		for (int i = 0; i < boardLength; i++) {
+			int targetRow = row + (i * deltaR);
+			int targetCol = col + (i * deltaC);
+			if (!inBounds(targetRow, targetCol))
+				break;
+			BetterPiece target = board[targetRow][targetCol];
+			if (target == null) {
+				break;
+			}
+			if (target.getColorType() != piece.getColorType())
+				break;
+			chain.add(target);
+		}
+		return chain;
 	}
 
 	private void addComponents() {
@@ -300,12 +322,12 @@ public class Board extends GCompound implements Clickable {
 		return refilled;
 	}
 
-	public void doGravity(){
+	public void doGravity() {
 		do {
-			while(shiftDown()){
+			while (shiftDown()) {
 				// Don't do anything
 			}
-		} while(refill());
+		} while (refill());
 	}
 
 	public BetterPiece getPiece(int screenRow, int screenCol) {
@@ -340,10 +362,7 @@ public class Board extends GCompound implements Clickable {
 					// Perform the swap
 					this.swapPiece(this.selectedPiece.getR(), this.selectedPiece.getC(), targetRow, targetCol);
 					this.updatePieceLocations();
-					while(this.numberOfMatches() > 0){
-						this.removeMatches();
-						this.doGravity();
-					}
+					this.removeMatches();
 					this.updatePieceLocations();
 				}
 				selectedPiece = null;

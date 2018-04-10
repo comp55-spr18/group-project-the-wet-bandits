@@ -1,20 +1,16 @@
 package test;
 
-import java.awt.Color;
+import acm.graphics.GCompound;
+import acm.graphics.GImage;
+import acm.graphics.GOval;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
-
-import javax.swing.Timer;
-
-import acm.graphics.GCompound;
-import acm.graphics.GImage;
-import acm.graphics.GOval;
-import thewetbandits.screens.MovementTestScreen;
 
 public class BetterPiece extends GCompound
 {

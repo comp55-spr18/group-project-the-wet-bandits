@@ -1,20 +1,16 @@
 package thewetbandits.screens;
 
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-
-import javax.swing.Timer;
-
-import acm.graphics.GObject;
 import acm.graphics.GLabel;
-import test.BetterBoard;
-import test.BetterPiece;
 import thewetbandits.Board;
 import thewetbandits.MatchThreeGame;
 import thewetbandits.utils.ClickAction;
 import thewetbandits.utils.GButton;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 
 /**
  * @author Jacob Faulk Created Mar 30, 2018
@@ -23,7 +19,7 @@ import thewetbandits.utils.GButton;
  */
 public class MainGameplayScreen extends Screen implements ActionListener
 {
-	private static final int BOARD_SIZE = 10;
+	private static final int BOARD_SIZE = 5;
 	public Board board;
 	private int width;
 	private int height;

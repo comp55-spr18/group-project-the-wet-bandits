@@ -160,6 +160,8 @@ public class MainGameplayScreen extends Screen implements ActionListener
 				@Override
 				public void onClick(MouseEvent event) {
 					System.out.println("Pressing Quit");
+					System.out.println("click on quit");
+					System.exit(0);
 					//go to MenuScreen
 					//switchToScreen();
 				}});

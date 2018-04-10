@@ -13,6 +13,7 @@ import javax.swing.Timer;
 
 import acm.graphics.GCompound;
 import acm.graphics.GImage;
+import acm.graphics.GOval;
 import thewetbandits.screens.MovementTestScreen;
 
 public class BetterPiece extends GCompound
@@ -21,25 +22,35 @@ public class BetterPiece extends GCompound
 	private static final int MOVEMENT_SPEED = 5;
 	private static final int MOVEMENT_FREQUENCY = 13;
 	private static final Random random = new Random();
-	
-	// Store a list of weak references (so the pieces can be garbage collected correctly) of pieces to update
+
+	// Store a list of weak references (so the pieces can be garbage collected
+	// correctly) of pieces to update
 	private static ArrayList<WeakReference<BetterPiece>> pieces = new ArrayList<>();
 	private static Timer updateTimer;
-	
-	static {
-		updateTimer = new Timer(MOVEMENT_FREQUENCY, new ActionListener() {
+
+	static
+	{
+		updateTimer = new Timer(MOVEMENT_FREQUENCY, new ActionListener()
+		{
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				// Timers are async so synchronize access to the array list so we don't break everything with CMEs
-				synchronized(pieces) {
+			public void actionPerformed(ActionEvent e)
+			{
+				// Timers are async so synchronize access to the array list so we don't break
+				// everything with CMEs
+				synchronized(pieces)
+				{
 					Iterator<WeakReference<BetterPiece>> iterator = pieces.iterator();
-					while(iterator.hasNext()) {
-						WeakReference<BetterPiece> pieceReference =  iterator.next();
+					while(iterator.hasNext())
+					{
+						WeakReference<BetterPiece> pieceReference = iterator.next();
 						BetterPiece piece = pieceReference.get();
-						if(piece == null) {
+						if(piece == null)
+						{
 							// The piece has been garbage collected, remove it from the list
 							iterator.remove();
-						} else {
+						}
+						else
+						{
 							// The piece is still in memory, tell it to update its location
 							piece.updateLocation();
 						}
@@ -54,9 +65,10 @@ public class BetterPiece extends GCompound
 
 	private GImage image;
 	private GImage imageAnimated;
+	private GOval testOval;
 
 	private int x, y, size, r, c;
-	
+
 	private int targetX, targetY;
 
 	private boolean active = false;
@@ -87,9 +99,9 @@ public class BetterPiece extends GCompound
 		this.targetY = this.y;
 		this.r = r;
 		this.c = c;
-		
 		// Add the piece to the list of pieces to update
-		synchronized(pieces) {
+		synchronized(pieces)
+		{
 			pieces.add(new WeakReference<>(this));
 		}
 	}
@@ -98,12 +110,12 @@ public class BetterPiece extends GCompound
 	{
 		return Color.values()[random.nextInt(Color.values().length)];
 	}
-	
+
 	public Color setGemColor(BetterPiece[][] b)
 	{
 		return Color.values()[random.nextInt(Color.values().length)];
 	}
-	
+
 	public void reposition(int x, int y, int size)
 	{
 		this.x = x;
@@ -114,7 +126,7 @@ public class BetterPiece extends GCompound
 		this.updateImage();
 		this.setLocation(x, y);
 	}
-	
+
 	public void updateRowCol(int r, int c)
 	{
 		this.r = r;
@@ -137,6 +149,8 @@ public class BetterPiece extends GCompound
 		this.imageAnimated = new GImage(this.color.toString().toLowerCase() + "_gem_animated.gif");
 		this.imageAnimated.setSize(this.size, this.size);
 		this.image.setSize(this.size, this.size);
+		this.testOval = new GOval(size,size);
+		this.testOval.setColor(this.color.getColor());
 		updateImage();
 		this.setLocation(this.x, this.y);
 	}
@@ -148,22 +162,29 @@ public class BetterPiece extends GCompound
 		add(active ? this.imageAnimated : this.image);
 	}
 
+	public void clearPiece()
+	{
+		remove(this.image);
+		remove(this.imageAnimated);
+		add(testOval);
+	}
+
 	public void toggleActive()
 	{
 		this.active = !this.active;
 		this.updateImage();
 	}
-	
+
 	public Color getColorType()
 	{
 		return color;
 	}
-	
-	private void updateLocation() 
+
+	private void updateLocation()
 	{
 		double deltaX = this.targetX - this.getX();
 		double deltaY = this.targetY - this.getY();
-		
+
 		if(deltaX < -MOVEMENT_SPEED)
 			deltaX = -MOVEMENT_SPEED;
 		if(deltaX > MOVEMENT_SPEED)
@@ -172,9 +193,9 @@ public class BetterPiece extends GCompound
 			deltaY = -MOVEMENT_SPEED;
 		if(deltaY > MOVEMENT_SPEED)
 			deltaY = MOVEMENT_SPEED;
-		
+
 		this.move(deltaX, deltaY);
-		
+
 		this.x = (int) this.getX();
 		this.y = (int) this.getY();
 	}
@@ -197,12 +218,14 @@ public class BetterPiece extends GCompound
 		}
 	}
 
-	public void setTargetLocation(int x, int y) {
+	public void setTargetLocation(int x, int y)
+	{
 		this.targetX = x;
 		this.targetY = y;
 	}
-	
-	public void setPosition(double x, double y) {
+
+	public void setPosition(double x, double y)
+	{
 		this.targetX = (int) x;
 		this.targetY = (int) y;
 		super.setLocation(x, y);

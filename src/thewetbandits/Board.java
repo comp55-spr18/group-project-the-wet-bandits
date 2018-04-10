@@ -239,6 +239,35 @@ public class Board extends GCompound implements Clickable
 		return numMatches;
 	}
 
+	private void removeMatches()
+	{
+		System.out.println("removeMatches() called");
+		BetterPiece p;
+		for(int r = 0; r < boardLength; r++)
+		{
+			for(int c = 0; c < boardLength; c++)
+			{
+				p = board[r][c];
+				if(inBounds(r, c + 1) && p.getColorType() == board[r][c + 1].getColorType() && inBounds(r, c + 2)
+						&& p.getColorType() == board[r][c + 2].getColorType())
+				{
+					System.out.println("found match");
+					board[r][c].clearPiece();
+					board[r][c + 1].clearPiece();
+					board[r][c + 2].clearPiece();
+				}
+				if(inBounds(r + 1, c) && p.getColorType() == board[r + 1][c].getColorType() && inBounds(r + 2, c)
+						&& p.getColorType() == board[r + 2][c].getColorType())
+				{
+					System.out.println("found match");
+					board[r][c].clearPiece();
+					board[r + 1][c].clearPiece();
+					board[r + 2][c].clearPiece();
+				}
+			}
+		}
+	}
+
 	private void addComponents()
 	{
 		GRect r = new GRect(spaceSize - ((spaceSize - pieceSize)) / 2, spaceSize - ((spaceSize - pieceSize) / 2),
@@ -288,10 +317,13 @@ public class Board extends GCompound implements Clickable
 					((BetterPiece) o).updateRowCol(newR, newC);
 					selectedPiece.setTargetLocation((int) ((BetterPiece) o).getX(), (int) ((BetterPiece) o).getY());
 					((BetterPiece) o).setTargetLocation((int) selectedPiece.getX(), (int) selectedPiece.getY());
+					board[((BetterPiece) o).getR()][((BetterPiece) o).getC()] = ((BetterPiece) o);
+					board[selectedPiece.getR()][selectedPiece.getC()] = selectedPiece;
 				}
 				selectedPiece = null;
 			}
 		}
+		removeMatches();
 	}
 
 	private int translateXToLocalSpace(int x)

@@ -72,6 +72,13 @@ public class MainGameplayScreen extends Screen implements ActionListener
 				board.shiftDown();
 			}
 		}));
+		//TODO remove this one as well
+		this.add(new GButton("Refill", 850, 600, 50, 50, new ClickAction() {
+			@Override
+			public void onClick(MouseEvent event) {
+				board.refill();
+			}
+		}));
 		this.addComponents();
 		run();
 	}

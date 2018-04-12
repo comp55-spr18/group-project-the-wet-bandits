@@ -21,7 +21,6 @@ import java.util.Random;
 public class Board extends GCompound implements Clickable
 {
 	private BetterPiece[][] board;
-	private List<LinkedList<BetterPiece>> queuedPieces;
 	private int pieceSize;
 	private int boardLength;
 	private int spaceSize;
@@ -54,15 +53,6 @@ public class Board extends GCompound implements Clickable
 		for(int r = 0; r < board.length; r++)
 			for(int c = 0; c < board[0].length; c++)
 				board[r][c] = new BetterPiece(spaceSize * (r + 1), spaceSize * (c + 1), pieceSize, r, c);
-		queuedPieces = new ArrayList<LinkedList<BetterPiece>>(boardLength);
-		for(int i = 0; i < boardLength; i++)
-		{
-			queuedPieces.add(i, new LinkedList<BetterPiece>());
-			for(int j = 0; j < boardLength; i++)
-			{
-				queuedPieces.get(i).add(new BetterPiece(spaceSize * (i + 1), 0, pieceSize, 0, 0));
-			}
-		}
 		verticalLines = new Line2D.Double[boardLength - 1];
 		horizontalLines = new Line2D.Double[boardLength - 1];
 		for(int i = 2; i <= boardLength; i++)

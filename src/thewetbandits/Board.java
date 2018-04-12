@@ -390,6 +390,15 @@ public class Board extends GCompound implements Clickable
 		return refilled;
 	}
 
+	public boolean hasEmptySpaces()
+	{
+		for(int r = 0; r < board.length; r++)
+			for(int c = 0; c < board[0].length; c++)
+				if(board[r][c] == null)
+					return true;
+		return false;
+	}
+
 	public BetterPiece getPiece(int screenRow, int screenCol)
 	{
 		return this.board[screenCol][screenRow];

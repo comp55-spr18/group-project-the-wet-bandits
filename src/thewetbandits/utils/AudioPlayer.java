@@ -24,6 +24,7 @@ public final class AudioPlayer {
 	private static class AudioPlayerInit {
 		public static final AudioPlayer instance = new AudioPlayer();
 	}
+	
 
 	private AudioPlayer() {
 		final JFXPanel fxPanel = new JFXPanel();

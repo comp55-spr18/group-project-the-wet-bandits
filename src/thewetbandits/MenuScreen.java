@@ -4,6 +4,7 @@ import thewetbandits.MenuScreen;
 import thewetbandits.Context;
 import thewetbandits.screens.Screen;
 import thewetbandits.screens.MainGameplayScreen;
+import thewetbandits.utils.AudioPlayer;
 import thewetbandits.utils.ClickAction;
 import thewetbandits.utils.GButton;
 
@@ -11,6 +12,15 @@ import java.awt.event.MouseEvent;
 import acm.graphics.*;
 import java.awt.Color;
 
+	/**
+	 * 
+	 * @author John Thao
+	 *		with help from Austin Whyte
+	 *
+	 *		MenuScreen displays the very beginning screen, it consist of the following
+	 *		title, play button, quit button, and a instruction button.
+	 *		
+	 */
 
 public class MenuScreen extends Screen {
 	public static final int WINDOW_WIDTH = 1000;
@@ -18,7 +28,10 @@ public class MenuScreen extends Screen {
 	private GButton playButton;
 	private GButton quitButton;
 	private GButton tutorialButton;
+	private GButton settingButton;
 	private MatchThreeGame game;
+	public AudioPlayer audio;
+	private String music = "music.mp3";
 	private Color buttonColor = new Color(0, 0, 125);
 	
 	public MenuScreen(MatchThreeGame app) {
@@ -31,9 +44,10 @@ public class MenuScreen extends Screen {
 		GImage background = new GImage("background.gif" ,0, 0);
 		background.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		add(background);
-		
+		music();
 		displayTitle();
 		showPlayButton();
+		//showSetting();
 		showQuitButton();
 		showTutorialButton();
 	}
@@ -63,6 +77,17 @@ public class MenuScreen extends Screen {
 		add(playButton);
 	};
 	
+	public void showSetting() {
+		settingButton = new GButton("SETTING", 450, 375, 115, 50, new ClickAction() {
+			@Override
+			public void onClick(MouseEvent event) {
+				game.switchToScreen(new MainGameplayScreen(game, WINDOW_WIDTH, WINDOW_HEIGHT));
+			}});
+		settingButton.setColor(Color.WHITE);
+		settingButton.setFillColor(buttonColor);
+		add(settingButton);
+	}
+	
 	/**
 	 * Displays the quitButton, clicking on it would exit out of the game and close it
 	 */
@@ -91,6 +116,16 @@ public class MenuScreen extends Screen {
 		tutorialButton.setColor(Color.WHITE);
 		tutorialButton.setFillColor(buttonColor);
 		add(tutorialButton);
+	}
+	
+	/**
+	 * Plays music, defaulting a song right now.
+	 */
+	
+
+	public void music() {
+		AudioPlayer audio = AudioPlayer.getInstance();
+		audio.playSound("", music, true);
 	}
 }
 

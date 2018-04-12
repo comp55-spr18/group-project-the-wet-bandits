@@ -6,9 +6,19 @@ import java.awt.event.MouseEvent;
 import acm.graphics.GImage;
 import thewetbandits.screens.Screen;
 import thewetbandits.MenuScreen;
+import thewetbandits.utils.AudioPlayer;
 import thewetbandits.utils.ClickAction;
 import thewetbandits.utils.GButton;
 import thewetbandits.utils.GParagraph;
+
+	/**
+	 * 
+	 * @author John Thao
+	 *
+	 *		Context displays the set of instructions for the game, it
+	 *		also consist of the back button to return to the MenuScreen again.		
+	 *
+	 */
 
 public class Context extends Screen {
 	public static final int WINDOW_WIDTH = 1000;
@@ -17,6 +27,8 @@ public class Context extends Screen {
 	private GButton exit;
 	private MatchThreeGame menu;
 	private Color buttonColor = new Color(0,0, 125);
+	AudioPlayer audio = AudioPlayer.getInstance();
+	private String music = "music.mp3";
 
 	public Context(MatchThreeGame app) {
 		super(app);
@@ -27,6 +39,7 @@ public class Context extends Screen {
 	public void run() {
 		GImage background = new GImage("background.gif" ,0, 0);
 		background.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+		audio.stopSound("", music);
 		add(background);
 		tutorial();
 		exit();

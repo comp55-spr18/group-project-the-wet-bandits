@@ -28,6 +28,7 @@ public class Board extends GCompound implements Clickable
 	private int screenSize;
 	private MatchThreeGame app;
 	private BetterPiece selectedPiece;
+	private int score;
 
 	/**
 	 * Constructor for Board specifying the dimensions of the Screen it will reside
@@ -40,6 +41,7 @@ public class Board extends GCompound implements Clickable
 	 */
 	public Board(int screenSize, int boardLength, MatchThreeGame app)
 	{
+		this.score = 0;
 		this.app = app;
 		this.screenSize = screenSize;
 		this.boardLength = boardLength;
@@ -263,6 +265,7 @@ public class Board extends GCompound implements Clickable
 
 				if(rowChain.size() >= 3)
 				{
+					score += 100 * (rowChain.size() - 2);
 					for(BetterPiece p1 : rowChain)
 					{
 						board[p1.getR()][p1.getC()] = null;
@@ -271,6 +274,7 @@ public class Board extends GCompound implements Clickable
 				}
 				if(colChain.size() >= 3)
 				{
+					score += 100 * (colChain.size() - 2);
 					for(BetterPiece p1 : colChain)
 					{
 						board[p1.getR()][p1.getC()] = null;
@@ -279,6 +283,14 @@ public class Board extends GCompound implements Clickable
 				}
 			}
 		}
+	}
+
+	/**
+	 * @return the score
+	 */
+	public int getScore()
+	{
+		return score;
 	}
 
 	/**

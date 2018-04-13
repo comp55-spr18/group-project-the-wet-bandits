@@ -29,6 +29,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	private int secs = 0;
 	private int mins = 5;
 	private GLabel myTime;
+	private GLabel displayScore;
 	Timer someTimerVar = new Timer(1000, this);
 
 	/**
@@ -126,7 +127,6 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	/**
 	 * Displays the title
 	 */
-
 	public void displayTitle()
 	{
 		GLabel displayTitle = new GLabel("Three's A Company", 675, 50);
@@ -140,10 +140,9 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	 * Displays the player score - Need to make some sort of score counter which
 	 * communicates with matches
 	 */
-
 	public void displayScore()
 	{
-		GLabel displayScore = new GLabel("Score: ", 675, 200);
+		displayScore = new GLabel("Score: " + board.getScore(), 675, 200);
 
 		add(displayScore);
 		displayScore.setFont("Times Roman-40");
@@ -152,7 +151,6 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	/**
 	 * Displays the time and moves left (These modes are not yet implemented)
 	 */
-
 	public void displayMovesTime()
 	{
 		GLabel movesAndTime = new GLabel("Moves left: 50", 200, 40);
@@ -165,7 +163,6 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	 * Displays the pause button - need to make it pause and go to some sort of
 	 * pause screen - then add a button to come back to the board
 	 */
-
 	public void displayPause()
 	{
 		pauseButton = new GButton("PAUSE", 750, 400, 150, 50, new ClickAction()
@@ -185,7 +182,6 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	/**
 	 * Displays the quit button - need to make it go to the MenuScreen
 	 */
-
 	public void displayQuit()
 	{
 		quitButton = new GButton("QUIT", 750, 500, 150, 50, new ClickAction()
@@ -208,6 +204,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	 */
 	public void actionPerformed(ActionEvent e)
 	{
+		displayScore.setLabel("Score: " + board.getScore());
 		if(secs > 9)
 		{
 			myTime.setLabel("Time: " + mins + ":" + secs);

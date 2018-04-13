@@ -13,9 +13,7 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 import java.util.Random;
 
 public class Board extends GCompound implements Clickable
@@ -463,11 +461,11 @@ public class Board extends GCompound implements Clickable
 
 	private int translateXToLocalSpace(int x)
 	{
-		return x;// - this.x;
+		return x - (int) this.getX();
 	}
 
 	private int translateYToLocalSpace(int y)
 	{
-		return y;// - this.y;
+		return y - (int) this.getY();
 	}
 }

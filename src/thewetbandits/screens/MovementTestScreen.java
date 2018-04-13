@@ -30,9 +30,11 @@ public class MovementTestScreen extends Screen {
 					piece.setTargetLocation(60, 60);
 					piece.setPose(new Pose(60, 60, 40, 40));
 					piece.setPose(new Pose(120, 60, 40, 20));
+					piece.setPose(new Pose(300, 300, 120, 120, 1000));
 				} else {
 					piece.setTargetLocation(120, 150);
 					piece.setPose(new Pose(120, 150, 20, 20));
+					piece.setPose(new Pose(60, 60, 20, 20, 3000));
 				}
 				state = !state;
 			}

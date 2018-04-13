@@ -46,6 +46,7 @@ public class BetterPiece extends GCompound {
 									&& piece.targetPose.reachedPos(piece)) {
 								if (!piece.poses.isEmpty()) {
 									piece.targetPose = piece.poses.pop();
+									piece.targetPose.start();
 								}else {
 									piece.targetPose = null;
 								}
@@ -170,6 +171,7 @@ public class BetterPiece extends GCompound {
 	public void setPose(Pose pose) {
 		if (targetPose == null) {
 			this.targetPose = pose;
+			this.targetPose.start();
 		} else {
 			this.poses.add(pose);
 		}
@@ -180,7 +182,7 @@ public class BetterPiece extends GCompound {
 	}
 
 	private void updatePose() {
-		if (this.targetPose == null)
+		if (this.targetPose == null || !this.targetPose.shouldAnimate())
 			return;
 		double deltaX = Pose.clamp(this.targetPose.getX() - this.getX(), -MOVEMENT_SPEED, MOVEMENT_SPEED);
 		double deltaY = Pose.clamp(this.targetPose.getY() - this.getY(), -MOVEMENT_SPEED, MOVEMENT_SPEED);

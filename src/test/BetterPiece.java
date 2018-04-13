@@ -49,6 +49,10 @@ public class BetterPiece extends GCompound {
 									piece.targetPose.start();
 								}else {
 									piece.targetPose = null;
+									if(piece.animationCallback != null){
+										piece.animationCallback.run();
+										piece.animationCallback = null;
+									}
 								}
 							}
 							piece.updatePose();
@@ -74,6 +78,8 @@ public class BetterPiece extends GCompound {
 	private Pose targetPose;
 
 	private LinkedList<Pose> poses = new LinkedList<>();
+
+	private Runnable animationCallback;
 
 	/**
 	 * Constructor where color and image are randomly chosen out of a predefined set
@@ -107,6 +113,17 @@ public class BetterPiece extends GCompound {
 
 	private static Color getRandomColor() {
 		return Color.values()[random.nextInt(Color.values().length)];
+	}
+
+	public static boolean arePiecesAnimating(){
+		for(WeakReference<BetterPiece> ref : pieces){
+			BetterPiece p = ref.get();
+			if(p != null){
+				if(p.animating())
+					return true;
+			}
+		}
+		return false;
 	}
 
 	public Color setGemColor(BetterPiece[][] b) {
@@ -178,7 +195,7 @@ public class BetterPiece extends GCompound {
 	}
 
 	public boolean animating() {
-		return !this.poses.isEmpty();
+		return !this.poses.isEmpty() || this.targetPose != null;
 	}
 
 	private void updatePose() {
@@ -197,6 +214,10 @@ public class BetterPiece extends GCompound {
 		this.imageAnimated.setSize(newHeight, newWidth);
 		this.x = (int) this.getX();
 		this.y = (int) this.getY();
+	}
+
+	public void setAnimationCallback(Runnable runnable){
+		this.animationCallback = runnable;
 	}
 
 	public enum Color {

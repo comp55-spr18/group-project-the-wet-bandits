@@ -26,20 +26,34 @@ public class MovementTestScreen extends Screen {
 			public void onClick(MouseEvent event) {
 				if(piece.animating())
 					return;
+				MovementTestScreen.this.remove(button);
 				if(state) {
 					piece.setTargetLocation(60, 60);
 					piece.setPose(new Pose(60, 60, 40, 40));
 					piece.setPose(new Pose(120, 60, 40, 20));
 					piece.setPose(new Pose(300, 300, 120, 120, 1000));
+					piece.setAnimationCallback(new Runnable() {
+						@Override
+						public void run() {
+							MovementTestScreen.this.add(button);
+						}
+					});
+
 				} else {
+					MovementTestScreen.this.remove(button);
 					piece.setTargetLocation(120, 150);
 					piece.setPose(new Pose(120, 150, 20, 20));
 					piece.setPose(new Pose(60, 60, 20, 20, 3000));
+					piece.setAnimationCallback(new Runnable() {
+						@Override
+						public void run() {
+							MovementTestScreen.this.add(button);
+						}
+					});
 				}
 				state = !state;
 			}
 		});
-		
 		this.addComponents();
 	}
 	

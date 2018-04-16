@@ -17,8 +17,7 @@ public class ModeSelectScreen extends Screen {
 	private GButton endlessModeButton;
 	private GButton timedModeButton;
 	private GButton limitedMovesModeButton;
-	private String music = "music.mp3";
-	private Color buttonColor = new Color(0, 0, 125);
+	private Color buttonColor = new Color(255, 154, 0);
 
 	public ModeSelectScreen(MatchThreeGame app) {
 		super(app);
@@ -33,7 +32,6 @@ public class ModeSelectScreen extends Screen {
 		displayEndlessModeButton();
 		displayTimedModeButton();
 		displayLimitedMovesModeButton();
-		music();
 	}
 	
 	public void displayEndlessModeButton() {
@@ -71,10 +69,4 @@ public class ModeSelectScreen extends Screen {
 		limitedMovesModeButton.setFillColor(buttonColor);
 		add(limitedMovesModeButton);
 	}
-
-	private void music() {
-		AudioPlayer audio = AudioPlayer.getInstance();
-		audio.playSound("", music, true);
-	}
-
 }

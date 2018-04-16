@@ -32,6 +32,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	protected GLabel myTime;
 	protected GLabel displayScore;
 	protected Timer someTimerVar = new Timer(1000, this);
+	private Color buttonColor = new Color(255, 154, 0);
 
 	/**
 	 * Constructor that specifies the MatchThreeGame and the dimensions of that
@@ -136,7 +137,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		GLabel displayTitle = new GLabel("Three's A Company", 50, 150);
 
 		add(displayTitle);
-		displayTitle.setColor(Color.RED);
+		displayTitle.setColor(Color.ORANGE);
 		displayTitle.setFont("Bradley Hand ITC-Bold-30");
 	}
 
@@ -147,9 +148,10 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	public void displayScore()
 	{
 		displayScore = new GLabel("Score: " + board.getScore(), 75, 200);
-
-		add(displayScore);
+		
 		displayScore.setFont("Times Roman-40");
+		displayScore.setColor(Color.ORANGE);
+		add(displayScore);
 	}
 
 	/**
@@ -179,6 +181,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 				// switchToScreen();
 			}
 		});
+		pauseButton.setFillColor(buttonColor);
 		add(pauseButton);
 
 	}
@@ -200,6 +203,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 				// switchToScreen();
 			}
 		});
+		quitButton.setFillColor(buttonColor);
 		add(quitButton);
 	}
 

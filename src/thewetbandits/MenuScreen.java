@@ -41,7 +41,7 @@ public class MenuScreen extends Screen
 	private URL url;
 	private AudioInputStream audioIn;
 	private Clip clip;
-	private Color buttonColor = new Color(0, 0, 125);
+	private Color buttonColor = new Color(255, 154, 0);
 
 	public MenuScreen(MatchThreeGame app)
 	{
@@ -72,8 +72,8 @@ public class MenuScreen extends Screen
 		GLabel displayTitle = new GLabel("Three's A Company", 175, 150);
 
 		add(displayTitle);
-		displayTitle.setColor(Color.BLUE);
-		displayTitle.setFont("Bradley Hand ITC-Italic-75");
+		displayTitle.setColor(Color.ORANGE);
+		displayTitle.setFont("Bradley Hand ITC-Bold-75");
 	}
 
 	/**

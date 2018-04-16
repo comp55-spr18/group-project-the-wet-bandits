@@ -26,9 +26,9 @@ public class Context extends Screen {
 	private GParagraph tutorial;
 	private GButton exit;
 	private MatchThreeGame menu;
-	private Color buttonColor = new Color(0,0, 125);
+	private Color buttonColor = new Color(255, 154, 0);
 	AudioPlayer audio = AudioPlayer.getInstance();
-	private String music = "music.mp3";
+	private String music = "music.wav";
 
 	public Context(MatchThreeGame app) {
 		super(app);
@@ -49,8 +49,8 @@ public class Context extends Screen {
 	public void tutorial() {
 		tutorial = new GParagraph("-Minimum of 3 jewels in a row to get a match."
 				+ "\n-Scoring matches in a row will earn you a score multiplier.", 150, 250);
-		tutorial.setFont("Bradley Hand ITC-Bold-22");
-		tutorial.setColor(Color.WHITE);
+		tutorial.setFont("Bradley Hand ITC-Bold-25");
+		tutorial.setColor(Color.ORANGE);
 		add(tutorial);
 	}
 	

@@ -1,6 +1,7 @@
 package thewetbandits;
 
 import java.awt.event.ActionEvent;
+import javax.swing.*;
 import acm.graphics.GLabel;
 import thewetbandits.screens.MainGameplayScreen;
 import thewetbandits.utils.GButton;
@@ -40,6 +41,10 @@ public class TimedGameModeScreen extends MainGameplayScreen {
 		{
 			secs = 59;
 			mins--;
+		}
+		if (mins == 0 && secs == 00) {
+			myTime.setLabel("Game Over");
+			someTimerVar.stop();
 		}
 	}
 }

@@ -9,6 +9,11 @@ import thewetbandits.utils.ClickAction;
 import thewetbandits.utils.GButton;
 
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.URL;
+
+import javax.sound.sampled.*;
+
 import acm.graphics.*;
 import java.awt.Color;
 
@@ -29,9 +34,12 @@ public class MenuScreen extends Screen {
 	private GButton quitButton;
 	private GButton tutorialButton;
 	private GButton settingButton;
+	private GButton muteButton;
 	private MatchThreeGame game;
-	public AudioPlayer audio;
-	private String music = "music.mp3";
+	private String music = "music.wav";
+	private URL url;
+	private AudioInputStream audioIn;
+	private Clip clip;
 	private Color buttonColor = new Color(0, 0, 125);
 	
 	public MenuScreen(MatchThreeGame app) {
@@ -50,6 +58,7 @@ public class MenuScreen extends Screen {
 		//showSetting();
 		showQuitButton();
 		showTutorialButton();
+		displayMuteButton();
 	}
 	
 	/**
@@ -118,14 +127,37 @@ public class MenuScreen extends Screen {
 		add(tutorialButton);
 	}
 	
+	public void displayMuteButton() {
+		muteButton = new GButton("Mute", 900, 515, 50, 50, new ClickAction() {
+				@Override
+				public void onClick(MouseEvent event) {
+					clip.stop();
+				}
+		});
+		muteButton.setColor(Color.WHITE);
+		muteButton.setFillColor(buttonColor);
+		add(muteButton);
+	}
+	
 	/**
 	 * Plays music, defaulting a song right now.
 	 */
 	
 
 	public void music() {
-		AudioPlayer audio = AudioPlayer.getInstance();
-		audio.playSound("", music, true);
+		try {
+			url = this.getClass().getClassLoader().getResource(music);
+			audioIn = AudioSystem.getAudioInputStream(url);
+			clip = AudioSystem.getClip();
+			clip.open(audioIn);
+			clip.start();
+		} catch (LineUnavailableException e) {
+			e.printStackTrace();
+		} catch (UnsupportedAudioFileException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
 

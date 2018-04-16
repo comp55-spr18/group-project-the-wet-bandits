@@ -30,6 +30,7 @@ public class MenuScreen extends Screen {
 	private GButton tutorialButton;
 	private GButton settingButton;
 	private MatchThreeGame game;
+	private ModeSelectScreen gameModes;
 	public AudioPlayer audio;
 	private String music = "music.mp3";
 	private Color buttonColor = new Color(0, 0, 125);
@@ -70,7 +71,7 @@ public class MenuScreen extends Screen {
 		playButton = new GButton("PLAY", 450, 315, 115, 50, new ClickAction() {
 				@Override
 				public void onClick(MouseEvent event) {
-					game.switchToScreen(new MainGameplayScreen(game, WINDOW_WIDTH, WINDOW_HEIGHT));
+					game.switchToScreen(new ModeSelectScreen(game));
 				}});
 		playButton.setColor(Color.WHITE);
 		playButton.setFillColor(buttonColor);

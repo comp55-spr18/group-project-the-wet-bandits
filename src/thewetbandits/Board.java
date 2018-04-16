@@ -68,6 +68,10 @@ public class Board extends GCompound implements Clickable
 		this.addComponents();
 	}
 
+	/**
+	 * shuffles the board into a completely random, possibly invalid or unplayable,
+	 * combination of pieces
+	 */
 	public void shuffleBoard()
 	{
 		List<BetterPiece> pieces = new ArrayList<>();
@@ -95,6 +99,9 @@ public class Board extends GCompound implements Clickable
 		this.updatePieceLocations();
 	}
 
+	/**
+	 * sets all pieces to null
+	 */
 	public void clearBoard()
 	{
 		for(int i = 0; i < this.board.length; i++)
@@ -108,6 +115,9 @@ public class Board extends GCompound implements Clickable
 		}
 	}
 
+	/**
+	 * resets the board with completely new, randomized pieces
+	 */
 	public void resetBoard()
 	{
 		this.clearBoard();
@@ -121,6 +131,9 @@ public class Board extends GCompound implements Clickable
 		}
 	}
 
+	/**
+	 * visually moves every piece to the place it is supposed to be in the array
+	 */
 	public void updatePieceLocations()
 	{
 		for(int i = 0; i < this.board.length; i++)
@@ -133,6 +146,12 @@ public class Board extends GCompound implements Clickable
 		}
 	}
 
+	/**
+	 * resizes the board based on a new size
+	 * 
+	 * @param screenSize
+	 *            the size of the area the board is to fit in
+	 */
 	public void updateBounds(int screenSize)
 	{
 		// TODO don't copy code here
@@ -249,6 +268,10 @@ public class Board extends GCompound implements Clickable
 		return numMatches;
 	}
 
+	/**
+	 * removes all matches of 3 or more from the board and gives the user points
+	 * based on the size of the match
+	 */
 	private void removeMatches()
 	{
 		System.out.println("removeMatches() called");
@@ -328,6 +351,9 @@ public class Board extends GCompound implements Clickable
 		return chain;
 	}
 
+	/**
+	 * adds the guiding lines, border, and pieces to the graphics of the board
+	 */
 	private void addComponents()
 	{
 		GRect r = new GRect(spaceSize - ((spaceSize - pieceSize)) / 2, spaceSize - ((spaceSize - pieceSize) / 2),
@@ -351,6 +377,10 @@ public class Board extends GCompound implements Clickable
 		}
 	}
 
+	/**
+	 * shifts pieces down to the lowest position without a piece present, as if
+	 * there was a gravity effect on them
+	 */
 	public void shiftDown()
 	{
 		boolean changed;
@@ -382,6 +412,11 @@ public class Board extends GCompound implements Clickable
 		updatePieceLocations();
 	}
 
+	/**
+	 * refills all the empty pieces in the topmost rows of the board
+	 * 
+	 * @return whether the refill was successful
+	 */
 	public boolean refill()
 	{
 		boolean refilled = false;
@@ -400,6 +435,11 @@ public class Board extends GCompound implements Clickable
 		return refilled;
 	}
 
+	/**
+	 * returns whether there are any empty spaces on the board
+	 * 
+	 * @return true if there is at least one empty space on the board
+	 */
 	public boolean hasEmptySpaces()
 	{
 		for(int r = 0; r < board.length; r++)
@@ -409,11 +449,45 @@ public class Board extends GCompound implements Clickable
 		return false;
 	}
 
+	/**
+	 * Helper method to translate where the piece appears visually to its actual
+	 * position in the array. This method is needed because what appears on the
+	 * board is different than what is actually in the array. For example, what
+	 * would appear to be board[row][col] on the board would actually be represented
+	 * by board[col][row] in the array.
+	 * 
+	 * @param screenRow
+	 *            the row at which the piece appears to be on the visual
+	 *            representation of the board
+	 * @param screenCol
+	 *            the column at which the piece appears to be on the visual
+	 *            representation of the board
+	 * @return a reference to the piece that appears to be at
+	 *         board[screenRow][screenCol]
+	 */
 	public BetterPiece getPiece(int screenRow, int screenCol)
 	{
 		return this.board[screenCol][screenRow];
 	}
 
+	/**
+	 * Sets the piece at board[screenCol][screenRow] to the specified piece, and
+	 * updates the references inside the piece accordingly. This row and column
+	 * references are reversed because what appears on the board is different than
+	 * what is actually in the array. For example, what would appear to be
+	 * board[row][col] on the board would actually be represented by board[col][row]
+	 * in the array.
+	 * 
+	 * @param piece
+	 *            the piece to be inserted into the board at
+	 *            board[screenCol][screenRow]
+	 * @param screenRow
+	 *            the row at which the piece will appear to be on the visual
+	 *            representation of the board
+	 * @param screenCol
+	 *            the column at which the piece will appear to be on the visual
+	 *            representation of the board
+	 */
 	public void setPiece(BetterPiece piece, int screenRow, int screenCol)
 	{
 		this.board[screenCol][screenRow] = piece;
@@ -458,6 +532,18 @@ public class Board extends GCompound implements Clickable
 		}
 	}
 
+	/**
+	 * swaps the piece at board[r1][c1] with the piece at board[r2][c2]
+	 * 
+	 * @param r1
+	 *            the row of the first piece
+	 * @param c1
+	 *            the column of the first piece
+	 * @param r2
+	 *            the row of the second piece
+	 * @param c2
+	 *            the column of the second piece
+	 */
 	private void swapPiece(int r1, int c1, int r2, int c2)
 	{
 		BetterPiece p1 = this.board[r1][c1];
@@ -471,11 +557,27 @@ public class Board extends GCompound implements Clickable
 		this.board[r2][c2] = p1;
 	}
 
+	/**
+	 * helper method to translate an x coordinate on the screen to an x coordinate
+	 * on the board
+	 * 
+	 * @param x
+	 *            the x location on the screen
+	 * @return the x location on the board
+	 */
 	private int translateXToLocalSpace(int x)
 	{
 		return x - (int) this.getX();
 	}
 
+	/**
+	 * helper method to translate a y coordinate on the screen to a y coordinate on
+	 * the board
+	 * 
+	 * @param y
+	 *            the y location on the screen
+	 * @return the y location on the board
+	 */
 	private int translateYToLocalSpace(int y)
 	{
 		return y - (int) this.getY();

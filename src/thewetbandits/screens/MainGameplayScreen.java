@@ -49,10 +49,10 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		this.width = width;
 		this.height = height;
 		board = new Board(width < height ? width : height, BOARD_SIZE, app);
-		// board.setLocation(300, 25);
+		board.setLocation(300, 25);
 		while(board.numberOfMatches() > 0 || board.numberOfPossibleMoves() <= 0)
 			board.shuffleBoard();
-		this.add(new GButton("Randomize", 20, 20, 100, 50, new ClickAction()
+		this.add(new GButton("Randomize", 75, 250, 100, 50, new ClickAction()
 		{
 
 			@Override
@@ -72,7 +72,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		}));
 		// TODO 4/10/18: This is only a temporary button for testing, we probably should
 		// remove this eventually
-		this.add(new GButton("Shift Down", 750, 600, 100, 50, new ClickAction()
+		this.add(new GButton("Shift Down", 25, 600, 100, 50, new ClickAction()
 		{
 			@Override
 			public void onClick(MouseEvent event)
@@ -81,7 +81,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 			}
 		}));
 		// TODO remove this one as well
-		this.add(new GButton("Refill", 850, 600, 50, 50, new ClickAction()
+		this.add(new GButton("Refill", 125, 600, 50, 50, new ClickAction()
 		{
 			@Override
 			public void onClick(MouseEvent event)
@@ -129,7 +129,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	 */
 	public void displayTitle()
 	{
-		GLabel displayTitle = new GLabel("Three's A Company", 675, 50);
+		GLabel displayTitle = new GLabel("Three's A Company", 50, 150);
 
 		add(displayTitle);
 		displayTitle.setColor(Color.RED);
@@ -142,7 +142,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	 */
 	public void displayScore()
 	{
-		displayScore = new GLabel("Score: " + board.getScore(), 675, 200);
+		displayScore = new GLabel("Score: " + board.getScore(), 75, 200);
 
 		add(displayScore);
 		displayScore.setFont("Times Roman-40");
@@ -165,7 +165,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	 */
 	public void displayPause()
 	{
-		pauseButton = new GButton("PAUSE", 750, 400, 150, 50, new ClickAction()
+		pauseButton = new GButton("PAUSE", 50, 400, 150, 50, new ClickAction()
 		{
 			@Override
 			public void onClick(MouseEvent event)
@@ -184,7 +184,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	 */
 	public void displayQuit()
 	{
-		quitButton = new GButton("QUIT", 750, 500, 150, 50, new ClickAction()
+		quitButton = new GButton("QUIT", 50, 500, 150, 50, new ClickAction()
 		{
 			@Override
 			public void onClick(MouseEvent event)

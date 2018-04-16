@@ -20,17 +20,18 @@ import java.awt.event.MouseEvent;
 public class MainGameplayScreen extends Screen implements ActionListener
 {
 	private static final int BOARD_SIZE = 5;
-	public Board board;
+	protected Board board;
 	private int width;
 	private int height;
+	private String gameMode;
 
 	private GButton pauseButton;
 	private GButton quitButton;
-	private int secs = 0;
-	private int mins = 5;
-	private GLabel myTime;
-	private GLabel displayScore;
-	Timer someTimerVar = new Timer(1000, this);
+	protected int secs = 0;
+	protected int mins;
+	protected GLabel myTime;
+	protected GLabel displayScore;
+	protected Timer someTimerVar = new Timer(1000, this);
 
 	/**
 	 * Constructor that specifies the MatchThreeGame and the dimensions of that
@@ -48,6 +49,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		super(app);
 		this.width = width;
 		this.height = height;
+		this.gameMode = gameMode;
 		board = new Board(width < height ? width : height, BOARD_SIZE, app);
 		board.setLocation(300, 25);
 		while(board.numberOfMatches() > 0 || board.numberOfPossibleMoves() <= 0)
@@ -111,15 +113,17 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	 */
 	public void run()
 	{
-		myTime = new GLabel("Time left: ", 350, 40);
-		add(myTime);
-		myTime.setFont("Bold-15");
-		someTimerVar.setInitialDelay(3);
-		someTimerVar.start();
-
 		displayTitle();
 		displayScore();
-		displayMovesTime();
+		this.mins = 0;
+		myTime = new GLabel("Time Elapsed: ", 350, 40);
+		add(myTime);
+		myTime.setFont("Bold-15");
+		if (gameMode == "Limited Moves") {
+			displayMovesTime();
+		}
+		someTimerVar.setInitialDelay(3);
+		someTimerVar.start();
 		displayPause();
 		displayQuit();
 	}
@@ -207,18 +211,18 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		displayScore.setLabel("Score: " + board.getScore());
 		if(secs > 9)
 		{
-			myTime.setLabel("Time: " + mins + ":" + secs);
-			secs--;
+			myTime.setLabel("Time Elapsed: " + mins + ":" + secs);
+			secs++;
 		}
 		else if(secs <= 9)
 		{
-			myTime.setLabel("Time: " + mins + ":0" + secs);
-			secs--;
+			myTime.setLabel("Time Elapsed: " + mins + ":0" + secs);
+			secs++;
 		}
-		if(secs < 0)
+		if(secs > 59)
 		{
-			secs = 59;
-			mins--;
+			secs = 0;
+			mins++;
 		}
 	}
 

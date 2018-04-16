@@ -52,7 +52,7 @@ public class ModeSelectScreen extends Screen {
 		timedModeButton = new GButton("Timed", 400, 415, 115, 50, new ClickAction() {
 				@Override
 				public void onClick(MouseEvent event) {
-					game.switchToScreen(new MainGameplayScreen(game, WINDOW_WIDTH, WINDOW_HEIGHT));
+					game.switchToScreen(new TimedGameModeScreen(game, WINDOW_WIDTH, WINDOW_HEIGHT));
 				}
 		});
 		timedModeButton.setColor(Color.WHITE);
@@ -61,7 +61,7 @@ public class ModeSelectScreen extends Screen {
 	}
 	
 	public void displayLimitedMovesModeButton() {
-		limitedMovesModeButton = new GButton("Endless", 400, 515, 115, 50, new ClickAction() {
+		limitedMovesModeButton = new GButton("Limited Moves", 400, 515, 115, 50, new ClickAction() {
 				@Override
 				public void onClick(MouseEvent event) {
 					game.switchToScreen(new MainGameplayScreen(game, WINDOW_WIDTH, WINDOW_HEIGHT));

@@ -30,7 +30,6 @@ public class MenuScreen extends Screen {
 	private GButton tutorialButton;
 	private GButton settingButton;
 	private MatchThreeGame game;
-	private ModeSelectScreen gameModes;
 	public AudioPlayer audio;
 	private String music = "music.mp3";
 	private Color buttonColor = new Color(0, 0, 125);

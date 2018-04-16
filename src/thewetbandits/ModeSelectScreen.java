@@ -31,6 +31,8 @@ public class ModeSelectScreen extends Screen {
 		background.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		add(background);
 		displayEndlessModeButton();
+		displayTimedModeButton();
+		displayLimitedMovesModeButton();
 		music();
 	}
 	
@@ -44,6 +46,30 @@ public class ModeSelectScreen extends Screen {
 		endlessModeButton.setColor(Color.WHITE);
 		endlessModeButton.setFillColor(buttonColor);
 		add(endlessModeButton);
+	}
+	
+	public void displayTimedModeButton() {
+		timedModeButton = new GButton("Timed", 400, 415, 115, 50, new ClickAction() {
+				@Override
+				public void onClick(MouseEvent event) {
+					game.switchToScreen(new MainGameplayScreen(game, WINDOW_WIDTH, WINDOW_HEIGHT));
+				}
+		});
+		timedModeButton.setColor(Color.WHITE);
+		timedModeButton.setFillColor(buttonColor);
+		add(timedModeButton);
+	}
+	
+	public void displayLimitedMovesModeButton() {
+		limitedMovesModeButton = new GButton("Endless", 400, 515, 115, 50, new ClickAction() {
+				@Override
+				public void onClick(MouseEvent event) {
+					game.switchToScreen(new MainGameplayScreen(game, WINDOW_WIDTH, WINDOW_HEIGHT));
+				}
+		});
+		limitedMovesModeButton.setColor(Color.WHITE);
+		limitedMovesModeButton.setFillColor(buttonColor);
+		add(limitedMovesModeButton);
 	}
 
 	private void music() {

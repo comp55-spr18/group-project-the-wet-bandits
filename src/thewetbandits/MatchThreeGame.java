@@ -16,7 +16,7 @@ public class MatchThreeGame extends GraphicsApplication
 	public static final int WINDOW_HEIGHT = 700;
 	public static final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
 	private MainGameplayScreen testScreen = new MainGameplayScreen(this, WINDOW_WIDTH, WINDOW_HEIGHT);
-	private MenuScreen testMenu = new MenuScreen(this);
+	private MenuScreen menu = new MenuScreen(this);
 
 	/**
 	 * initializes MatchThreeGame according to the specified width and height
@@ -33,7 +33,7 @@ public class MatchThreeGame extends GraphicsApplication
 	{
 		// testScreen = new TestGameScreen(this, WINDOW_WIDTH, WINDOW_HEIGHT);
 		//switchToScreen(testScreen);
-		switchToScreen(testMenu);
+		switchToScreen(menu);
 	}
 
 	/**

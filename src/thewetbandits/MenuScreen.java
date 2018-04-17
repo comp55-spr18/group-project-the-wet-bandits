@@ -171,6 +171,7 @@ public class MenuScreen extends Screen
 	{
 		try
 		{
+			//TODO make volume lower
 			url = this.getClass().getClassLoader().getResource(music);
 			audioIn = AudioSystem.getAudioInputStream(url);
 			clip = AudioSystem.getClip();

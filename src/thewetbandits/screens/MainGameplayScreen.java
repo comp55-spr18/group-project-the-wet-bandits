@@ -212,6 +212,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	 */
 	public void actionPerformed(ActionEvent e)
 	{
+		//TODO make score updates asynchronous
 		displayScore.setLabel("Score: " + board.getScore());
 		if(secs > 9)
 		{

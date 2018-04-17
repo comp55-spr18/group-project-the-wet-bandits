@@ -1,10 +1,10 @@
 package thewetbandits;
 
-import java.awt.Graphics;
-import java.awt.event.MouseEvent;
-
-import thewetbandits.screens.MovementTestScreen;
 import thewetbandits.screens.MainGameplayScreen;
+
+import java.awt.event.MouseEvent;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 /**
  * @author Jacob Faulk Created Mar 28, 2018
@@ -14,6 +14,7 @@ public class MatchThreeGame extends GraphicsApplication
 {
 	public static final int WINDOW_WIDTH = 1000;
 	public static final int WINDOW_HEIGHT = 700;
+	public static final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
 	private MainGameplayScreen testScreen = new MainGameplayScreen(this, WINDOW_WIDTH, WINDOW_HEIGHT);
 	private MenuScreen testMenu = new MenuScreen(this);
 

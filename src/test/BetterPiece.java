@@ -94,6 +94,9 @@ public class BetterPiece extends GCompound
 
 	private Runnable animationCallback;
 
+	private static int nextId = 1;
+	private int id = nextId++;
+
 	/**
 	 * Constructor where color and image are randomly chosen out of a predefined set
 	 *

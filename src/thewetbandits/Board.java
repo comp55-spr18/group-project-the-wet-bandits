@@ -524,8 +524,24 @@ public class Board extends GCompound implements Clickable
 					// Perform the swap
 					this.swapPiece(this.selectedPiece.getR(), this.selectedPiece.getC(), targetRow, targetCol);
 					this.updatePieceLocations();
-					this.removeMatches();
-					this.updatePieceLocations();
+					MatchThreeGame.executor.submit(new Runnable() {
+						@Override
+						public void run() {
+							while (BetterPiece.arePiecesAnimating()) {
+								// Do nothing
+								Thread.yield();
+							}
+							removeMatches();
+							updatePieceLocations();
+							while (BetterPiece.arePiecesAnimating()) {
+								Thread.yield();
+							}
+							while (hasEmptySpaces()) {
+								shiftDown();
+								refill();
+							}
+						}
+					});
 				}
 				selectedPiece = null;
 			}

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class Board extends GCompound implements Clickable
 {
@@ -505,7 +506,7 @@ public class Board extends GCompound implements Clickable
 		GObject o = this.getElementAt(translateXToLocalSpace(evt.getX()), translateYToLocalSpace(evt.getY()));
 		if(o != null && o instanceof BetterPiece)
 		{
-			BetterPiece clickedPiece = (BetterPiece) o;
+			final BetterPiece clickedPiece = (BetterPiece) o;
 			if(selectedPiece == null)
 			{
 				clickedPiece.toggleActive();
@@ -519,13 +520,27 @@ public class Board extends GCompound implements Clickable
 						|| (Math.abs(clickedPiece.getR() - selectedPiece.getR()) == 0
 								&& Math.abs(clickedPiece.getC() - selectedPiece.getC()) == 1))
 				{
-					int targetRow, targetCol;
+					final int targetRow, targetCol;
 					targetRow = clickedPiece.getR();
 					targetCol = clickedPiece.getC();
 
 					// Perform the swap
 					this.swapPiece(this.selectedPiece.getR(), this.selectedPiece.getC(), targetRow, targetCol);
 					this.updatePieceLocations();
+					if(this.numberOfMatches() < 1){
+						System.out.println("No matches");
+						// no matches
+						MatchThreeGame.executor.schedule(new Runnable() {
+							@Override
+							public void run() {
+								System.out.println("Swapping back");
+								swapPiece(clickedPiece.getR(), clickedPiece.getC(), targetRow, targetCol);
+								updatePieceLocations();
+							}
+						}, 250, TimeUnit.MILLISECONDS);
+						selectedPiece = null;
+						return;
+					}
 					MatchThreeGame.executor.submit(new Runnable()
 					{
 						@Override

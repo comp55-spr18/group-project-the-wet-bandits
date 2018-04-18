@@ -3,7 +3,7 @@ package test;
 import acm.graphics.GCompound;
 import acm.graphics.GImage;
 import acm.graphics.GOval;
-import thewetbandits.animation.Pose;
+import acm.graphics.GPoint;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.Random;
 
 public class BetterPiece extends GCompound
@@ -49,27 +48,8 @@ public class BetterPiece extends GCompound
 						}
 						else
 						{
-							// The piece is still in memory, tell it to update its location
-
-							if(piece.targetPose != null && piece.targetPose.reachedSize(piece.image)
-									&& piece.targetPose.reachedPos(piece))
-							{
-								if(!piece.poses.isEmpty())
-								{
-									piece.targetPose = piece.poses.pop();
-									piece.targetPose.start();
-								}
-								else
-								{
-									piece.targetPose = null;
-									if(piece.animationCallback != null)
-									{
-										piece.animationCallback.run();
-										piece.animationCallback = null;
-									}
-								}
-							}
-							piece.updatePose();
+							if(piece.currentPoint != null)
+								piece.updatePose();
 						}
 					}
 				}
@@ -88,9 +68,9 @@ public class BetterPiece extends GCompound
 
 	private boolean active = false;
 
-	private Pose targetPose;
+	private GPoint currentPoint;
 
-	private LinkedList<Pose> poses = new LinkedList<>();
+	private ArrayList<GPoint> locations = new ArrayList<>();
 
 	private Runnable animationCallback;
 
@@ -124,7 +104,6 @@ public class BetterPiece extends GCompound
 		this.y = y;
 		this.size = size;
 		this.initImage();
-		this.targetPose = null;
 		this.r = r;
 		this.c = c;
 		// Add the piece to the list of pieces to update
@@ -222,43 +201,47 @@ public class BetterPiece extends GCompound
 		return color;
 	}
 
-	public void setPose(Pose pose)
-	{
-		if(targetPose == null)
-		{
-			this.targetPose = pose;
-			this.targetPose.start();
-		}
-		else
-		{
-			this.poses.add(pose);
-		}
-	}
-
 	public boolean animating()
 	{
-		return !this.poses.isEmpty() || this.targetPose != null;
+		return !this.locations.isEmpty() || this.currentPoint != null;
 	}
 
 	private void updatePose()
 	{
-		if(this.targetPose == null || !this.targetPose.shouldAnimate())
-			return;
-		double deltaX = Pose.clamp(this.targetPose.getX() - this.getX(), -MOVEMENT_SPEED, MOVEMENT_SPEED);
-		double deltaY = Pose.clamp(this.targetPose.getY() - this.getY(), -MOVEMENT_SPEED, MOVEMENT_SPEED);
+		GPoint point = new GPoint(this.getX(), this.getY());
+		double distance = calcDistance(point, this.currentPoint);
+		if(distance < 4) {
+			this.setLocation(this.currentPoint.getX(), this.currentPoint.getY());
+			this.currentPoint = this.getNextPoint();
+			this.runCallback();
+		} else {
+			this.movePolar(MOVEMENT_SPEED, calculateAngle(point, this.currentPoint));
+		}
+	}
 
-		double deltaWidth = Pose.clamp(this.targetPose.getWidth() - this.getSize().getWidth(), -MOVEMENT_SPEED,
-				MOVEMENT_SPEED);
-		double deltaHeight = Pose.clamp(this.targetPose.getHeight() - this.getSize().getHeight(), -MOVEMENT_SPEED,
-				MOVEMENT_SPEED);
+	private void runCallback(){
+		if(this.currentPoint == null)
+			if(this.animationCallback != null)
+				this.animationCallback.run();
+	}
 
-		this.move(deltaX, deltaY);
-		double newHeight = image.getSize().getHeight() + deltaHeight;
-		double newWidth = image.getSize().getWidth() + deltaWidth;
-		this.image.setSize(newWidth, newHeight);
-		this.imageAnimated.setSize(newHeight, newWidth);
-		this.x = (int) this.getX();
-		this.y = (int) this.getY();
+	private GPoint getNextPoint(){
+		if(!this.locations.isEmpty())
+			return this.locations.remove(0);
+		else
+			return null;
+	}
+
+	private double calcDistance(GPoint p1, GPoint p2){
+		return Math.sqrt(Math.pow(p1.getX() - p2.getX(), 2) + Math.pow(p1.getX() - p2.getX(), 2));
+	}
+
+	private double calculateAngle(GPoint current, GPoint desired){
+		double dx = desired.getX() - current.getX();
+		double dy = desired.getY() - current.getY();
+		double angle = -1 * Math.atan2(dy, dx);
+		angle = (angle > 0 ? angle : (2 * Math.PI + angle)) * 360 / (2 * Math.PI);
+		return angle;
 	}
 
 	public void setAnimationCallback(Runnable runnable)
@@ -284,8 +267,23 @@ public class BetterPiece extends GCompound
 		}
 	}
 
-	public void setTargetLocation(int x, int y)
+	public void setTargetLocation(int x, int y, boolean queue)
 	{
-		this.setPose(new Pose(x, y, (int) this.getSize().getWidth(), (int) this.getSize().getHeight()));
+		GPoint target = new GPoint(x, y);
+		if(target == this.getLocation())
+			return;
+		System.out.println("Setting target to "+x+", "+y);
+		if(this.currentPoint == null) {
+			this.currentPoint = target;
+		} else {
+			if(queue)
+				this.locations.add(target);
+			else
+				this.currentPoint = target;
+		}
+	}
+
+	public void setTargetLocation(int x, int y){
+		this.setTargetLocation(x, y, false);
 	}
 }

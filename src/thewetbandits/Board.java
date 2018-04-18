@@ -531,28 +531,31 @@ public class Board extends GCompound implements Clickable
 						@Override
 						public void run()
 						{
-							while(BetterPiece.arePiecesAnimating())
-							{
-								// Do nothing
-								Thread.yield();
-							}
-							removeMatches();
-							updatePieceLocations();
-							while(BetterPiece.arePiecesAnimating())
-							{
-								Thread.yield();
-							}
-							while(hasEmptySpaces() || numberOfMatches() > 0)
-							{
-								scoreMultiplier++;
-								removeMatches();
-								while(hasEmptySpaces())
-								{
-									shiftDown();
-									refill();
+							try {
+								while (BetterPiece.arePiecesAnimating()) {
+									// Do nothing
+									Thread.yield();
 								}
+								removeMatches();
+								updatePieceLocations();
+								Thread.sleep(100);
+								while (BetterPiece.arePiecesAnimating()) {
+									Thread.yield();
+								}
+								while (hasEmptySpaces() || numberOfMatches() > 0) {
+									Thread.sleep(100);
+									scoreMultiplier++;
+									removeMatches();
+									while (hasEmptySpaces()) {
+										Thread.sleep(100);
+										shiftDown();
+										refill();
+									}
+								}
+								scoreMultiplier = 1;
+							} catch(Exception e){
+								// ignore
 							}
-							scoreMultiplier = 1;
 						}
 					});
 				}

@@ -13,11 +13,11 @@ package thewetbandits;
  * you can think of as being your initial graphicsprogram.
  */
 
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-
 import acm.program.GraphicsProgram;
 import thewetbandits.utils.GraphicsPane;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
 public abstract class GraphicsApplication extends GraphicsProgram {
 	private GraphicsPane curScreen;

@@ -38,6 +38,10 @@ public class MenuScreen extends Screen
 	private GButton muteButton;
 	private MatchThreeGame game;
 	private String music = "music.wav";
+	private String logo = "logo.png";
+	private String play = "play.png";
+	private String quit = "quit.png";
+	private String tutorial = "question.png";
 	private URL url;
 	private AudioInputStream audioIn;
 	private Clip clip;
@@ -69,11 +73,14 @@ public class MenuScreen extends Screen
 	 */
 	public void displayTitle()
 	{
-		GLabel displayTitle = new GLabel("Three's A Company", 175, 150);
+		
+		GImage displayTitle = new GImage(logo, 200, 100);
+		
+		//GLabel displayTitle = new GLabel("Three's A Company", 175, 150);
 
 		add(displayTitle);
-		displayTitle.setColor(Color.ORANGE);
-		displayTitle.setFont("Bradley Hand ITC-Bold-75");
+		//displayTitle.setColor(Color.ORANGE);
+		//displayTitle.setFont("Bradley Hand ITC-Bold-75");
 	}
 
 	/**
@@ -81,6 +88,9 @@ public class MenuScreen extends Screen
 	 */
 	public void showPlayButton()
 	{
+		GImage playPhoto = new GImage(play, 50, 350);
+		add(playPhoto);
+		
 		playButton = new GButton("PLAY", 450, 315, 115, 50, new ClickAction()
 		{
 			@Override
@@ -115,6 +125,9 @@ public class MenuScreen extends Screen
 	 */
 	public void showQuitButton()
 	{
+		
+		GImage quitPhoto = new GImage(quit, 50, 450);
+		add(quitPhoto);
 		quitButton = new GButton("QUIT", 450, 440, 115, 50, new ClickAction()
 		{
 			@Override
@@ -135,6 +148,9 @@ public class MenuScreen extends Screen
 	 */
 	public void showTutorialButton()
 	{
+		GImage tutorialPhoto = new GImage(tutorial, 150, 400);
+		add(tutorialPhoto);
+		
 		tutorialButton = new GButton("?", 900, 615, 50, 50, new ClickAction()
 		{
 			@Override

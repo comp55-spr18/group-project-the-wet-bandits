@@ -20,6 +20,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 public abstract class GraphicsApplication extends GraphicsProgram {
+
+	private static final long serialVersionUID = 5413052364326949581L;
 	private GraphicsPane curScreen;
 
 	public GraphicsApplication() {

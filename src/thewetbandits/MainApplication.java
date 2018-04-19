@@ -6,6 +6,8 @@ import thewetbandits.utils.MenuPane;
 import thewetbandits.utils.SomePane;
 
 public class MainApplication extends GraphicsApplication {
+	
+	private static final long serialVersionUID = -2631380933898626014L;
 	public static final int WINDOW_WIDTH = 800;
 	public static final int WINDOW_HEIGHT = 600;
 	public static final String MUSIC_FOLDER = "sounds";

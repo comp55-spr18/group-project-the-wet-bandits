@@ -1,10 +1,8 @@
 package thewetbandits;
 
 import java.awt.event.ActionEvent;
-import javax.swing.*;
 import acm.graphics.GLabel;
 import thewetbandits.screens.MainGameplayScreen;
-import thewetbandits.utils.GButton;
 
 public class TimedGameModeScreen extends MainGameplayScreen {
 	public TimedGameModeScreen(MatchThreeGame app, int width, int height) {

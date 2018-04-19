@@ -19,6 +19,8 @@ import acm.graphics.GLabel;
 import acm.graphics.GRoundRect;
 
 public class GButton extends GCompound implements Clickable {
+	
+	private static final long serialVersionUID = 3351347764004263089L;
 	private GRoundRect rect;
 	private GLabel message;
 	private ClickAction action;

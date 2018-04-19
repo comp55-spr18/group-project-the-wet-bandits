@@ -16,6 +16,7 @@ import java.util.Random;
 public class GamePiece extends GCompound
 {
 
+	private static final long serialVersionUID = -7593716498021184989L;
 	private static final int MOVEMENT_SPEED = 5;
 	private static final int MOVEMENT_FREQUENCY = 13;
 	private static final Random random = new Random();

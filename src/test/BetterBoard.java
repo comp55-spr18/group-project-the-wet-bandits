@@ -3,7 +3,6 @@ package test;
 import java.awt.event.MouseEvent;
 
 import acm.graphics.GCompound;
-import acm.graphics.GLine;
 import acm.graphics.GObject;
 import acm.graphics.GRect;
 import thewetbandits.GamePiece;
@@ -16,6 +15,8 @@ import thewetbandits.utils.Clickable;
  *         Created; Mar 31, 2018
  */
 public class BetterBoard extends GCompound implements Clickable {
+
+	private static final long serialVersionUID = 4335655060888622464L;
 
 	private static final int PADDING = 10;
 

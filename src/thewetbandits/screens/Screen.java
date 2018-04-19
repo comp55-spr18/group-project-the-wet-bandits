@@ -6,7 +6,6 @@ import acm.graphics.GObject;
 import thewetbandits.MatchThreeGame;
 import thewetbandits.utils.Clickable;
 import thewetbandits.utils.Displayable;
-import thewetbandits.utils.GButton;
 import thewetbandits.utils.GraphicsPane;
 
 /**

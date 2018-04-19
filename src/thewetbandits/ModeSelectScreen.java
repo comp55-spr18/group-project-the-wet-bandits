@@ -6,7 +6,6 @@ import java.awt.event.MouseEvent;
 import acm.graphics.GImage;
 import thewetbandits.screens.MainGameplayScreen;
 import thewetbandits.screens.Screen;
-import thewetbandits.utils.AudioPlayer;
 import thewetbandits.utils.ClickAction;
 import thewetbandits.utils.GButton;
 

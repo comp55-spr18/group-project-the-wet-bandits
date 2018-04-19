@@ -5,7 +5,6 @@ import thewetbandits.MenuScreen;
 import thewetbandits.Context;
 import thewetbandits.screens.Screen;
 import thewetbandits.screens.MainGameplayScreen;
-import thewetbandits.utils.AudioPlayer;
 import thewetbandits.utils.ClickAction;
 import thewetbandits.utils.GButton;
 

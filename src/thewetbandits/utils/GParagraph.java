@@ -21,6 +21,8 @@ import acm.graphics.GCompound;
 import acm.graphics.GLabel;
 
 public class GParagraph extends GCompound {
+	
+	private static final long serialVersionUID = -7166818694276146795L;
 	public static final String NEWLINE = "\n";
 	private double startX;
 	private double startY;

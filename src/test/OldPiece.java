@@ -19,6 +19,7 @@ import acm.graphics.GRectangle;
 
 public class OldPiece extends GObject
 {
+	private static final long serialVersionUID = 7820255406765396471L;
 	private static Random rand = new Random();
 	private static final Color YELLOW = new Color(250, 240, 66);
 	private static final Color GREEN = new Color(67, 153, 58);

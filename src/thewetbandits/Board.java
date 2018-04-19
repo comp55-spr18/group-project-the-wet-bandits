@@ -18,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Board extends GCompound implements Clickable
 {
+	private static final long serialVersionUID = -7200286741625467434L;
 	private GamePiece[][] board;
 	private int pieceSize;
 	private int boardLength;
@@ -156,7 +157,6 @@ public class Board extends GCompound implements Clickable
 	 */
 	public void updateBounds(int screenSize)
 	{
-		// TODO don't copy code here
 		this.screenSize = screenSize;
 		this.spaceSize = this.screenSize / (boardLength + 2);
 		this.pieceSize = (spaceSize / 7) * 5;

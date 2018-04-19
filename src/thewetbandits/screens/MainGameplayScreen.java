@@ -66,7 +66,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		super(app);
 		this.width = width;
 		this.height = height;
-		GImage boardBG = new GImage("board1.gif", 0, 0);
+		GImage boardBG = new GImage("boardBG.png", 0, 0);
 		boardBG.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		add(boardBG);
 
@@ -156,7 +156,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	 */
 	public void displayTitle()
 	{
-		GImage displayTitle = new GImage("title.png", 20, 0);
+		GImage displayTitle = new GImage("title.png", 5, 0);
 		displayTitle.setSize(350, 150);
 		add(displayTitle);
 	}

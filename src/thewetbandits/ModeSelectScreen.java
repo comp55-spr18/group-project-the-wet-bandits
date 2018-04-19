@@ -13,10 +13,7 @@ import thewetbandits.utils.GButton;
 public class ModeSelectScreen extends Screen {
 	public static final int WINDOW_WIDTH = 1000;
 	public static final int WINDOW_HEIGHT = 700;
-	
-	private String endless = "endless.png";
-	private String timed = "timed.png";
-	private String limited = "limited.png";
+
 	private MatchThreeGame game;
 	private GButton endlessModeButton;
 	private GButton timedModeButton;
@@ -39,7 +36,7 @@ public class ModeSelectScreen extends Screen {
 	}
 	
 	public void displayEndlessModeButton() {
-		GImage endlessMode = new GImage(endless, 100, 200);
+		GImage endlessMode = new GImage("endless.png", 100, 200);
 		add(endlessMode);
 		
 		endlessModeButton = new GButton("Endless", 400, 315, 115, 50, new ClickAction() {
@@ -54,7 +51,7 @@ public class ModeSelectScreen extends Screen {
 	}
 	
 	public void displayTimedModeButton() {
-		GImage timedMode = new GImage(timed, 100, 300);
+		GImage timedMode = new GImage("timed.png", 100, 300);
 		add(timedMode);
 		
 		timedModeButton = new GButton("Timed", 400, 415, 115, 50, new ClickAction() {
@@ -69,7 +66,7 @@ public class ModeSelectScreen extends Screen {
 	}
 	
 	public void displayLimitedMovesModeButton() {
-		GImage limitedMode = new GImage(limited, 100, 400);
+		GImage limitedMode = new GImage("limited.png", 100, 400);
 		add(limitedMode);
 		
 		limitedMovesModeButton = new GButton("Limited Moves", 400, 515, 115, 50, new ClickAction() {

@@ -1,24 +1,16 @@
 package thewetbandits;
 
-
 import thewetbandits.MatchThreeGame;
 import thewetbandits.MenuScreen;
 import thewetbandits.Context;
 import thewetbandits.screens.Screen;
-
-import acm.graphics.GImage;
-
-
-
 import thewetbandits.utils.ClickAction;
 import thewetbandits.utils.GButton;
 
-import java.awt.Color;
-
+import acm.graphics.GImage;
 import javax.sound.sampled.*;
-
+import java.awt.Color;
 import java.awt.event.MouseEvent;
-
 import java.io.IOException;
 import java.net.URL;
 
@@ -42,15 +34,11 @@ public class MenuScreen extends Screen
 	private GButton settingButton;
 	private GButton muteButton;
 	private MatchThreeGame game;
-	private String music = "music.wav";
-	private String play = "play.png";
-	private String quit = "quit.png";
-	private String tutorial = "question.png";
+	private String music = "default.wav";
 	private URL url;
 	private AudioInputStream audioIn;
 	private Clip clip;
 	private Color buttonColor = new Color(255, 154, 0);
-	public GImage playPhoto = new GImage(play, 325, 315);
 	
 
 	public MenuScreen(MatchThreeGame app)
@@ -62,7 +50,6 @@ public class MenuScreen extends Screen
 
 	public void run()
 	{
-		//addMouseListeners();
 		GImage background = new GImage("background.gif", 0, 0);
 		background.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		add(background);
@@ -91,7 +78,7 @@ public class MenuScreen extends Screen
 	 */
 	public void showPlayButton()
 	{
-		//GImage playPhoto = new GImage(play, 325, 315);
+		GImage playPhoto = new GImage("play.png", 325, 315);
 		add(playPhoto);
 
 		playButton = new GButton("PLAY", 450, 315, 115, 50, new ClickAction()
@@ -129,7 +116,7 @@ public class MenuScreen extends Screen
 	public void showQuitButton()
 	{
 
-		GImage quitPhoto = new GImage(quit, 325, 415);
+		GImage quitPhoto = new GImage("quit.png", 325, 415);
 		add(quitPhoto);
 		quitButton = new GButton("QUIT", 450, 440, 115, 50, new ClickAction()
 		{
@@ -151,7 +138,7 @@ public class MenuScreen extends Screen
 	 */
 	public void showTutorialButton()
 	{
-		GImage tutorialPhoto = new GImage(tutorial, 825, 615);
+		GImage tutorialPhoto = new GImage("question.png", 825, 615);
 		add(tutorialPhoto);
 
 		tutorialButton = new GButton("?", 900, 615, 50, 50, new ClickAction()
@@ -200,11 +187,5 @@ public class MenuScreen extends Screen
 		{
 			e.printStackTrace();
 		}
-	}
-	
-	@Override
-	public void mousePressed(MouseEvent e) {
-		System.out.println("first");
-
 	}
 }

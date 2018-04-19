@@ -23,10 +23,9 @@ public class GamePiece extends GCompound {
 	// Store a list of weak references (so the pieces can be garbage collected
 	// correctly) of pieces to update
 	private static final ArrayList<WeakReference<GamePiece>> pieces = new ArrayList<>();
-	private static Timer updateTimer;
 
 	static {
-		updateTimer = new Timer(MOVEMENT_FREQUENCY, new ActionListener() {
+		Timer updateTimer = new Timer(MOVEMENT_FREQUENCY, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// Timers are async so synchronize access to the array list so we don't break
@@ -41,7 +40,7 @@ public class GamePiece extends GCompound {
 							iterator.remove();
 						} else {
 							if (piece.currentPoint != null)
-								piece.updatePose();
+								piece.updateLocation();
 						}
 					}
 				}
@@ -63,12 +62,6 @@ public class GamePiece extends GCompound {
 	private GPoint currentPoint;
 
 	private ArrayList<GPoint> locations = new ArrayList<>();
-
-	private Runnable animationCallback;
-
-	private static int nextId = 1;
-	//TODO remove this? I'm not sure if it does anything
-	private int id = nextId++;
 
 	/**
 	 * * Constructor where color and image are randomly chosen out of a predefined
@@ -145,11 +138,6 @@ public class GamePiece extends GCompound {
 			}
 		}
 		return false;
-	}
-
-	// TODO this looks like a getter. Do we have to change the name?
-	public Color setGemColor(GamePiece[][] b) {
-		return Color.values()[random.nextInt(Color.values().length)];
 	}
 
 	/**
@@ -252,12 +240,19 @@ public class GamePiece extends GCompound {
 		return color;
 	}
 
-	// TODO document this. I don't know what this method does
+	/**
+	 * Checks if the piece is animating (moving on the board)
+	 *
+	 * @return True if the piece is moving
+	 */
 	public boolean animating() {
 		return !this.locations.isEmpty() || this.currentPoint != null;
 	}
 
-	private void updatePose() {
+	/**
+	 * Updates the piece's location on the board.
+	 */
+	private void updateLocation() {
 		double dx = this.currentPoint.getX() - this.getX();
 		double dy = this.currentPoint.getY() - this.getY();
 
@@ -278,43 +273,16 @@ public class GamePiece extends GCompound {
 		}
 	}
 
-	// TODO document this. I don't know what this method does
-	private void runCallback() {
-		if (this.currentPoint == null)
-			if (this.animationCallback != null)
-				this.animationCallback.run();
-	}
-
+	/**
+	 * Gets the next point in the sequence of movement points
+	 *
+	 * @return The point or null if there are no points remaining
+	 */
 	private GPoint getNextPoint() {
 		if (!this.locations.isEmpty())
 			return this.locations.remove(0);
 		else
 			return null;
-	}
-
-	/**
-	 * Calculates the distance between two points
-	 *
-	 * @param p1 the first point
-	 * @param p2 the second point
-	 * @return the distance between the two points
-	 */
-	private double calcDistance(GPoint p1, GPoint p2) {
-		return Math.sqrt(Math.pow(p1.getX() - p2.getX(), 2) + Math.pow(p1.getX() - p2.getX(), 2));
-	}
-
-	// TODO document this. I don't know how to document this
-	private double calculateAngle(GPoint current, GPoint desired) {
-		double dx = desired.getX() - current.getX();
-		double dy = desired.getY() - current.getY();
-		double angle = -1 * Math.atan2(dy, dx);
-		angle = (angle > 0 ? angle : (2 * Math.PI + angle)) * 360 / (2 * Math.PI);
-		return angle;
-	}
-
-	// TODO document this. I don't know what this method does
-	public void setAnimationCallback(Runnable runnable) {
-		this.animationCallback = runnable;
 	}
 
 	public enum Color {
@@ -342,12 +310,15 @@ public class GamePiece extends GCompound {
 		}
 	}
 
-	//TODO document this. I don't know what this method does
+	/**
+	 * Sets the piece's target location
+	 *
+	 * @param x     The X position
+	 * @param y     The Y position
+	 * @param queue If the location should be queued
+	 */
 	public void setTargetLocation(int x, int y, boolean queue) {
 		GPoint target = new GPoint(x, y);
-		if (target == this.getLocation())
-			return;
-		System.out.println("Setting target to " + x + ", " + y);
 		if (this.currentPoint == null) {
 			this.currentPoint = target;
 		} else {
@@ -358,7 +329,12 @@ public class GamePiece extends GCompound {
 		}
 	}
 
-	//TODO document this. I don't know what this method does
+	/**
+	 * Sets the pieces target location
+	 *
+	 * @param x The X position
+	 * @param y The Y position
+	 */
 	public void setTargetLocation(int x, int y) {
 		this.setTargetLocation(x, y, false);
 	}

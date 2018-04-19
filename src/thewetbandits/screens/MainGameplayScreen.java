@@ -69,47 +69,47 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		board.setLocation(300, 25);
 		while(board.numberOfMatches() > 0 || board.numberOfPossibleMoves() <= 0)
 			board.shuffleBoard();
-		this.add(new GButton("Randomize", 75, 250, 100, 50, new ClickAction()
-		{
-
-			@Override
-			public void onClick(MouseEvent event)
-			{
-				System.out.println("Shuffling board");
-				if(event.isShiftDown())
-				{
-					board.resetBoard();
-				}
-				do
-				{
-					board.shuffleBoard();
-				}while(board.numberOfMatches() > 0 || board.numberOfPossibleMoves() <= 0);
-			}
-
-		}));
-		// TODO 4/10/18: This is only a temporary button for testing, we probably should
-		// remove this eventually
-		this.add(new GButton("Shift Down", 25, 600, 100, 50, new ClickAction()
-		{
-			@Override
-			public void onClick(MouseEvent event)
-			{
-				board.shiftDown();
-			}
-		}));
-		// TODO remove this one as well
-		this.add(new GButton("Refill", 125, 600, 50, 50, new ClickAction()
-		{
-			@Override
-			public void onClick(MouseEvent event)
-			{
-				while(board.hasEmptySpaces())
-				{
-					board.refill();
-					board.shiftDown();
-				}
-			}
-		}));
+//		this.add(new GButton("Randomize", 75, 250, 100, 50, new ClickAction()
+//		{
+//
+//			@Override
+//			public void onClick(MouseEvent event)
+//			{
+//				System.out.println("Shuffling board");
+//				if(event.isShiftDown())
+//				{
+//					board.resetBoard();
+//				}
+//				do
+//				{
+//					board.shuffleBoard();
+//				}while(board.numberOfMatches() > 0 || board.numberOfPossibleMoves() <= 0);
+//			}
+//
+//		}));
+//		// TODO 4/10/18: This is only a temporary button for testing, we probably should
+//		// remove this eventually
+//		this.add(new GButton("Shift Down", 25, 600, 100, 50, new ClickAction()
+//		{
+//			@Override
+//			public void onClick(MouseEvent event)
+//			{
+//				board.shiftDown();
+//			}
+//		}));
+//		// TODO remove this one as well
+//		this.add(new GButton("Refill", 125, 600, 50, 50, new ClickAction()
+//		{
+//			@Override
+//			public void onClick(MouseEvent event)
+//			{
+//				while(board.hasEmptySpaces())
+//				{
+//					board.refill();
+//					board.shiftDown();
+//				}
+//			}
+//		}));
 		this.addComponents();
 		run();
 	}

@@ -36,7 +36,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	protected GLabel myTime;
 	protected GLabel displayScore;
 	protected Timer scoreTimer = new Timer(1, this);
-	Timer clockTimer = new Timer(1000, new ActionListener()
+	protected Timer clockTimer = new Timer(1000, new ActionListener()
 	{
 		@Override
 		public void actionPerformed(ActionEvent e)

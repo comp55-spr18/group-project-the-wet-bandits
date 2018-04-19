@@ -3,9 +3,14 @@ package thewetbandits;
 import acm.graphics.GLabel;
 import thewetbandits.screens.MainGameplayScreen;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.Timer;
 
 public class TimedGameModeScreen extends MainGameplayScreen {
+	
 	public TimedGameModeScreen(MatchThreeGame app, int width, int height) {
 		super(app, width, height);
 		run();
@@ -18,7 +23,10 @@ public class TimedGameModeScreen extends MainGameplayScreen {
 		this.mins = 3;
 		myTime = new GLabel("", 350, 40);
 		add(myTime);
-		scoreTimer.setInitialDelay(3);
+		myTime.setFont("Bold-15");
+		myTime.setColor(Color.WHITE);
+		clockTimer.setInitialDelay(3);
+		clockTimer.start();
 		scoreTimer.start();
 		displayPause();
 		displayQuit();

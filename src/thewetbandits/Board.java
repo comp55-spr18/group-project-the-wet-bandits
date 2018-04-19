@@ -10,9 +10,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+
 /**
- * @author Jacob Faulk
- * Created Mar 30, 2018
+ * @author Jacob Faulk Created Mar 30, 2018
  */
 public class Board extends GCompound implements Clickable
 {
@@ -298,11 +298,13 @@ public class Board extends GCompound implements Clickable
 		}
 	}
 
-	private int removeChain(HashSet<GamePiece> chain){
+	private int removeChain(HashSet<GamePiece> chain)
+	{
 		if(chain.size() < 3)
 			return 0;
 		int score = (100 * (chain.size() - 2)) * scoreMultiplier;
-		for(GamePiece p : chain){
+		for(GamePiece p : chain)
+		{
 			board[p.getR()][p.getC()] = null;
 			remove(p);
 		}
@@ -524,12 +526,15 @@ public class Board extends GCompound implements Clickable
 					// Perform the swap
 					this.swapPiece(this.selectedPiece.getR(), this.selectedPiece.getC(), targetRow, targetCol);
 					this.updatePieceLocations();
-					if(this.numberOfMatches() < 1){
+					if(this.numberOfMatches() < 1)
+					{
 						System.out.println("No matches");
 						// no matches
-						MatchThreeGame.executor.schedule(new Runnable() {
+						MatchThreeGame.executor.schedule(new Runnable()
+						{
 							@Override
-							public void run() {
+							public void run()
+							{
 								System.out.println("Swapping back");
 								swapPiece(clickedPiece.getR(), clickedPiece.getC(), targetRow, targetCol);
 								updatePieceLocations();
@@ -543,29 +548,35 @@ public class Board extends GCompound implements Clickable
 						@Override
 						public void run()
 						{
-							try {
-								while (GamePiece.arePiecesAnimating()) {
+							try
+							{
+								while(GamePiece.arePiecesAnimating())
+								{
 									// Do nothing
 									Thread.yield();
 								}
 								removeMatches();
 								updatePieceLocations();
 								Thread.sleep(100);
-								while (GamePiece.arePiecesAnimating()) {
+								while(GamePiece.arePiecesAnimating())
+								{
 									Thread.yield();
 								}
-								while (hasEmptySpaces() || numberOfMatches() > 0) {
+								while(hasEmptySpaces() || numberOfMatches() > 0)
+								{
 									Thread.sleep(100);
 									scoreMultiplier++;
 									removeMatches();
-									while (hasEmptySpaces()) {
+									while(hasEmptySpaces())
+									{
 										Thread.sleep(100);
 										shiftDown();
 										refill();
 									}
 								}
 								scoreMultiplier = 1;
-							} catch(Exception e){
+							}catch(Exception e)
+							{
 								// ignore
 							}
 						}
@@ -573,6 +584,15 @@ public class Board extends GCompound implements Clickable
 				}
 				selectedPiece = null;
 			}
+		}
+		System.out.println(numberOfPossibleMoves());
+		if(numberOfPossibleMoves() <= 0)
+		{
+			this.resetBoard();
+			do
+			{
+				this.shuffleBoard();
+			}while(this.numberOfMatches() > 0 || this.numberOfPossibleMoves() <= 0);
 		}
 	}
 

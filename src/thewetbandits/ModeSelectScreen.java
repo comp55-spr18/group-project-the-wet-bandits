@@ -75,7 +75,7 @@ public class ModeSelectScreen extends Screen {
 		limitedMovesModeButton = new GButton("Limited Moves", 400, 515, 115, 50, new ClickAction() {
 				@Override
 				public void onClick(MouseEvent event) {
-					game.switchToScreen(new MainGameplayScreen(game, WINDOW_WIDTH, WINDOW_HEIGHT));
+					game.switchToScreen(new LimitedMovesModeScreen(game, WINDOW_WIDTH, WINDOW_HEIGHT));
 				}
 		});
 		limitedMovesModeButton.setColor(Color.WHITE);

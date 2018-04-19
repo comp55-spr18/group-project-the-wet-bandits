@@ -143,10 +143,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		myTime = new GLabel("Time Elapsed: ", 350, 40);
 		add(myTime);
 		myTime.setFont("Bold-15");
-		if(gameMode.equals("Limited Moves"))
-		{
-			displayMovesTime();
-		}
+		myTime.setColor(Color.WHITE);
 		clockTimer.setInitialDelay(3);
 		scoreTimer.start();
 		clockTimer.start();
@@ -175,17 +172,6 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		displayScore.setFont("Times Roman-40");
 		displayScore.setColor(Color.ORANGE);
 		add(displayScore);
-	}
-
-	/**
-	 * Displays the time and moves left (These modes are not yet implemented)
-	 */
-	public void displayMovesTime()
-	{
-		GLabel movesAndTime = new GLabel("Moves left: 50", 200, 40);
-
-		add(movesAndTime);
-		movesAndTime.setFont("Bold-15");
 	}
 
 	/**

@@ -1,8 +1,3 @@
-/**
- * @author Jacob Faulk
- * Created Mar 30, 2018
- */
-
 package thewetbandits;
 
 import acm.graphics.*;
@@ -15,7 +10,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
-
+/**
+ * @author Jacob Faulk
+ * Created Mar 30, 2018
+ */
 public class Board extends GCompound implements Clickable
 {
 	private static final long serialVersionUID = -7200286741625467434L;
@@ -290,24 +288,25 @@ public class Board extends GCompound implements Clickable
 
 				if(rowChain.size() >= 3)
 				{
-					score += (100 * (rowChain.size() - 2)) * scoreMultiplier;
-					for(GamePiece p1 : rowChain)
-					{
-						board[p1.getR()][p1.getC()] = null;
-						remove(p1);
-					}
+					score += removeChain(rowChain);
 				}
 				if(colChain.size() >= 3)
 				{
-					score += (100 * (colChain.size() - 2)) * scoreMultiplier;
-					for(GamePiece p1 : colChain)
-					{
-						board[p1.getR()][p1.getC()] = null;
-						remove(p1);
-					}
+					score += removeChain(colChain);
 				}
 			}
 		}
+	}
+
+	private int removeChain(HashSet<GamePiece> chain){
+		if(chain.size() < 3)
+			return 0;
+		int score = (100 * (chain.size() - 2)) * scoreMultiplier;
+		for(GamePiece p : chain){
+			board[p.getR()][p.getC()] = null;
+			remove(p);
+		}
+		return score;
 	}
 
 	/**
@@ -419,7 +418,7 @@ public class Board extends GCompound implements Clickable
 	 * 
 	 * @return whether the refill was successful
 	 */
-	public boolean refill()
+	public void refill()
 	{
 		boolean refilled = false;
 		for(int screenCol = 0; screenCol < this.boardLength; screenCol++)
@@ -434,7 +433,6 @@ public class Board extends GCompound implements Clickable
 				refilled = true;
 			}
 		}
-		return refilled;
 	}
 
 	/**

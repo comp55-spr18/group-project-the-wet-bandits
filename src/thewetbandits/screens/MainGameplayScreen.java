@@ -31,7 +31,16 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	protected int mins;
 	protected GLabel myTime;
 	protected GLabel displayScore;
-	protected Timer someTimerVar = new Timer(1, this);
+	protected Timer scoreTimer = new Timer(1, this);
+	Timer clockTimer = new Timer(1000, new ActionListener()
+	{
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			myTime.setLabel(String.format("Time Elapsed: %d:%02d", secs / 60, secs % 60));
+			secs++;
+		}
+	});
 	private Color buttonColor = new Color(255, 154, 0);
 	private int frameNum = 0;
 	private int score;
@@ -53,9 +62,9 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		super(app);
 		this.width = width;
 		this.height = height;
-		this.gameMode = gameMode;
 		this.score = 0;
 		this.displayedScore = 0;
+		this.gameMode = "";// TODO this will have to be dealt with at some point
 		board = new Board(width < height ? width : height, BOARD_SIZE, app);
 		board.setLocation(300, 25);
 		while(board.numberOfMatches() > 0 || board.numberOfPossibleMoves() <= 0)
@@ -125,12 +134,13 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		myTime = new GLabel("Time Elapsed: ", 350, 40);
 		add(myTime);
 		myTime.setFont("Bold-15");
-		if(gameMode == "Limited Moves")
+		if(gameMode.equals("Limited Moves"))
 		{
 			displayMovesTime();
 		}
-		someTimerVar.setInitialDelay(3);
-		someTimerVar.start();
+		clockTimer.setInitialDelay(3);
+		scoreTimer.start();
+		clockTimer.start();
 		displayPause();
 		displayQuit();
 	}
@@ -221,38 +231,20 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		this.score = board.getScore();
 		if(displayedScore < score)
 		{
-			if(score-displayedScore < 200)
+			if(score - displayedScore < 200)
 				displayedScore++;
-			else if(score-displayedScore < 1000)
-				displayedScore+=5;
-			else if(score-displayedScore < 5000)
-				displayedScore+=10;
-			else if(score-displayedScore < 50000)
-				displayedScore+=100;
+			else if(score - displayedScore < 1000)
+				displayedScore += 5;
+			else if(score - displayedScore < 5000)
+				displayedScore += 10;
+			else if(score - displayedScore < 50000)
+				displayedScore += 100;
 			else
-				displayedScore+=1000;
+				displayedScore += 1000;
 		}
 		if(displayedScore > score)
 			displayedScore = score;
 		displayScore.setLabel("Score: " + displayedScore);
-		if(frameNum % 1000 == 0)
-		{
-			if(secs > 9)
-			{
-				myTime.setLabel("Time Elapsed: " + mins + ":" + secs);
-				secs++;
-			}
-			else if(secs <= 9)
-			{
-				myTime.setLabel("Time Elapsed: " + mins + ":0" + secs);
-				secs++;
-			}
-			if(secs > 59)
-			{
-				secs = 0;
-				mins++;
-			}
-		}
 		frameNum++;
 	}
 

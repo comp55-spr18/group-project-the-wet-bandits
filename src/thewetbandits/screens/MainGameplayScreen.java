@@ -219,8 +219,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 			myTime.setLabel("Time Elapsed: " + mins + ":" + secs);
 			secs++;
 		}
-		else if(secs <= 9)
-		{
+		else {
 			myTime.setLabel("Time Elapsed: " + mins + ":0" + secs);
 			secs++;
 		}

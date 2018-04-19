@@ -1,21 +1,16 @@
 package thewetbandits;
 
-import thewetbandits.MatchThreeGame;
-import thewetbandits.MenuScreen;
-import thewetbandits.Context;
-import thewetbandits.screens.Screen;
+import acm.graphics.GImage;
 import thewetbandits.screens.MainGameplayScreen;
+import thewetbandits.screens.Screen;
 import thewetbandits.utils.ClickAction;
 import thewetbandits.utils.GButton;
 
+import javax.sound.sampled.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
-
-import javax.sound.sampled.*;
-
-import acm.graphics.*;
-import java.awt.Color;
 
 /**
  * 
@@ -58,7 +53,8 @@ public class MenuScreen extends Screen
 		GImage background = new GImage("background.gif", 0, 0);
 		background.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		add(background);
-		music();
+		// TODO 4/18/18: Re-add the godawful loud annoying music
+//		music();
 		displayTitle();
 		showPlayButton();
 		// showSetting();
@@ -192,13 +188,7 @@ public class MenuScreen extends Screen
 			clip = AudioSystem.getClip();
 			clip.open(audioIn);
 			clip.start();
-		}catch(LineUnavailableException e)
-		{
-			e.printStackTrace();
-		}catch(UnsupportedAudioFileException e)
-		{
-			e.printStackTrace();
-		}catch(IOException e)
+		}catch(LineUnavailableException | UnsupportedAudioFileException | IOException e)
 		{
 			e.printStackTrace();
 		}

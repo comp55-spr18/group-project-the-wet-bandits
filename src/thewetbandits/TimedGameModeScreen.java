@@ -7,9 +7,35 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.Timer;
+import javax.swing.*;
 
 public class TimedGameModeScreen extends MainGameplayScreen {
+	
+	private Timer countDownTimer = new Timer(1000, new ActionListener()
+	{
+		@Override
+        public void actionPerformed(ActionEvent ae)
+        {
+			if(secs > 9)
+			{
+				myTime.setLabel("Time Left: " + mins + ":" + secs);
+				secs--;
+			}
+			else {
+				myTime.setLabel("Time Left: " + mins + ":0" + secs);
+				secs--;
+			}
+			if(secs < 0)
+			{
+				secs = 59;
+				mins--;
+			}
+			if (mins == 0 && secs == 0) {
+				myTime.setLabel("Game Over");
+				scoreTimer.stop();
+			}
+        }
+	});
 	
 	public TimedGameModeScreen(MatchThreeGame app, int width, int height) {
 		super(app, width, height);
@@ -25,32 +51,12 @@ public class TimedGameModeScreen extends MainGameplayScreen {
 		add(myTime);
 		myTime.setFont("Bold-15");
 		myTime.setColor(Color.WHITE);
+	//	countDownTimer.setInitialDelay(3);
+	//	countDownTimer.start();
 		clockTimer.setInitialDelay(3);
 		clockTimer.start();
 		scoreTimer.start();
 		displayPause();
 		displayQuit();
-	}
-
-	public void actionPerformed(ActionEvent e) {
-		displayScore.setLabel("Score: " + board.getScore());
-		if(secs > 9)
-		{
-			myTime.setLabel("Time Left: " + mins + ":" + secs);
-			secs--;
-		}
-		else {
-			myTime.setLabel("Time Left: " + mins + ":0" + secs);
-			secs--;
-		}
-		if(secs < 0)
-		{
-			secs = 59;
-			mins--;
-		}
-		if (mins == 0 && secs == 0) {
-			myTime.setLabel("Game Over");
-			scoreTimer.stop();
-		}
 	}
 }

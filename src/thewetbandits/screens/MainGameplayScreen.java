@@ -22,7 +22,8 @@ public class MainGameplayScreen extends Screen implements ActionListener
 {
 	public static final int WINDOW_WIDTH = 1000;
 	public static final int WINDOW_HEIGHT = 700;
-	private static final int BOARD_SIZE = 5;
+	private static final int BOARD_SIZE = 8;
+
 	protected Board board;
 	private int width;
 	private int height;
@@ -34,8 +35,20 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	protected int mins;
 	protected GLabel myTime;
 	protected GLabel displayScore;
-	protected Timer someTimerVar = new Timer(1000, this);
+	protected Timer scoreTimer = new Timer(1, this);
+	Timer clockTimer = new Timer(1000, new ActionListener()
+	{
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			myTime.setLabel(String.format("Time Elapsed: %d:%02d", secs / 60, secs % 60));
+			secs++;
+		}
+	});
 	private Color buttonColor = new Color(255, 154, 0);
+	private int frameNum = 0;
+	private int score;
+	private int displayedScore;
 
 	/**
 	 * Constructor that specifies the MatchThreeGame and the dimensions of that
@@ -53,11 +66,14 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		super(app);
 		this.width = width;
 		this.height = height;
-		this.gameMode = gameMode;
 		GImage boardBG = new GImage("board1.gif", 0, 0);
 		boardBG.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		add(boardBG);
-		
+
+		this.score = 0;
+		this.displayedScore = 0;
+		this.gameMode = "";// TODO this will have to be dealt with at some point
+
 		board = new Board(width < height ? width : height, BOARD_SIZE, app);
 		board.setLocation(300, 25);
 		while(board.numberOfMatches() > 0 || board.numberOfPossibleMoves() <= 0)
@@ -127,11 +143,13 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		myTime = new GLabel("Time Elapsed: ", 350, 40);
 		add(myTime);
 		myTime.setFont("Bold-15");
-		if (gameMode == "Limited Moves") {
+		if(gameMode.equals("Limited Moves"))
+		{
 			displayMovesTime();
 		}
-		someTimerVar.setInitialDelay(3);
-		someTimerVar.start();
+		clockTimer.setInitialDelay(3);
+		scoreTimer.start();
+		clockTimer.start();
 		displayPause();
 		displayQuit();
 	}
@@ -153,7 +171,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	public void displayScore()
 	{
 		displayScore = new GLabel("Score: " + board.getScore(), 75, 200);
-		
+
 		displayScore.setFont("Times Roman-40");
 		displayScore.setColor(Color.ORANGE);
 		add(displayScore);
@@ -223,23 +241,24 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	 */
 	public void actionPerformed(ActionEvent e)
 	{
-		//TODO make score updates asynchronous
-		displayScore.setLabel("Score: " + board.getScore());
-		if(secs > 9)
+		this.score = board.getScore();
+		if(displayedScore < score)
 		{
-			myTime.setLabel("Time Elapsed: " + mins + ":" + secs);
-			secs++;
+			if(score - displayedScore < 200)
+				displayedScore++;
+			else if(score - displayedScore < 1000)
+				displayedScore += 5;
+			else if(score - displayedScore < 5000)
+				displayedScore += 10;
+			else if(score - displayedScore < 50000)
+				displayedScore += 100;
+			else
+				displayedScore += 1000;
 		}
-		else if(secs <= 9)
-		{
-			myTime.setLabel("Time Elapsed: " + mins + ":0" + secs);
-			secs++;
-		}
-		if(secs > 59)
-		{
-			secs = 0;
-			mins++;
-		}
+		if(displayedScore > score)
+			displayedScore = score;
+		displayScore.setLabel("Score: " + displayedScore);
+		frameNum++;
 	}
 
 }

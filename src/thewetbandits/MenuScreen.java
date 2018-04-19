@@ -1,21 +1,26 @@
 package thewetbandits;
 
+
 import thewetbandits.MatchThreeGame;
 import thewetbandits.MenuScreen;
 import thewetbandits.Context;
 import thewetbandits.screens.Screen;
-import thewetbandits.utils.AudioPlayer;
+
+import acm.graphics.GImage;
+
+
+
 import thewetbandits.utils.ClickAction;
 import thewetbandits.utils.GButton;
 
 import java.awt.Color;
-import java.awt.event.*;
-import acm.graphics.*;
+
+import javax.sound.sampled.*;
+
+import java.awt.event.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
-
-import javax.sound.sampled.*;
 
 
 /**
@@ -38,7 +43,6 @@ public class MenuScreen extends Screen
 	private GButton muteButton;
 	private MatchThreeGame game;
 	private String music = "music.wav";
-	private String logo = "logo.png";
 	private String play = "play.png";
 	private String quit = "quit.png";
 	private String tutorial = "question.png";
@@ -62,7 +66,8 @@ public class MenuScreen extends Screen
 		GImage background = new GImage("background.gif", 0, 0);
 		background.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		add(background);
-		music();
+		// TODO 4/18/18: Re-add the godawful loud annoying music
+		// music();
 		displayTitle();
 		showPlayButton();
 		//showSetting();
@@ -76,7 +81,7 @@ public class MenuScreen extends Screen
 	 */
 	public void displayTitle()
 	{
-		GImage displayTitle = new GImage(logo, 200, 50);
+		GImage displayTitle = new GImage("logo.png", 200, 50);
 		displayTitle.setSize(650, 150);
 		add(displayTitle);
 	}
@@ -88,7 +93,7 @@ public class MenuScreen extends Screen
 	{
 		//GImage playPhoto = new GImage(play, 325, 315);
 		add(playPhoto);
-		
+
 		playButton = new GButton("PLAY", 450, 315, 115, 50, new ClickAction()
 		{
 			@Override
@@ -100,7 +105,7 @@ public class MenuScreen extends Screen
 		playButton.setColor(Color.WHITE);
 		playButton.setFillColor(buttonColor);
 		add(playButton);
-	};
+	}
 
 	public void showSetting()
 	{
@@ -123,7 +128,7 @@ public class MenuScreen extends Screen
 	 */
 	public void showQuitButton()
 	{
-		
+
 		GImage quitPhoto = new GImage(quit, 325, 415);
 		add(quitPhoto);
 		quitButton = new GButton("QUIT", 450, 440, 115, 50, new ClickAction()
@@ -138,7 +143,7 @@ public class MenuScreen extends Screen
 		quitButton.setColor(Color.WHITE);
 		quitButton.setFillColor(buttonColor);
 		add(quitButton);
-	};
+	}
 
 	/**
 	 * Display the tutorialButton, clicking on it would bring you to the
@@ -148,7 +153,7 @@ public class MenuScreen extends Screen
 	{
 		GImage tutorialPhoto = new GImage(tutorial, 825, 615);
 		add(tutorialPhoto);
-		
+
 		tutorialButton = new GButton("?", 900, 615, 50, 50, new ClickAction()
 		{
 			@Override
@@ -185,19 +190,13 @@ public class MenuScreen extends Screen
 	{
 		try
 		{
-			//TODO make volume lower
+			// TODO make volume lower
 			url = this.getClass().getClassLoader().getResource(music);
 			audioIn = AudioSystem.getAudioInputStream(url);
 			clip = AudioSystem.getClip();
 			clip.open(audioIn);
 			clip.start();
-		}catch(LineUnavailableException e)
-		{
-			e.printStackTrace();
-		}catch(UnsupportedAudioFileException e)
-		{
-			e.printStackTrace();
-		}catch(IOException e)
+		}catch(LineUnavailableException | UnsupportedAudioFileException | IOException e)
 		{
 			e.printStackTrace();
 		}

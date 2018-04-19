@@ -1,15 +1,16 @@
 package thewetbandits;
 
-import java.awt.event.ActionEvent;
 import acm.graphics.GLabel;
 import thewetbandits.screens.MainGameplayScreen;
+
+import java.awt.event.ActionEvent;
 
 public class TimedGameModeScreen extends MainGameplayScreen {
 	public TimedGameModeScreen(MatchThreeGame app, int width, int height) {
 		super(app, width, height);
 		run();
 	}
-	
+
 	public void run() {
 		displayTitle();
 		displayScore();
@@ -17,12 +18,12 @@ public class TimedGameModeScreen extends MainGameplayScreen {
 		this.mins = 3;
 		myTime = new GLabel("", 350, 40);
 		add(myTime);
-		someTimerVar.setInitialDelay(3);
-		someTimerVar.start();
+		scoreTimer.setInitialDelay(3);
+		scoreTimer.start();
 		displayPause();
 		displayQuit();
 	}
-	
+
 	public void actionPerformed(ActionEvent e) {
 		displayScore.setLabel("Score: " + board.getScore());
 		if(secs > 9)
@@ -30,8 +31,7 @@ public class TimedGameModeScreen extends MainGameplayScreen {
 			myTime.setLabel("Time Left: " + mins + ":" + secs);
 			secs--;
 		}
-		else if(secs <= 9)
-		{
+		else {
 			myTime.setLabel("Time Left: " + mins + ":0" + secs);
 			secs--;
 		}
@@ -40,9 +40,9 @@ public class TimedGameModeScreen extends MainGameplayScreen {
 			secs = 59;
 			mins--;
 		}
-		if (mins == 0 && secs == 00) {
+		if (mins == 0 && secs == 0) {
 			myTime.setLabel("Game Over");
-			someTimerVar.stop();
+			scoreTimer.stop();
 		}
 	}
 }

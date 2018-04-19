@@ -50,7 +50,6 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		super(app);
 		this.width = width;
 		this.height = height;
-		this.gameMode = gameMode;
 		board = new Board(width < height ? width : height, BOARD_SIZE, app);
 		board.setLocation(300, 25);
 		while(board.numberOfMatches() > 0 || board.numberOfPossibleMoves() <= 0)
@@ -120,7 +119,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		myTime = new GLabel("Time Elapsed: ", 350, 40);
 		add(myTime);
 		myTime.setFont("Bold-15");
-		if (gameMode == "Limited Moves") {
+		if (gameMode.equals("Limited Moves")) {
 			displayMovesTime();
 		}
 		someTimerVar.setInitialDelay(3);

@@ -296,7 +296,7 @@ public class GamePiece extends GCompound {
 		 *
 		 * @param color the RGB color of the piece
 		 */
-		private Color(java.awt.Color color) {
+		Color(java.awt.Color color) {
 			this.color = color;
 		}
 

@@ -97,7 +97,7 @@ public class MenuScreen extends Screen
 		playButton.setColor(Color.WHITE);
 		playButton.setFillColor(buttonColor);
 		add(playButton);
-	};
+	}
 
 	public void showSetting()
 	{
@@ -135,7 +135,7 @@ public class MenuScreen extends Screen
 		quitButton.setColor(Color.WHITE);
 		quitButton.setFillColor(buttonColor);
 		add(quitButton);
-	};
+	}
 
 	/**
 	 * Display the tutorialButton, clicking on it would bring you to the

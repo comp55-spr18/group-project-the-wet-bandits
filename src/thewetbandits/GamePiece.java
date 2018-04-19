@@ -76,7 +76,7 @@ public class GamePiece extends GCompound
 	private Runnable animationCallback;
 
 	private static int nextId = 1;
-	//TODO remove this? I'm not sure if it does anything
+	// TODO remove this? I'm not sure if it does anything
 	private int id = nextId++;
 
 	/**
@@ -370,7 +370,8 @@ public class GamePiece extends GCompound
 	public enum Color
 	{
 		YELLOW(new java.awt.Color(250, 240, 66)), GREEN(new java.awt.Color(67, 153, 58)), BLUE(
-				new java.awt.Color(24, 30, 219)), RED(java.awt.Color.RED);
+				new java.awt.Color(24, 30, 219)), RED(java.awt.Color.RED), ORANGE(
+						java.awt.Color.ORANGE), PINK(java.awt.Color.PINK), WHITE(java.awt.Color.WHITE);
 
 		private java.awt.Color color;
 
@@ -396,7 +397,7 @@ public class GamePiece extends GCompound
 		}
 	}
 
-	//TODO document this. I don't know what this method does
+	// TODO document this. I don't know what this method does
 	public void setTargetLocation(int x, int y, boolean queue)
 	{
 		GPoint target = new GPoint(x, y);
@@ -416,7 +417,7 @@ public class GamePiece extends GCompound
 		}
 	}
 
-	//TODO document this. I don't know what this method does
+	// TODO document this. I don't know what this method does
 	public void setTargetLocation(int x, int y)
 	{
 		this.setTargetLocation(x, y, false);

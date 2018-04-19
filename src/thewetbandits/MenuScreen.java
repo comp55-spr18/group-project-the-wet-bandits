@@ -191,7 +191,7 @@ public class MenuScreen extends Screen
 			audioIn = AudioSystem.getAudioInputStream(url);
 			clip = AudioSystem.getClip();
 			clip.open(audioIn);
-			clip.start();
+			//clip.start();
 		}catch(LineUnavailableException e)
 		{
 			e.printStackTrace();

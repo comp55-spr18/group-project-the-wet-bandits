@@ -19,7 +19,7 @@ import java.awt.event.MouseEvent;
  */
 public class MainGameplayScreen extends Screen implements ActionListener
 {
-	private static final int BOARD_SIZE = 10;
+	private static final int BOARD_SIZE = 8;
 	protected Board board;
 	private int width;
 	private int height;

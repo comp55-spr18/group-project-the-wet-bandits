@@ -1,5 +1,6 @@
 package thewetbandits.screens;
 
+import acm.graphics.GImage;
 import acm.graphics.GLabel;
 import thewetbandits.Board;
 import thewetbandits.MatchThreeGame;
@@ -19,6 +20,8 @@ import java.awt.event.MouseEvent;
  */
 public class MainGameplayScreen extends Screen implements ActionListener
 {
+	public static final int WINDOW_WIDTH = 1000;
+	public static final int WINDOW_HEIGHT = 700;
 	private static final int BOARD_SIZE = 5;
 	protected Board board;
 	private int width;
@@ -51,6 +54,10 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		this.width = width;
 		this.height = height;
 		this.gameMode = gameMode;
+		GImage boardBG = new GImage("board1.gif", 0, 0);
+		boardBG.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+		add(boardBG);
+		
 		board = new Board(width < height ? width : height, BOARD_SIZE, app);
 		board.setLocation(300, 25);
 		while(board.numberOfMatches() > 0 || board.numberOfPossibleMoves() <= 0)
@@ -134,11 +141,9 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	 */
 	public void displayTitle()
 	{
-		GLabel displayTitle = new GLabel("Three's A Company", 50, 150);
-
+		GImage displayTitle = new GImage("title.png", 20, 0);
+		displayTitle.setSize(350, 150);
 		add(displayTitle);
-		displayTitle.setColor(Color.ORANGE);
-		displayTitle.setFont("Bradley Hand ITC-Bold-30");
 	}
 
 	/**
@@ -171,6 +176,9 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	 */
 	public void displayPause()
 	{
+		GImage pause = new GImage("pause.png", 225, 400);
+		add(pause);
+		
 		pauseButton = new GButton("PAUSE", 50, 400, 150, 50, new ClickAction()
 		{
 			@Override
@@ -191,6 +199,9 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	 */
 	public void displayQuit()
 	{
+		GImage quit = new GImage("boardquit.png", 225, 500);
+		add(quit);
+		
 		quitButton = new GButton("QUIT", 50, 500, 150, 50, new ClickAction()
 		{
 			@Override

@@ -6,7 +6,6 @@
 package thewetbandits;
 
 import acm.graphics.*;
-import test.BetterPiece;
 import thewetbandits.utils.Clickable;
 
 import java.awt.event.MouseEvent;
@@ -19,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Board extends GCompound implements Clickable
 {
-	private BetterPiece[][] board;
+	private GamePiece[][] board;
 	private int pieceSize;
 	private int boardLength;
 	private int spaceSize;
@@ -28,7 +27,7 @@ public class Board extends GCompound implements Clickable
 	private Line2D.Double[] horizontalLines;
 	private int screenSize;
 	private MatchThreeGame app;
-	private BetterPiece selectedPiece;
+	private GamePiece selectedPiece;
 	private int score;
 	private int scoreMultiplier;
 
@@ -52,10 +51,10 @@ public class Board extends GCompound implements Clickable
 		this.pieceSize = (spaceSize / 7) * 5;
 		border = new GRectangle(spaceSize - ((spaceSize - pieceSize) / 2), spaceSize - ((spaceSize - pieceSize) / 2),
 				spaceSize * boardLength, spaceSize * boardLength);
-		board = new BetterPiece[boardLength][boardLength];
+		board = new GamePiece[boardLength][boardLength];
 		for(int r = 0; r < board.length; r++)
 			for(int c = 0; c < board[0].length; c++)
-				board[r][c] = new BetterPiece(spaceSize * (r + 1), spaceSize * (c + 1), pieceSize, r, c);
+				board[r][c] = new GamePiece(spaceSize * (r + 1), spaceSize * (c + 1), pieceSize, r, c);
 		verticalLines = new Line2D.Double[boardLength - 1];
 		horizontalLines = new Line2D.Double[boardLength - 1];
 		for(int i = 2; i <= boardLength; i++)
@@ -77,7 +76,7 @@ public class Board extends GCompound implements Clickable
 	 */
 	public void shuffleBoard()
 	{
-		List<BetterPiece> pieces = new ArrayList<>();
+		List<GamePiece> pieces = new ArrayList<>();
 		Random r = new Random();
 		// Randomly shuffle the board
 		for(int i = 0; i < this.board.length; i++)
@@ -88,7 +87,7 @@ public class Board extends GCompound implements Clickable
 				board[i][j] = null;
 			}
 		}
-		BetterPiece b;
+		GamePiece b;
 		for(int i = 0; i < this.board.length; i++)
 		{
 			for(int j = 0; j < this.board[i].length; j++)
@@ -128,7 +127,7 @@ public class Board extends GCompound implements Clickable
 		{
 			for(int c = 0; c < board[0].length; c++)
 			{
-				board[r][c] = new BetterPiece(spaceSize * (r + 1), spaceSize * (c + 1), pieceSize, r, c);
+				board[r][c] = new GamePiece(spaceSize * (r + 1), spaceSize * (c + 1), pieceSize, r, c);
 				add(board[r][c]);
 			}
 		}
@@ -201,7 +200,7 @@ public class Board extends GCompound implements Clickable
 	public int numberOfPossibleMoves()
 	{
 		int numPossible = 0;
-		BetterPiece p;
+		GamePiece p;
 		for(int r = 0; r < boardLength; r++)
 		{
 			for(int c = 0; c < boardLength; c++)
@@ -254,7 +253,7 @@ public class Board extends GCompound implements Clickable
 	public int numberOfMatches()
 	{
 		int numMatches = 0;
-		BetterPiece p;
+		GamePiece p;
 		for(int r = 0; r < boardLength; r++)
 		{
 			for(int c = 0; c < boardLength; c++)
@@ -278,7 +277,7 @@ public class Board extends GCompound implements Clickable
 	private void removeMatches()
 	{
 		System.out.println("removeMatches() called");
-		BetterPiece p;
+		GamePiece p;
 		for(int r = 0; r < boardLength; r++)
 		{
 			for(int c = 0; c < boardLength; c++)
@@ -286,13 +285,13 @@ public class Board extends GCompound implements Clickable
 				p = board[r][c];
 				if(p == null)
 					continue;
-				HashSet<BetterPiece> rowChain = buildChain(r, c, 1, 0);
-				HashSet<BetterPiece> colChain = buildChain(r, c, 0, 1);
+				HashSet<GamePiece> rowChain = buildChain(r, c, 1, 0);
+				HashSet<GamePiece> colChain = buildChain(r, c, 0, 1);
 
 				if(rowChain.size() >= 3)
 				{
 					score += (100 * (rowChain.size() - 2)) * scoreMultiplier;
-					for(BetterPiece p1 : rowChain)
+					for(GamePiece p1 : rowChain)
 					{
 						board[p1.getR()][p1.getC()] = null;
 						remove(p1);
@@ -301,7 +300,7 @@ public class Board extends GCompound implements Clickable
 				if(colChain.size() >= 3)
 				{
 					score += (100 * (colChain.size() - 2)) * scoreMultiplier;
-					for(BetterPiece p1 : colChain)
+					for(GamePiece p1 : colChain)
 					{
 						board[p1.getR()][p1.getC()] = null;
 						remove(p1);
@@ -332,17 +331,17 @@ public class Board extends GCompound implements Clickable
 	 *            The change in column
 	 * @return The chain
 	 */
-	private HashSet<BetterPiece> buildChain(int row, int col, int deltaR, int deltaC)
+	private HashSet<GamePiece> buildChain(int row, int col, int deltaR, int deltaC)
 	{
-		BetterPiece piece = board[row][col];
-		HashSet<BetterPiece> chain = new HashSet<>();
+		GamePiece piece = board[row][col];
+		HashSet<GamePiece> chain = new HashSet<>();
 		for(int i = 0; i < boardLength; i++)
 		{
 			int targetRow = row + (i * deltaR);
 			int targetCol = col + (i * deltaC);
 			if(!inBounds(targetRow, targetCol))
 				break;
-			BetterPiece target = board[targetRow][targetCol];
+			GamePiece target = board[targetRow][targetCol];
 			if(target == null)
 			{
 				break;
@@ -394,7 +393,7 @@ public class Board extends GCompound implements Clickable
 			{
 				for(int screenRow = 0; screenRow < this.boardLength; screenRow++)
 				{
-					BetterPiece p = this.getPiece(screenRow, screenCol);
+					GamePiece p = this.getPiece(screenRow, screenCol);
 					if(p == null)
 						continue;
 					int targetRow = screenRow + 1;
@@ -428,7 +427,7 @@ public class Board extends GCompound implements Clickable
 			int screenRow = 0;
 			if(this.getPiece(screenRow, screenCol) == null)
 			{
-				BetterPiece piece = new BetterPiece(spaceSize * (screenCol + 1), spaceSize * (screenRow + 1), pieceSize,
+				GamePiece piece = new GamePiece(spaceSize * (screenCol + 1), spaceSize * (screenRow + 1), pieceSize,
 						screenCol, screenRow);
 				add(piece);
 				this.setPiece(piece, screenRow, screenCol);
@@ -468,7 +467,7 @@ public class Board extends GCompound implements Clickable
 	 * @return a reference to the piece that appears to be at
 	 *         board[screenRow][screenCol]
 	 */
-	public BetterPiece getPiece(int screenRow, int screenCol)
+	public GamePiece getPiece(int screenRow, int screenCol)
 	{
 		return this.board[screenCol][screenRow];
 	}
@@ -491,7 +490,7 @@ public class Board extends GCompound implements Clickable
 	 *            the column at which the piece will appear to be on the visual
 	 *            representation of the board
 	 */
-	public void setPiece(BetterPiece piece, int screenRow, int screenCol)
+	public void setPiece(GamePiece piece, int screenRow, int screenCol)
 	{
 		this.board[screenCol][screenRow] = piece;
 		if(piece != null)
@@ -504,9 +503,9 @@ public class Board extends GCompound implements Clickable
 	public void onClick(MouseEvent evt)
 	{
 		GObject o = this.getElementAt(translateXToLocalSpace(evt.getX()), translateYToLocalSpace(evt.getY()));
-		if(o != null && o instanceof BetterPiece)
+		if(o != null && o instanceof GamePiece)
 		{
-			final BetterPiece clickedPiece = (BetterPiece) o;
+			final GamePiece clickedPiece = (GamePiece) o;
 			if(selectedPiece == null)
 			{
 				clickedPiece.toggleActive();
@@ -547,14 +546,14 @@ public class Board extends GCompound implements Clickable
 						public void run()
 						{
 							try {
-								while (BetterPiece.arePiecesAnimating()) {
+								while (GamePiece.arePiecesAnimating()) {
 									// Do nothing
 									Thread.yield();
 								}
 								removeMatches();
 								updatePieceLocations();
 								Thread.sleep(100);
-								while (BetterPiece.arePiecesAnimating()) {
+								while (GamePiece.arePiecesAnimating()) {
 									Thread.yield();
 								}
 								while (hasEmptySpaces() || numberOfMatches() > 0) {
@@ -593,8 +592,8 @@ public class Board extends GCompound implements Clickable
 	 */
 	private void swapPiece(int r1, int c1, int r2, int c2)
 	{
-		BetterPiece p1 = this.board[r1][c1];
-		BetterPiece p2 = this.board[r2][c2];
+		GamePiece p1 = this.board[r1][c1];
+		GamePiece p2 = this.board[r2][c2];
 
 		if(p2 != null)
 			p2.updateRowCol(r1, c1);

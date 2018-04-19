@@ -1,58 +1,85 @@
 package thewetbandits;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import acm.graphics.GCompound;
+import acm.graphics.GImage;
+import acm.graphics.GOval;
+import acm.graphics.GPoint;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
-import javax.imageio.ImageIO;
-
-import acm.graphics.GObject;
-import acm.graphics.GRectangle;
-
-/*
- * @author Miguel
- * @author Jacob Faulk
- */
-
-public class GamePiece extends GObject
+public class GamePiece extends GCompound
 {
-	private static Random rand = new Random();
-	private static final Color YELLOW = new Color(250, 240, 66);
-	private static final Color GREEN = new Color(67, 153, 58);
-	private static final Color BLUE = new Color(24, 30, 219);
-	private int x;
-	private int y;
-	private int size;
-	private Color color;
-	private BufferedImage img;
 
-	/**
-	 * Constructor where color is provided and image is null
-	 * 
-	 * @param x
-	 *            the x position of the piece
-	 * @param y
-	 *            the y position of the piece
-	 * @param size
-	 *            the width and height of the piece
-	 * @param color
-	 *            the color of the piece
-	 */
-	public GamePiece(int x, int y, int size, Color color)
+	private static final int MOVEMENT_SPEED = 5;
+	private static final int MOVEMENT_FREQUENCY = 13;
+	private static final Random random = new Random();
+
+	// Store a list of weak references (so the pieces can be garbage collected
+	// correctly) of pieces to update
+	private static final ArrayList<WeakReference<GamePiece>> pieces = new ArrayList<>();
+	private static Timer updateTimer;
+
+	static
 	{
-		super();
-		this.x = x;
-		this.y = y;
-		this.size = size;
-		this.color = color;
+		updateTimer = new Timer(MOVEMENT_FREQUENCY, new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				// Timers are async so synchronize access to the array list so we don't break
+				// everything with CMEs
+				synchronized(pieces)
+				{
+					Iterator<WeakReference<GamePiece>> iterator = pieces.iterator();
+					while(iterator.hasNext())
+					{
+						WeakReference<GamePiece> pieceReference = iterator.next();
+						GamePiece piece = pieceReference.get();
+						if(piece == null)
+						{
+							// The piece has been garbage collected, remove it from the list
+							iterator.remove();
+						}
+						else
+						{
+							if(piece.currentPoint != null)
+								piece.updatePose();
+						}
+					}
+				}
+			}
+		});
+		updateTimer.start();
 	}
+
+	private Color color;
+
+	private GImage image;
+	private GImage imageAnimated;
+	private GOval testOval;
+
+	private int x, y, size, r, c;
+
+	private boolean active = false;
+
+	private GPoint currentPoint;
+
+	private ArrayList<GPoint> locations = new ArrayList<>();
+
+	private Runnable animationCallback;
+
+	private static int nextId = 1;
+	private int id = nextId++;
 
 	/**
 	 * Constructor where color and image are randomly chosen out of a predefined set
-	 * 
+	 *
 	 * @param x
 	 *            the x position of the piece
 	 * @param y
@@ -60,72 +87,54 @@ public class GamePiece extends GObject
 	 * @param size
 	 *            the width and height of the piece
 	 */
-	public GamePiece(int x, int y, int size)
+	public GamePiece(int x, int y, int size, int r, int c)
 	{
-		super();
+		this(x, y, size, getRandomColor(), r, c);
+	}
+
+	public GamePiece(int spaceSize, int size, int r, int c)
+	{
+		this(spaceSize * (r + 1), spaceSize * (c + 1), size, r, c);
+	}
+
+	public GamePiece(int x, int y, int size, Color color, int r, int c)
+	{
+		this.color = color;
 		this.x = x;
 		this.y = y;
 		this.size = size;
-		try
+		this.initImage();
+		this.r = r;
+		this.c = c;
+		// Add the piece to the list of pieces to update
+		synchronized(pieces)
 		{
-			switch(rand.nextInt(4))
-			{
-			case 0:
-				this.color = Color.RED;
-				this.img = ImageIO.read(new File("red_gem.png"));
-				break;
-			case 1:
-				this.color = BLUE;
-				this.img = ImageIO.read(new File("blue_gem.png"));
-				break;
-			case 2:
-				this.color = GREEN;
-				this.img = ImageIO.read(new File("green_gem.png"));
-				break;
-			default:
-				this.img = ImageIO.read(new File("yellow_gem.png"));
-				this.color = YELLOW;
-			}
-		}catch(IOException e)
-		{
-			e.printStackTrace();
+			pieces.add(new WeakReference<>(this));
 		}
 	}
 
-	/**
-	 * Constructor where image is provided and color is randomly chosen in case img
-	 * is null
-	 * 
-	 * @param x
-	 *            the x position of the piece
-	 * @param y
-	 *            the y position of the piece
-	 * @param size
-	 *            the width and height of the piece
-	 * @param img
-	 *            the image that the piece displays when paint() is called
-	 */
-	public GamePiece(int x, int y, int size, BufferedImage img)
+	private static Color getRandomColor()
 	{
-		super();
-		this.x = x;
-		this.y = y;
-		this.size = size;
-		this.img = img;
-		switch(rand.nextInt(4))
+		return Color.values()[random.nextInt(Color.values().length)];
+	}
+
+	public static boolean arePiecesAnimating()
+	{
+		for(WeakReference<GamePiece> ref : pieces)
 		{
-		case 0:
-			this.color = Color.RED;
-			break;
-		case 1:
-			this.color = BLUE;
-			break;
-		case 2:
-			this.color = GREEN;
-			break;
-		default:
-			this.color = YELLOW;
+			GamePiece p = ref.get();
+			if(p != null)
+			{
+				if(p.animating())
+					return true;
+			}
 		}
+		return false;
+	}
+
+	public Color setGemColor(GamePiece[][] b)
+	{
+		return Color.values()[random.nextInt(Color.values().length)];
 	}
 
 	public void reposition(int x, int y, int size)
@@ -133,37 +142,148 @@ public class GamePiece extends GObject
 		this.x = x;
 		this.y = y;
 		this.size = size;
+		this.image.setSize(size, size);
+		this.imageAnimated.setSize(size, size);
+		this.updateImage();
+		this.setLocation(x, y);
 	}
 
-	/**
-	 * draws the GamePiece in its position with the specified image if img is null,
-	 * its backup color is displayed
-	 * 
-	 * @param g
-	 *            the graphics element that draws the piece
-	 */
-	public void paint(Graphics g)
+	public void updateRowCol(int r, int c)
 	{
-		if(img == null)
-		{
-			g.setColor(color);
-			g.fillOval(x, y, size, size);
+		this.r = r;
+		this.c = c;
+	}
+
+	public int getR()
+	{
+		return r;
+	}
+
+	public int getC()
+	{
+		return c;
+	}
+
+	private void initImage()
+	{
+		this.image = new GImage(this.color.toString().toLowerCase() + "_gem.png");
+		this.imageAnimated = new GImage(this.color.toString().toLowerCase() + "_gem_animated.gif");
+		this.imageAnimated.setSize(this.size, this.size);
+		this.image.setSize(this.size, this.size);
+		this.testOval = new GOval(size, size);
+		this.testOval.setColor(this.color.getColor());
+		updateImage();
+		this.setLocation(this.x, this.y);
+	}
+
+	private void updateImage()
+	{
+		remove(this.image);
+		remove(this.imageAnimated);
+		add(active ? this.imageAnimated : this.image);
+	}
+
+	public void clearPiece()
+	{
+		remove(this.image);
+		remove(this.imageAnimated);
+		add(testOval);
+	}
+
+	public void toggleActive()
+	{
+		this.active = !this.active;
+		this.updateImage();
+	}
+
+	public Color getColorType()
+	{
+		return color;
+	}
+
+	public boolean animating()
+	{
+		return !this.locations.isEmpty() || this.currentPoint != null;
+	}
+
+	private void updatePose()
+	{
+		GPoint point = new GPoint(this.getX(), this.getY());
+		double distance = calcDistance(point, this.currentPoint);
+		if(distance < 4) {
+			this.setLocation(this.currentPoint.getX(), this.currentPoint.getY());
+			this.currentPoint = this.getNextPoint();
+			this.runCallback();
+		} else {
+			this.movePolar(MOVEMENT_SPEED, calculateAngle(point, this.currentPoint));
 		}
+	}
+
+	private void runCallback(){
+		if(this.currentPoint == null)
+			if(this.animationCallback != null)
+				this.animationCallback.run();
+	}
+
+	private GPoint getNextPoint(){
+		if(!this.locations.isEmpty())
+			return this.locations.remove(0);
 		else
+			return null;
+	}
+
+	private double calcDistance(GPoint p1, GPoint p2){
+		return Math.sqrt(Math.pow(p1.getX() - p2.getX(), 2) + Math.pow(p1.getX() - p2.getX(), 2));
+	}
+
+	private double calculateAngle(GPoint current, GPoint desired){
+		double dx = desired.getX() - current.getX();
+		double dy = desired.getY() - current.getY();
+		double angle = -1 * Math.atan2(dy, dx);
+		angle = (angle > 0 ? angle : (2 * Math.PI + angle)) * 360 / (2 * Math.PI);
+		return angle;
+	}
+
+	public void setAnimationCallback(Runnable runnable)
+	{
+		this.animationCallback = runnable;
+	}
+
+	public enum Color
+	{
+		YELLOW(new java.awt.Color(250, 240, 66)), GREEN(new java.awt.Color(67, 153, 58)), BLUE(
+				new java.awt.Color(24, 30, 219)), RED(java.awt.Color.RED);
+
+		private java.awt.Color color;
+
+		private Color(java.awt.Color color)
 		{
-			g.drawImage(img, x, y, size, size, null);
+			this.color = color;
+		}
+
+		public java.awt.Color getColor()
+		{
+			return this.color;
 		}
 	}
 
-	/**
-	 * returns a GRectangle detailing the bounds of the piece
-	 * 
-	 * @return the bounding box of the piece
-	 */
-	@Override
-	public GRectangle getBounds()
+	public void setTargetLocation(int x, int y, boolean queue)
 	{
-		return new GRectangle(x, y, size, size);
+		GPoint target = new GPoint(x, y);
+		if(target == this.getLocation())
+			return;
+		System.out.println("Setting target to "+x+", "+y);
+		if(this.currentPoint == null) {
+			this.currentPoint = target;
+		} else {
+			if(queue)
+				this.locations.add(target);
+			else
+				this.currentPoint = target;
+		}
 	}
 
+	public void setTargetLocation(int x, int y){
+		this.setTargetLocation(x, y, false);
+	}
 }

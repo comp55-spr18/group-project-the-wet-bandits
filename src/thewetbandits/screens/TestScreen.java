@@ -2,7 +2,7 @@ package thewetbandits.screens;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 
-import thewetbandits.GamePiece;
+import test.OldPiece;
 import thewetbandits.MatchThreeGame;
 import thewetbandits.utils.ClickAction;
 import thewetbandits.utils.GButton;
@@ -16,7 +16,7 @@ import thewetbandits.utils.GButton;
 public class TestScreen extends Screen {
 	private GButton rect;
 
-	private GamePiece piece;
+	private OldPiece piece;
 
 	public TestScreen(MatchThreeGame app) {
 		super(app);
@@ -33,7 +33,7 @@ public class TestScreen extends Screen {
 				System.out.println("You clicked the thing!");
 			}
 		});
-		piece = new GamePiece(10,10,20,Color.BLUE);
+		piece = new OldPiece(10,10,20,Color.BLUE);
 		this.add(piece);
 		this.add(rect);
 	}

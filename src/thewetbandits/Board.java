@@ -1,7 +1,9 @@
 package thewetbandits;
 
 import acm.graphics.*;
+import thewetbandits.screens.MainGameplayScreen;
 import thewetbandits.utils.Clickable;
+import thewetbandits.utils.GraphicsPane;
 
 import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
@@ -588,11 +590,31 @@ public class Board extends GCompound implements Clickable
 		System.out.println(numberOfPossibleMoves());
 		if(numberOfPossibleMoves() <= 0)
 		{
-			this.resetBoard();
-			do
-			{
-				this.shuffleBoard();
-			}while(this.numberOfMatches() > 0 || this.numberOfPossibleMoves() <= 0);
+			MatchThreeGame.executor.submit(new Runnable() {
+				@Override
+				public void run() {
+					GraphicsPane p = app.getCurrentPane();
+					MainGameplayScreen s = null;
+					if(p instanceof MainGameplayScreen){
+						s = (MainGameplayScreen) p;
+
+						s.showNoMoves();
+
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+					resetBoard();
+					do
+					{
+						shuffleBoard();
+					} while(numberOfMatches() > 0 || numberOfPossibleMoves() <= 0);
+					if(s != null)
+						s.hideNoMoves();
+				}
+			});
 		}
 	}
 

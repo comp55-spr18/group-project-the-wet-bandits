@@ -3,7 +3,6 @@ package thewetbandits;
 import thewetbandits.screens.Screens;
 import thewetbandits.utils.GraphicsApplication;
 
-import java.awt.event.MouseEvent;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 

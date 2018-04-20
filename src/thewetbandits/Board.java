@@ -424,7 +424,6 @@ public class Board extends GCompound implements Clickable
 	 */
 	public void refill()
 	{
-		boolean refilled = false;
 		for(int screenCol = 0; screenCol < this.boardLength; screenCol++)
 		{
 			int screenRow = 0;
@@ -434,7 +433,6 @@ public class Board extends GCompound implements Clickable
 						screenCol, screenRow);
 				add(piece);
 				this.setPiece(piece, screenRow, screenCol);
-				refilled = true;
 			}
 		}
 	}

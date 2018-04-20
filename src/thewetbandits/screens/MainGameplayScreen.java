@@ -68,7 +68,6 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		}
 	});
 
-	private int frameNum = 0;
 	private int score;
 	private int displayedScore;
 
@@ -222,7 +221,6 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		if(displayedScore > score)
 			displayedScore = score;
 		displayScore.setLabel("Score: " + displayedScore);
-		frameNum++;
 	}
 
 }

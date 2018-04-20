@@ -4,7 +4,6 @@ import acm.graphics.GImage;
 import thewetbandits.MatchThreeGame;
 import thewetbandits.utils.ClickAction;
 import thewetbandits.utils.GImageButton;
-import thewetbandits.utils.GParagraph;
 
 import java.awt.event.MouseEvent;
 

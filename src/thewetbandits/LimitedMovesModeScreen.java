@@ -18,8 +18,7 @@ public class LimitedMovesModeScreen extends MainGameplayScreen {
 		displayMoves();
 		scoreTimer.setInitialDelay(3);
 		scoreTimer.start();
-		displayPause();
-		displayQuit();
+		displayButton();
 	}
 	
 	/**

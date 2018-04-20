@@ -56,7 +56,6 @@ public class TimedGameModeScreen extends MainGameplayScreen {
 		clockTimer.setInitialDelay(3);
 		clockTimer.start();
 		scoreTimer.start();
-		displayPause();
-		displayQuit();
+		displayButton();
 	}
 }

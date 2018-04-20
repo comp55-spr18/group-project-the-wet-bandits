@@ -29,8 +29,8 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	private int height;
 	private String gameMode;
 
-	private GButton pauseButton;
-	private GButton quitButton;
+	private GImage pause = new GImage("pause.png", 100, 400);
+	private GImage quit = new GImage("boardquit.png", 100, 500);
 	protected int secs = 0;
 	protected int mins;
 	protected GLabel myTime;
@@ -45,7 +45,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 			secs++;
 		}
 	});
-	private Color buttonColor = new Color(255, 154, 0);
+
 	private int frameNum = 0;
 	private int score;
 	private int displayedScore;
@@ -139,6 +139,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	{
 		displayTitle();
 		displayScore();
+		displayButton();
 		this.mins = 0;
 		myTime = new GLabel("Time Elapsed: ", 350, 40);
 		add(myTime);
@@ -147,8 +148,6 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		clockTimer.setInitialDelay(3);
 		scoreTimer.start();
 		clockTimer.start();
-		displayPause();
-		displayQuit();
 	}
 
 	/**
@@ -178,48 +177,10 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	 * Displays the pause button - need to make it pause and go to some sort of
 	 * pause screen - then add a button to come back to the board
 	 */
-	public void displayPause()
+	public void displayButton()
 	{
-		GImage pause = new GImage("pause.png", 225, 400);
 		add(pause);
-		
-		pauseButton = new GButton("PAUSE", 50, 400, 150, 50, new ClickAction()
-		{
-			@Override
-			public void onClick(MouseEvent event)
-			{
-				System.out.println("Pressing Pause");
-				// go to a pause screen??
-				// switchToScreen();
-			}
-		});
-		pauseButton.setFillColor(buttonColor);
-		add(pauseButton);
-
-	}
-
-	/**
-	 * Displays the quit button - need to make it go to the MenuScreen
-	 */
-	public void displayQuit()
-	{
-		GImage quit = new GImage("boardquit.png", 225, 500);
 		add(quit);
-		
-		quitButton = new GButton("QUIT", 50, 500, 150, 50, new ClickAction()
-		{
-			@Override
-			public void onClick(MouseEvent event)
-			{
-				System.out.println("Pressing Quit");
-				System.out.println("click on quit");
-				System.exit(0);
-				// go to MenuScreen
-				// switchToScreen();
-			}
-		});
-		quitButton.setFillColor(buttonColor);
-		add(quitButton);
 	}
 
 	/**

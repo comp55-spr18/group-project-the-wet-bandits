@@ -160,6 +160,15 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	}
 
 	/**
+	 * pauses the clock timer
+	 */
+	@Override
+	public void onHide()
+	{
+		clockTimer.stop();
+	}
+
+	/**
 	 * Displays the title
 	 */
 	public void displayTitle()

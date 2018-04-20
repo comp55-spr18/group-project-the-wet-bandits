@@ -1,8 +1,7 @@
-package thewetbandits;
+package thewetbandits.screens;
 
 import acm.graphics.GImage;
-import thewetbandits.screens.Screen;
-import thewetbandits.screens.Screens;
+import thewetbandits.MatchThreeGame;
 import thewetbandits.utils.ClickAction;
 import thewetbandits.utils.GImageButton;
 import thewetbandits.utils.GParagraph;
@@ -18,21 +17,21 @@ import java.awt.event.MouseEvent;
 	 *
 	 */
 
-public class Context extends Screen {
+public class InstructionsScreen extends Screen {
 	public static final int WINDOW_WIDTH = 1000;
 	public static final int WINDOW_HEIGHT = 700;
 	private GImage stepone = new GImage("stepone.png", 50, 200);
 	private GImage steptwo = new GImage("steptwo.png", 50, 250);
 	private MatchThreeGame menu;
 
-	public Context(MatchThreeGame app) {
+	public InstructionsScreen(MatchThreeGame app) {
 		super(app);
 		menu = app;
 		run();
 	}
 
 	public void run() {
-		GImage background = new GImage("background.gif" ,0, 0);
+		GImage background = new GImage("boardBG.png" ,0, 0);
 		background.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		add(background);
 		tutorial();

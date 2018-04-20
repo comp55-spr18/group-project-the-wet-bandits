@@ -47,9 +47,9 @@ public class TimedGameModeScreen extends MainGameplayScreen {
 		displayScore();
 		displayScore.setLabel("");
 		this.mins = 3;
-		myTime = new GLabel("", 350, 40);
+		myTime = new GLabel("", 500, 75);
 		add(myTime);
-		myTime.setFont("Bold-15");
+		myTime.setFont("Bold-25");
 		myTime.setColor(Color.WHITE);
 		displayButton();
 	}

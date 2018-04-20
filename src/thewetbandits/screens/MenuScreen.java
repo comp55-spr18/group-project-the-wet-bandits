@@ -5,16 +5,15 @@ import thewetbandits.MatchThreeGame;
 import thewetbandits.screens.Screen;
 import thewetbandits.screens.Screens;
 import thewetbandits.utils.ClickAction;
-import thewetbandits.utils.GButton;
 import thewetbandits.utils.GImageButton;
 
 import javax.sound.sampled.*;
-import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 
 /**
+ * 
  * 
  * @author John Thao with help from Austin Whyte
  *
@@ -31,7 +30,7 @@ public class MenuScreen extends Screen
 	private String music = "default.wav";
 	private URL url;
 	private AudioInputStream audioIn;
-	private Clip clip;
+	protected Clip clip;
 	private GImage background = new GImage("boardBG.PNG", 0, 0);
 	private GImage displayTitle = new GImage("logo1.png", 200, 50);
 

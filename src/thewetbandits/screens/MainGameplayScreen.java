@@ -27,7 +27,18 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	protected Board board;
 	private MatchThreeGame game;
 
-	private GImageButton pause = new GImageButton("pause.png", 100, 400);
+	private GImageButton mute = new GImageButton("mute.png", 135, 400, new ClickAction()
+	{
+		@Override
+		public void onClick(MouseEvent event)
+		{
+			if(Screens.MENU_SCREEN.clip.isActive()) {
+				Screens.MENU_SCREEN.clip.stop();
+			} else {
+				Screens.MENU_SCREEN.clip.start();
+			}
+		}
+	});
 	private GImageButton quit = new GImageButton("boardquit.png", 100, 500, new ClickAction()
 	{
 		@Override
@@ -106,9 +117,9 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		displayScore();
 		displayButton();
 		this.mins = 0;
-		myTime = new GLabel("Time Elapsed: ", 350, 40);
+		myTime = new GLabel("Time Elapsed: ", 500, 75);
 		add(myTime);
-		myTime.setFont("Bold-15");
+		myTime.setFont("Bold-25");
 		myTime.setColor(Color.WHITE);
 	}
 
@@ -158,7 +169,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	 */
 	public void displayButton()
 	{
-		add(pause);
+		add(mute);
 		add(quit);
 	}
 

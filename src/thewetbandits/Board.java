@@ -78,7 +78,7 @@ public class Board extends GCompound implements Clickable
 	public void shuffleBoard()
 	{
 		List<GamePiece> pieces = new ArrayList<>();
-		Random r = new Random();
+		Random r = new Random(12345L);
 		// Randomly shuffle the board
 		for(int i = 0; i < this.board.length; i++)
 		{
@@ -545,7 +545,7 @@ public class Board extends GCompound implements Clickable
 						selectedPiece = null;
 						return;
 					}
-					MatchThreeGame.executor.submit(new Runnable()
+					MatchThreeGame.executor.schedule(new Runnable()
 					{
 						@Override
 						public void run()
@@ -581,13 +581,18 @@ public class Board extends GCompound implements Clickable
 							{
 								// ignore
 							}
+							System.out.println("matching complete");
 						}
-					});
+					}, 50, TimeUnit.MILLISECONDS);
+				} else {
+					System.out.println("Clicked on an out-of bounds piece");
 				}
 				selectedPiece = null;
 			}
+		} else {
+			System.out.println("Clicked on nothing");
 		}
-		System.out.println(numberOfPossibleMoves());
+
 		if(numberOfPossibleMoves() <= 0)
 		{
 			MatchThreeGame.executor.submit(new Runnable() {

@@ -18,12 +18,12 @@ public class TimedGameModeScreen extends MainGameplayScreen
 		{
 			if(secs > 9)
 			{
-				myTime.setLabel("Time Left: " + mins + ":" + secs);
+				time.setLabel("Time Left: " + mins + ":" + secs);
 				secs--;
 			}
 			else
 			{
-				myTime.setLabel("Time Left: " + mins + ":0" + secs);
+				time.setLabel("Time Left: " + mins + ":0" + secs);
 				secs--;
 			}
 			if(secs < 0)
@@ -33,7 +33,7 @@ public class TimedGameModeScreen extends MainGameplayScreen
 			}
 			if(mins == 0 && secs == 0)
 			{
-				myTime.setLabel("Game Over");
+				time.setLabel("Game Over");
 				scoreTimer.stop();
 			}
 		}
@@ -61,10 +61,10 @@ public class TimedGameModeScreen extends MainGameplayScreen
 		displayScore();
 		displayScore.setLabel("");
 		this.mins = 3;
-		myTime = new GLabel("", 500, 75);
-		add(myTime);
-		myTime.setFont("Bold-25");
-		myTime.setColor(Color.WHITE);
+		time = new GLabel("", 500, 75);
+		add(time);
+		time.setFont("Bold-25");
+		time.setColor(Color.WHITE);
 		displayButton();
 		isInitialized = true;
 	}

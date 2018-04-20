@@ -54,7 +54,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	private GImage noMovesImage = new GImage("no_moves.png");
 	protected int secs = 0;
 	protected int mins;
-	protected GLabel myTime;
+	protected GLabel time;
 	protected GLabel displayScore;
 	protected Timer scoreTimer = new Timer(1, this);
 	protected Timer clockTimer = new Timer(1000, new ActionListener()
@@ -62,8 +62,8 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			if(myTime != null)
-				myTime.setLabel(String.format("Time Elapsed: %d:%02d", secs / 60, secs % 60));
+			if(time != null)
+				time.setLabel(String.format("Time Elapsed: %d:%02d", secs / 60, secs % 60));
 			secs++;
 		}
 	});
@@ -123,10 +123,10 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		displayScore();
 		displayButton();
 		this.mins = 0;
-		myTime = new GLabel("Time Elapsed: ", 500, 75);
-		add(myTime);
-		myTime.setFont("Bold-25");
-		myTime.setColor(Color.WHITE);
+		time = new GLabel("Time Elapsed: ", 500, 75);
+		add(time);
+		time.setFont("Bold-25");
+		time.setColor(Color.WHITE);
 		isInitialized = true;
 	}
 

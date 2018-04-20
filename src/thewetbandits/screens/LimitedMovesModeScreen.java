@@ -41,10 +41,10 @@ public class LimitedMovesModeScreen extends MainGameplayScreen
 	 */
 	public void displayMoves()
 	{
-		GLabel moves = new GLabel("Moves left: 50", 400, 40);
+		GLabel moves = new GLabel("Moves left: 50", 500, 75);
 
 		add(moves);
-		moves.setFont("Bold-15");
+		moves.setFont("Bold-25");
 		moves.setColor(Color.WHITE);
 	}
 }

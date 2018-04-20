@@ -1,7 +1,6 @@
 package thewetbandits.screens;
 
 import acm.graphics.GLabel;
-import thewetbandits.Board;
 import thewetbandits.MatchThreeGame;
 
 import javax.swing.*;
@@ -26,6 +25,7 @@ public class TimedGameModeScreen extends MainGameplayScreen
 			{
 				time.setLabel("Game Over");
 				scoreTimer.stop();
+				GameOverScreen.score = board.getScore();
 				game.switchToScreen(Screens.GAME_OVER);
 			}
 			secs--;
@@ -54,7 +54,7 @@ public class TimedGameModeScreen extends MainGameplayScreen
 		displayTitle();
 		displayScore();
 		displayScore.setLabel("");
-		secs = 180;
+		secs = 10;
 		time = new GLabel("", 500, 75);
 		add(time);
 		time.setFont("Bold-25");

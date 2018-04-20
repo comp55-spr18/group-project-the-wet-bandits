@@ -62,6 +62,7 @@ public class LimitedMovesModeScreen extends MainGameplayScreen
 	}
 
 	private void displayEnd() {
+		GameOverScreen.score = this.board.getScore();
 		this.application.switchToScreen(Screens.GAME_OVER);
 	}
 }

@@ -34,6 +34,11 @@ public class ModeSelectScreen extends Screen {
 	 *  Creates all the game mode buttons
 	 */
 	public void displayMode() {
+		
+		/**
+		 * Displays the endlessMode button, clicking on it enables player to
+		 * play forever.
+		 */
 		GImageButton endlessMode = new GImageButton("endless.png", 400, 200, new ClickAction() {
 			@Override
 			public void onClick(MouseEvent event) {
@@ -41,6 +46,11 @@ public class ModeSelectScreen extends Screen {
 			}
 		});
 		add(endlessMode);
+		
+		/**
+		 *  Displays the timedMode button, clicking on it enables the player to
+		 *  play for a set time amount before the game ends.
+		 */
 		GImageButton timedMode = new GImageButton("timed.png", 400, 300, new ClickAction() {
 			@Override
 			public void onClick(MouseEvent event) {
@@ -48,6 +58,11 @@ public class ModeSelectScreen extends Screen {
 			}
 		});
 		add(timedMode);
+		
+		/**
+		 *  Displays the limitedMode button, clicking on it enables the player to
+		 *  play for a certain amount of moves.
+		 */
 		GImageButton limitedMode = new GImageButton("limited.png", 400, 400, new ClickAction() {
 			@Override
 			public void onClick(MouseEvent event) {
@@ -56,6 +71,10 @@ public class ModeSelectScreen extends Screen {
 		});
 		add(limitedMode);
 		
+		/**
+		 *  Displays the backButton, clicking on it would take the user back to the
+		 *  menuScreen.
+		 */
 		GImageButton backButton = new GImageButton("x.png", 850, 100, new ClickAction() {
 			@Override
 			public void onClick(MouseEvent event) {

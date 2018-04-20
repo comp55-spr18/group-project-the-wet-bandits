@@ -27,13 +27,11 @@ public class MenuScreen extends Screen
 {
 	public static final int WINDOW_WIDTH = 1000;
 	public static final int WINDOW_HEIGHT = 700;
-	private GButton settingButton;
 	private MatchThreeGame game;
 	private String music = "default.wav";
 	private URL url;
 	private AudioInputStream audioIn;
 	private Clip clip;
-	private Color buttonColor = new Color(255, 154, 0);
 	private GImage background = new GImage("boardBG.PNG", 0, 0);
 	private GImage displayTitle = new GImage("logo1.png", 200, 50);
 
@@ -51,7 +49,6 @@ public class MenuScreen extends Screen
 		music();
 		displayTitle();
 		buttons();
-		//showSetting();
 	}
 
 	/**
@@ -63,10 +60,15 @@ public class MenuScreen extends Screen
 	}
 
 	/**
-	 * Displays the playButton, clicking on it would take you to the game
+	 * Displays all the buttons and its actions
 	 */
 	public void buttons()
 	{
+		
+		/**
+		 *  Displays the playButton, clicking on it would take you to the game
+		 */
+		
 		GImageButton playButton = new GImageButton("play.png", 450, 315, new ClickAction()
 		{
 			@Override
@@ -76,6 +78,10 @@ public class MenuScreen extends Screen
 			}
 		});
 		add(playButton);
+		
+		/**
+		 *  Displays the quitButton, click on it exits out of the game
+		 */
 		GImageButton quitButton = new GImageButton("quit.png", 450, 415, new ClickAction()
 		{
 			@Override
@@ -85,6 +91,12 @@ public class MenuScreen extends Screen
 			}
 		});
 		add(quitButton);
+		
+		/**
+		 *  Displays the instructionButton, clicking on it takes you to a different
+		 *  screen that display instructions for the game
+		 */
+		
 		GImageButton instructionButton = new GImageButton("question.png", 900, 615, new ClickAction()
 		{
 			@Override
@@ -94,6 +106,10 @@ public class MenuScreen extends Screen
 			}
 		});
 		add(instructionButton);
+		
+		/**
+		 *  Displays the muteButton, it can be toggle on/off
+		 */
 		GImageButton muteButton = new GImageButton("mute.png", 900, 515, new ClickAction()
 		{
 			@Override
@@ -106,22 +122,6 @@ public class MenuScreen extends Screen
 			}
 		});
 		add(muteButton);
-	}
-
-	public void showSetting()
-	{
-		settingButton = new GButton("SETTING", 450, 375, 115, 50, new ClickAction()
-		{
-			@Override
-			public void onClick(MouseEvent event)
-			{
-				// game.switchToScreen(new MainGameplayScreen(game, WINDOW_WIDTH,
-				// WINDOW_HEIGHT));
-			}
-		});
-		settingButton.setColor(Color.WHITE);
-		settingButton.setFillColor(buttonColor);
-		add(settingButton);
 	}
 
 	/**

@@ -5,15 +5,28 @@ import thewetbandits.MatchThreeGame;
 
 import java.awt.*;
 
-public class LimitedMovesModeScreen extends MainGameplayScreen {
+public class LimitedMovesModeScreen extends MainGameplayScreen
+{
 
-	public LimitedMovesModeScreen(MatchThreeGame app) {
+	/**
+	 * base constructor that initializes the screen
+	 * 
+	 * @param app
+	 *            the application that this screen runs in
+	 */
+	public LimitedMovesModeScreen(MatchThreeGame app)
+	{
 		super(app);
 		if(!isInitialized)
 			run();
 	}
-	
-	public void run() {
+
+	/**
+	 * displays the title, score, number of moves dialogue, and starts the timer for
+	 * the score updater
+	 */
+	public void run()
+	{
 		displayTitle();
 		displayScore();
 		displayMoves();
@@ -22,9 +35,9 @@ public class LimitedMovesModeScreen extends MainGameplayScreen {
 		displayButton();
 		isInitialized = true;
 	}
-	
+
 	/**
-	 * Displays the time and moves left (These modes are not yet implemented)
+	 * Displays the time and moves left TODO make this one actually work
 	 */
 	public void displayMoves()
 	{

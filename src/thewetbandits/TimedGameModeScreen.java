@@ -3,11 +3,10 @@ package thewetbandits;
 import acm.graphics.GLabel;
 import thewetbandits.screens.MainGameplayScreen;
 
-import java.awt.Color;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.*;
 
 public class TimedGameModeScreen extends MainGameplayScreen {
 	
@@ -37,8 +36,8 @@ public class TimedGameModeScreen extends MainGameplayScreen {
         }
 	});
 	
-	public TimedGameModeScreen(MatchThreeGame app, int width, int height) {
-		super(app, width, height);
+	public TimedGameModeScreen(MatchThreeGame app) {
+		super(app);
 		run();
 	}
 
@@ -53,9 +52,13 @@ public class TimedGameModeScreen extends MainGameplayScreen {
 		myTime.setColor(Color.WHITE);
 	//	countDownTimer.setInitialDelay(3);
 	//	countDownTimer.start();
+		displayButton();
+	}
+
+	@Override
+	public void onShow() {
 		clockTimer.setInitialDelay(3);
 		clockTimer.start();
 		scoreTimer.start();
-		displayButton();
 	}
 }

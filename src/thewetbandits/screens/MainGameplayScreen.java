@@ -25,8 +25,6 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	private static final int BOARD_SIZE = 8;
 
 	protected Board board;
-	private int width;
-	private int height;
 	private String gameMode;
 
 	private GImageButton pause = new GImageButton("pause.png", 100, 400);
@@ -61,16 +59,10 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	 * 
 	 * @param app
 	 *            the GraphicsApplication that this Screen will be added to
-	 * @param width
-	 *            the width of the GraphicsApplication
-	 * @param height
-	 *            the height of the GraphicsApplication
 	 */
-	public MainGameplayScreen(MatchThreeGame app, int width, int height)
+	public MainGameplayScreen(MatchThreeGame app)
 	{
 		super(app);
-		this.width = width;
-		this.height = height;
 		GImage boardBG = new GImage("boardBG.png", 0, 0);
 		boardBG.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		add(boardBG);
@@ -79,51 +71,10 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		this.displayedScore = 0;
 		this.gameMode = "";// TODO this will have to be dealt with at some point
 
-		board = new Board(width < height ? width : height, BOARD_SIZE, app);
+		board = new Board(WINDOW_HEIGHT, BOARD_SIZE, app);
 		board.setLocation(300, 25);
 		while(board.numberOfMatches() > 0 || board.numberOfPossibleMoves() <= 0)
 			board.shuffleBoard();
-//		this.add(new GButton("Randomize", 75, 250, 100, 50, new ClickAction()
-//		{
-//
-//			@Override
-//			public void onClick(MouseEvent event)
-//			{
-//				System.out.println("Shuffling board");
-//				if(event.isShiftDown())
-//				{
-//					board.resetBoard();
-//				}
-//				do
-//				{
-//					board.shuffleBoard();
-//				}while(board.numberOfMatches() > 0 || board.numberOfPossibleMoves() <= 0);
-//			}
-//
-//		}));
-//		// TODO 4/10/18: This is only a temporary button for testing, we probably should
-//		// remove this eventually
-//		this.add(new GButton("Shift Down", 25, 600, 100, 50, new ClickAction()
-//		{
-//			@Override
-//			public void onClick(MouseEvent event)
-//			{
-//				board.shiftDown();
-//			}
-//		}));
-//		// TODO remove this one as well
-//		this.add(new GButton("Refill", 125, 600, 50, 50, new ClickAction()
-//		{
-//			@Override
-//			public void onClick(MouseEvent event)
-//			{
-//				while(board.hasEmptySpaces())
-//				{
-//					board.refill();
-//					board.shiftDown();
-//				}
-//			}
-//		}));
 		this.addComponents();
 		run();
 	}
@@ -150,6 +101,10 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		add(myTime);
 		myTime.setFont("Bold-15");
 		myTime.setColor(Color.WHITE);
+	}
+
+	@Override
+	public void onShow() {
 		clockTimer.setInitialDelay(3);
 		scoreTimer.start();
 		clockTimer.start();

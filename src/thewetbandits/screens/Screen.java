@@ -1,12 +1,12 @@
 package thewetbandits.screens;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-
 import acm.graphics.GObject;
 import thewetbandits.MatchThreeGame;
 import thewetbandits.utils.Clickable;
 import thewetbandits.utils.Displayable;
 import thewetbandits.utils.GraphicsPane;
+
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 /**
  * A class extending the functionality of {@link GraphicsPane} by automatically
@@ -98,6 +98,7 @@ public abstract class Screen extends GraphicsPane {
 			this.application.add(obj);
 			System.out.println("Showing "+obj.getClass());
 		}
+		this.onShow();
 	}
 
 	@Override
@@ -108,6 +109,7 @@ public abstract class Screen extends GraphicsPane {
 		for (GObject obj : this.objects) {
 			this.application.remove(obj);
 		}
+		this.onHide();
 	}
 	
 	@Override
@@ -117,5 +119,13 @@ public abstract class Screen extends GraphicsPane {
 		if(obj instanceof Clickable) {
 			((Clickable) obj).onClick(event);
 		}
+	}
+
+	public void onShow(){
+
+	}
+
+	public void onHide(){
+
 	}
 }

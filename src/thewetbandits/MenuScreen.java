@@ -2,6 +2,7 @@ package thewetbandits;
 
 import acm.graphics.GImage;
 import thewetbandits.screens.Screen;
+import thewetbandits.screens.Screens;
 import thewetbandits.utils.ClickAction;
 import thewetbandits.utils.GButton;
 import thewetbandits.utils.GImageButton;
@@ -76,7 +77,7 @@ public class MenuScreen extends Screen
 		GImageButton playButton = new GImageButton("play.png", 450, 315, new ClickAction() {
 			@Override
 			public void onClick(MouseEvent event) {
-				game.switchToScreen(new ModeSelectScreen(game));
+				game.switchToScreen(Screens.MODE_SELECT_SCREEN);
 			}
 		});
 		add(playButton);
@@ -90,7 +91,7 @@ public class MenuScreen extends Screen
 		GImageButton instructionButton = new GImageButton("question.png", 900, 615, new ClickAction() {
 			@Override
 			public void onClick(MouseEvent event) {
-				game.switchToScreen(new Context(game));
+				game.switchToScreen(Screens.TUTORIAL_SCREEN);
 			}
 		});
 		add(instructionButton);

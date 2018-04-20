@@ -2,8 +2,8 @@ package thewetbandits;
 
 
 import acm.graphics.GImage;
-import thewetbandits.screens.MainGameplayScreen;
 import thewetbandits.screens.Screen;
+import thewetbandits.screens.Screens;
 import thewetbandits.utils.ClickAction;
 import thewetbandits.utils.GImageButton;
 
@@ -36,59 +36,24 @@ public class ModeSelectScreen extends Screen {
 		GImageButton endlessMode = new GImageButton("endless.png", 400, 200, new ClickAction() {
 			@Override
 			public void onClick(MouseEvent event) {
-				game.switchToScreen(new MainGameplayScreen(game, WINDOW_WIDTH, MainGameplayScreen.WINDOW_HEIGHT));
+				game.switchToScreen(Screens.GAMEPLAY_ENDLESS_SCREEN);
 			}
 		});
 		add(endlessMode);
 		GImageButton timedMode = new GImageButton("timed.png", 400, 300, new ClickAction() {
 			@Override
 			public void onClick(MouseEvent event) {
-				game.switchToScreen(new TimedGameModeScreen(game, WINDOW_WIDTH, WINDOW_HEIGHT));
+				game.switchToScreen(Screens.GAMEPLAY_TIMED_SCREEN);
 			}
 		});
 		add(timedMode);
 		GImageButton limitedMode = new GImageButton("limited.png", 400, 400, new ClickAction() {
 			@Override
 			public void onClick(MouseEvent event) {
-				game.switchToScreen(new LimitedMovesModeScreen(game, WINDOW_WIDTH, WINDOW_HEIGHT));
+				game.switchToScreen(Screens.GAMEPLAY_LIMITED_SCREEN);
 			}
 		});
 		add(limitedMode);
-	}
-	
-	@Override
-	public void mouseReleased(MouseEvent event) {
-	   super.mouseReleased(event);
-	   
-	   /**
-	    *  Coordinates X and Y for endless mode
-	    */
-	   if(event.getX() >= 400 && event.getX() <= 610) {
-		   if(event.getY() >= 200 && event.getY() <= 280) {
-			   System.out.println("Release on Endless");
-			   game.switchToScreen(new MainGameplayScreen(game, WINDOW_WIDTH, WINDOW_HEIGHT));
-		   }
-	   }
-	   
-	   /**
-	    *  Coordinates X and Y for timed mode
-	    */
-	   if(event.getX() >= 400 && event.getX() <= 610) {
-		   if(event.getY() >= 300 && event.getY() <= 380) {
-			   System.out.println("Release on Timed");
-			   game.switchToScreen(new TimedGameModeScreen(game, WINDOW_WIDTH, WINDOW_HEIGHT));
-		   }
-	   }
-
-	   /**
-	    *  Coordinates X and Y for limited mode
-	    */
-	   if(event.getX() >= 400 && event.getX() <= 610) {
-		   if(event.getY() >= 400 && event.getY() <= 480) {
-			   System.out.println("Release on Limited");
-			   game.switchToScreen(new LimitedMovesModeScreen(game, WINDOW_WIDTH, WINDOW_HEIGHT));
-		   }
-	   }
 	}
 }
 

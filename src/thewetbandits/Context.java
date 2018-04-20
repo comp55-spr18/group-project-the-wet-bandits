@@ -1,15 +1,15 @@
 package thewetbandits;
 
-import java.awt.Color;
-import java.awt.event.MouseEvent;
-
 import acm.graphics.GImage;
 import thewetbandits.screens.Screen;
-import thewetbandits.MenuScreen;
+import thewetbandits.screens.Screens;
 import thewetbandits.utils.AudioPlayer;
 import thewetbandits.utils.ClickAction;
 import thewetbandits.utils.GButton;
 import thewetbandits.utils.GParagraph;
+
+import java.awt.*;
+import java.awt.event.MouseEvent;
 
 	/**
 	 * 
@@ -59,7 +59,7 @@ public class Context extends Screen {
 			@Override
 			public void onClick(MouseEvent event) {
 				System.out.println("click on tutorial");
-				menu.switchToScreen(new MenuScreen(menu));
+				menu.switchToScreen(Screens.MENU_SCREEN);
 			}});
 		exit.setColor(Color.WHITE);
 		exit.setFillColor(buttonColor);

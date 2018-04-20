@@ -1,14 +1,14 @@
 package thewetbandits;
 
-import java.awt.Color;
-
 import acm.graphics.GLabel;
 import thewetbandits.screens.MainGameplayScreen;
 
+import java.awt.*;
+
 public class LimitedMovesModeScreen extends MainGameplayScreen {
 
-	public LimitedMovesModeScreen(MatchThreeGame app, int width, int height) {
-		super(app, width, height);
+	public LimitedMovesModeScreen(MatchThreeGame app) {
+		super(app);
 		run();
 	}
 	

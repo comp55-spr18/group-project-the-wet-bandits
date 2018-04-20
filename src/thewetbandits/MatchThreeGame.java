@@ -1,5 +1,7 @@
 package thewetbandits;
 
+import thewetbandits.screens.Screens;
+
 import java.awt.event.MouseEvent;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -14,7 +16,6 @@ public class MatchThreeGame extends GraphicsApplication
 	public static final int WINDOW_WIDTH = 1000;
 	public static final int WINDOW_HEIGHT = 700;
 	public static final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-	private MenuScreen menu = new MenuScreen(this);
 
 	/**
 	 * initializes MatchThreeGame according to the specified width and height
@@ -22,6 +23,7 @@ public class MatchThreeGame extends GraphicsApplication
 	public void init()
 	{
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+		Screens.initialize(this);
 	}
 
 	/**
@@ -29,7 +31,7 @@ public class MatchThreeGame extends GraphicsApplication
 	 */
 	public void run()
 	{
-		switchToScreen(menu);
+		switchToScreen(Screens.MENU_SCREEN);
 	}
 
 	/**

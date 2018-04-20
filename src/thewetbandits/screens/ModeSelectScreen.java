@@ -63,8 +63,6 @@ public class ModeSelectScreen extends Screen {
 			}
 		});
 		add(backButton);
-		
-		
 	}
 }
 

@@ -49,6 +49,8 @@ public class MainGameplayScreen extends Screen implements ActionListener
 			game.switchToScreen(Screens.MENU_SCREEN);
 		}
 	});
+
+	private GImage noMovesImage = new GImage("no_moves.png");
 	protected int secs = 0;
 	protected int mins;
 	protected GLabel myTime;
@@ -92,6 +94,10 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		while(board.numberOfMatches() > 0 || board.numberOfPossibleMoves() <= 0)
 			board.shuffleBoard();
 		this.addComponents();
+		this.noMovesImage.setSize(this.noMovesImage.getWidth() / 2, this.noMovesImage.getHeight() / 2);
+		double imgX = WINDOW_WIDTH / 2 - this.noMovesImage.getWidth() / 2;
+		double imgY = WINDOW_HEIGHT / 2 - this.noMovesImage.getHeight() / 2;
+		this.noMovesImage.setLocation(imgX, imgY);
 		run();
 	}
 
@@ -119,6 +125,16 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		myTime.setColor(Color.WHITE);
 	}
 
+	public void showNoMoves()
+	{
+		this.add(this.noMovesImage);
+	}
+
+	public void hideNoMoves()
+	{
+		this.remove(this.noMovesImage);
+	}
+
 	@Override
 	public void onShow()
 	{
@@ -132,8 +148,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	 */
 	public void displayTitle()
 	{
-		GImage displayTitle = new GImage("title.png", 5, 0);
-		displayTitle.setSize(350, 150);
+		GImage displayTitle = new GImage("title1.png", 5, 0);
 		add(displayTitle);
 	}
 

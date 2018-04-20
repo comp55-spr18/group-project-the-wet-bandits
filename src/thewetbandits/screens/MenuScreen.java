@@ -36,7 +36,7 @@ public class MenuScreen extends Screen
 	protected Clip clip;
 	private Color buttonColor = new Color(255, 154, 0);
 	private GImage background = new GImage("boardBG.PNG", 0, 0);
-	private GImage displayTitle = new GImage("logo.png", 200, 50);
+	private GImage displayTitle = new GImage("logo1.png", 200, 50);
 
 	public MenuScreen(MatchThreeGame app)
 	{
@@ -60,7 +60,6 @@ public class MenuScreen extends Screen
 	 */
 	public void displayTitle()
 	{
-		displayTitle.setSize(650, 150);
 		add(displayTitle);
 	}
 
@@ -127,18 +126,18 @@ public class MenuScreen extends Screen
 	}
 
 	/**
-	 * Plays music, defaulting a song right now.
+	 * Plays music
 	 */
 	public void music()
 	{
 		try
 		{
-			// TODO make volume lower
 			url = this.getClass().getClassLoader().getResource(music);
 			audioIn = AudioSystem.getAudioInputStream(url);
 			clip = AudioSystem.getClip();
 			clip.open(audioIn);
 			clip.start();
+			clip.loop(Integer.MAX_VALUE);
 		}catch(LineUnavailableException | UnsupportedAudioFileException | IOException e)
 		{
 			e.printStackTrace();

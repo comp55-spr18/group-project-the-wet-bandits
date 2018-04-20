@@ -1,4 +1,4 @@
-package thewetbandits;
+package thewetbandits.utils;
 
 /*
  * File: GraphicsApplication
@@ -14,7 +14,6 @@ package thewetbandits;
  */
 
 import acm.program.GraphicsProgram;
-import thewetbandits.utils.GraphicsPane;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;

@@ -138,6 +138,7 @@ public class MenuScreen extends Screen
 			clip = AudioSystem.getClip();
 			clip.open(audioIn);
 			clip.start();
+			clip.loop(Integer.MAX_VALUE);
 		}catch(LineUnavailableException | UnsupportedAudioFileException | IOException e)
 		{
 			e.printStackTrace();

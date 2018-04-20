@@ -11,10 +11,12 @@ public class LimitedMovesModeScreen extends MainGameplayScreen
 	private int movesLeft;
 	private GLabel moves;
 
-	public LimitedMovesModeScreen(MatchThreeGame app) {
+	public LimitedMovesModeScreen(MatchThreeGame app)
+	{
 		super(app);
-		movesLeft = 2;
-		if(!isInitialized) {
+		movesLeft = 50;
+		if(!isInitialized)
+		{
 			run();
 		}
 		this.updateMoves();
@@ -36,7 +38,7 @@ public class LimitedMovesModeScreen extends MainGameplayScreen
 	}
 
 	/**
-	 * Displays the time and moves left TODO make this one actually work
+	 * Displays the time and moves left
 	 */
 	public void displayMoves()
 	{
@@ -47,21 +49,23 @@ public class LimitedMovesModeScreen extends MainGameplayScreen
 		moves.setColor(Color.WHITE);
 	}
 
-
 	public void subtractAndUpdate()
 	{
 		this.movesLeft--;
 		this.updateMoves();
-		if(this.movesLeft == 0){
+		if(this.movesLeft == 0)
+		{
 			this.displayEnd();
 		}
 	}
 
-	public void updateMoves() {
-		this.moves.setLabel("Moves left: "+this.movesLeft);
+	public void updateMoves()
+	{
+		this.moves.setLabel("Moves left: " + this.movesLeft);
 	}
 
-	private void displayEnd() {
+	private void displayEnd()
+	{
 		GameOverScreen.score = this.board.getScore();
 		this.application.switchToScreen(Screens.GAME_OVER);
 	}

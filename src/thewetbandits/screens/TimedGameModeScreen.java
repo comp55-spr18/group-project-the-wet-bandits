@@ -54,7 +54,7 @@ public class TimedGameModeScreen extends MainGameplayScreen
 		displayTitle();
 		displayScore();
 		displayScore.setLabel("");
-		secs = 10;
+		secs = 180;
 		time = new GLabel("", 500, 75);
 		add(time);
 		time.setFont("Bold-25");

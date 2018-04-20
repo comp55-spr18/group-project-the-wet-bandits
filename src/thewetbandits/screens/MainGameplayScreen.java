@@ -69,6 +69,8 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	private int score;
 	private int displayedScore;
 
+	protected boolean isInitialized = false;
+
 	/**
 	 * Constructor that specifies the MatchThreeGame and the dimensions of that
 	 * MatchThreeGame
@@ -96,7 +98,8 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		double imgX = WINDOW_WIDTH / 2 - this.noMovesImage.getWidth() / 2;
 		double imgY = WINDOW_HEIGHT / 2 - this.noMovesImage.getHeight() / 2;
 		this.noMovesImage.setLocation(imgX, imgY);
-		run();
+		if(!isInitialized)
+			run();
 	}
 
 	/**
@@ -121,6 +124,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		add(myTime);
 		myTime.setFont("Bold-25");
 		myTime.setColor(Color.WHITE);
+		isInitialized = true;
 	}
 
 	public void showNoMoves()

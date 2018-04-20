@@ -2,7 +2,6 @@ package thewetbandits.screens;
 
 import acm.graphics.GLabel;
 import thewetbandits.MatchThreeGame;
-import thewetbandits.screens.MainGameplayScreen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,23 +9,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class TimedGameModeScreen extends MainGameplayScreen {
-	
-	private Timer countDownTimer = new Timer(1001, new ActionListener()
-	{
+
+	private Timer countDownTimer = new Timer(1001, new ActionListener() {
 		@Override
-        public void actionPerformed(ActionEvent ae)
-        {
-			if(secs > 9)
-			{
+		public void actionPerformed(ActionEvent ae) {
+			if (secs > 9) {
 				myTime.setLabel("Time Left: " + mins + ":" + secs);
 				secs--;
-			}
-			else {
+			} else {
 				myTime.setLabel("Time Left: " + mins + ":0" + secs);
 				secs--;
 			}
-			if(secs < 0)
-			{
+			if (secs < 0) {
 				secs = 59;
 				mins--;
 			}
@@ -34,12 +28,13 @@ public class TimedGameModeScreen extends MainGameplayScreen {
 				myTime.setLabel("Game Over");
 				scoreTimer.stop();
 			}
-        }
+		}
 	});
-	
+
 	public TimedGameModeScreen(MatchThreeGame app) {
 		super(app);
-		run();
+		if (!isInitialized)
+			run();
 	}
 
 	public void run() {
@@ -52,6 +47,7 @@ public class TimedGameModeScreen extends MainGameplayScreen {
 		myTime.setFont("Bold-25");
 		myTime.setColor(Color.WHITE);
 		displayButton();
+		isInitialized = true;
 	}
 
 	@Override

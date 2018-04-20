@@ -2,7 +2,6 @@ package thewetbandits.screens;
 
 import acm.graphics.GLabel;
 import thewetbandits.MatchThreeGame;
-import thewetbandits.screens.MainGameplayScreen;
 
 import java.awt.*;
 
@@ -10,7 +9,8 @@ public class LimitedMovesModeScreen extends MainGameplayScreen {
 
 	public LimitedMovesModeScreen(MatchThreeGame app) {
 		super(app);
-		run();
+		if(!isInitialized)
+			run();
 	}
 	
 	public void run() {
@@ -20,6 +20,7 @@ public class LimitedMovesModeScreen extends MainGameplayScreen {
 		scoreTimer.setInitialDelay(3);
 		scoreTimer.start();
 		displayButton();
+		isInitialized = true;
 	}
 	
 	/**

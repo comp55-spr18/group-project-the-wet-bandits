@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 
 public class TimedGameModeScreen extends MainGameplayScreen {
 	
-	private Timer countDownTimer = new Timer(1000, new ActionListener()
+	private Timer countDownTimer = new Timer(1001, new ActionListener()
 	{
 		@Override
         public void actionPerformed(ActionEvent ae)
@@ -57,8 +57,8 @@ public class TimedGameModeScreen extends MainGameplayScreen {
 
 	@Override
 	public void onShow() {
-		clockTimer.setInitialDelay(3);
-		clockTimer.start();
+		countDownTimer.setInitialDelay(3);
+		countDownTimer.start();
 		scoreTimer.start();
 	}
 }

@@ -28,7 +28,6 @@ public class MenuScreen extends Screen
 	public static final int WINDOW_WIDTH = 1000;
 	public static final int WINDOW_HEIGHT = 700;
 	private GButton settingButton;
-	private GButton muteButton;
 	private MatchThreeGame game;
 	private String music = "default.wav";
 	private URL url;
@@ -37,9 +36,6 @@ public class MenuScreen extends Screen
 	private Color buttonColor = new Color(255, 154, 0);
 	private GImage background = new GImage("background.gif", 0, 0);
 	private GImage displayTitle = new GImage("logo.png", 200, 50);
-	private GImage playButton = new GImage("play.png", 450, 315);
-	private GImage quitButton = new GImage("quit.png", 450, 415);
-	private GImage instructionButton = new GImage("question.png", 900, 615);
 
 	public MenuScreen(MatchThreeGame app)
 	{
@@ -57,7 +53,6 @@ public class MenuScreen extends Screen
 		displayTitle();
 		buttons();
 		//showSetting();
-		displayMuteButton();
 	}
 
 	/**
@@ -95,6 +90,13 @@ public class MenuScreen extends Screen
 			}
 		});
 		add(instructionButton);
+		GImageButton muteButton = new GImageButton("mute.png", 900, 515, new ClickAction() {
+			@Override
+			public void onClick(MouseEvent event) {
+				clip.stop();
+			}
+		});
+		add(muteButton);
 	}
 
 	public void showSetting()
@@ -110,21 +112,6 @@ public class MenuScreen extends Screen
 		settingButton.setColor(Color.WHITE);
 		settingButton.setFillColor(buttonColor);
 		add(settingButton);
-	}
-
-	public void displayMuteButton()
-	{
-		muteButton = new GButton("Mute", 900, 515, 50, 50, new ClickAction()
-		{
-			@Override
-			public void onClick(MouseEvent event)
-			{
-				clip.stop();
-			}
-		});
-		muteButton.setColor(Color.WHITE);
-		muteButton.setFillColor(buttonColor);
-		add(muteButton);
 	}
 
 	/**

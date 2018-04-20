@@ -33,7 +33,7 @@ public class MenuScreen extends Screen
 	private GImage displayTitle = new GImage("logo1.png", 200, 50);
 
 	/**
-	 * Initializes the screen and adds it to the application
+	 * initializes the screen and adds it to the application
 	 * 
 	 * @param app
 	 *            the application that this screen runs in
@@ -71,7 +71,7 @@ public class MenuScreen extends Screen
 	public void buttons()
 	{
 
-		/*
+		/**
 		 * Displays the playButton, clicking on it would take you to the game
 		 */
 		GImageButton playButton = new GImageButton("play.png", 450, 315, new ClickAction()
@@ -84,7 +84,7 @@ public class MenuScreen extends Screen
 		});
 		add(playButton);
 
-		/*
+		/**
 		 * Displays the quitButton, click on it exits out of the game
 		 */
 		GImageButton quitButton = new GImageButton("quit.png", 450, 415, new ClickAction()
@@ -97,7 +97,7 @@ public class MenuScreen extends Screen
 		});
 		add(quitButton);
 
-		/*
+		/**
 		 * Displays the instructionButton, clicking on it takes you to a different
 		 * screen that display instructions for the game
 		 */
@@ -111,7 +111,7 @@ public class MenuScreen extends Screen
 		});
 		add(instructionButton);
 
-		/*
+		/**
 		 * Displays the muteButton, it can be toggle on/off
 		 */
 		GImageButton muteButton = new GImageButton("mute.png", 900, 515, new ClickAction()

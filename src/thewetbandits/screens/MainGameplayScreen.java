@@ -119,8 +119,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	 */
 	public void displayTitle()
 	{
-		GImage displayTitle = new GImage("title.png", 5, 0);
-		displayTitle.setSize(350, 150);
+		GImage displayTitle = new GImage("title1.png", 5, 0);
 		add(displayTitle);
 	}
 

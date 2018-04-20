@@ -55,6 +55,16 @@ public class ModeSelectScreen extends Screen {
 			}
 		});
 		add(limitedMode);
+		
+		GImageButton backButton = new GImageButton("x.png", 850, 100, new ClickAction() {
+			@Override
+			public void onClick(MouseEvent event) {
+				game.switchToScreen(Screens.MENU_SCREEN);
+			}
+		});
+		add(backButton);
+		
+		
 	}
 }
 

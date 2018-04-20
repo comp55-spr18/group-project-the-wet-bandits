@@ -50,8 +50,6 @@ public class TimedGameModeScreen extends MainGameplayScreen {
 		add(myTime);
 		myTime.setFont("Bold-15");
 		myTime.setColor(Color.WHITE);
-	//	countDownTimer.setInitialDelay(3);
-	//	countDownTimer.start();
 		displayButton();
 	}
 

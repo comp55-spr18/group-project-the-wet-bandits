@@ -25,7 +25,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	private static final int BOARD_SIZE = 8;
 
 	protected Board board;
-	private String gameMode;
+	private MatchThreeGame game;
 
 	private GImageButton pause = new GImageButton("pause.png", 100, 400);
 	private GImageButton quit = new GImageButton("boardquit.png", 100, 500, new ClickAction()
@@ -33,7 +33,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		@Override
 		public void onClick(MouseEvent event)
 		{
-			System.exit(0);
+			game.switchToScreen(Screens.MENU_SCREEN);
 		}
 	});
 	protected int secs = 0;
@@ -66,13 +66,13 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	public MainGameplayScreen(MatchThreeGame app)
 	{
 		super(app);
+		game = app;
 		GImage boardBG = new GImage("boardBG.png", 0, 0);
 		boardBG.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		add(boardBG);
 
 		this.score = 0;
 		this.displayedScore = 0;
-		this.gameMode = "";// TODO this will have to be dealt with at some point
 
 		board = new Board(WINDOW_HEIGHT, BOARD_SIZE, app);
 		board.setLocation(300, 25);

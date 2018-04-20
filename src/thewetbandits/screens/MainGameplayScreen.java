@@ -50,11 +50,12 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		}
 	});
 
-	private GImage noMovesImage = new GImage("no_moves.png");
+	protected GImage noMovesImage = new GImage("no_moves.png");
 	protected int secs = 0;
 	protected int mins;
 	protected GLabel myTime;
 	protected GLabel displayScore;
+	protected GImage boardBG; 
 	protected Timer scoreTimer = new Timer(1, this);
 	protected Timer clockTimer = new Timer(1000, new ActionListener()
 	{
@@ -69,7 +70,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 
 	private int frameNum = 0;
 	private int score;
-	private int displayedScore;
+	protected int displayedScore;
 
 	/**
 	 * Constructor that specifies the MatchThreeGame and the dimensions of that
@@ -82,7 +83,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	{
 		super(app);
 		game = app;
-		GImage boardBG = new GImage("boardBG.png", 0, 0);
+		boardBG = new GImage("boardBG.png", 0, 0);
 		boardBG.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		add(boardBG);
 

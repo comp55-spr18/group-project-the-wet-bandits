@@ -11,6 +11,7 @@ public class Screens {
 	public static Context TUTORIAL_SCREEN;
 	public static ModeSelectScreen MODE_SELECT_SCREEN;
 	public static MenuScreen MENU_SCREEN;
+	public static GameOverScreen GAME_OVER;
 
 
 	public static void initialize(MatchThreeGame app){
@@ -20,5 +21,6 @@ public class Screens {
 		GAMEPLAY_TIMED_SCREEN = new TimedGameModeScreen(app);
 		TUTORIAL_SCREEN = new Context(app);
 		MENU_SCREEN = new MenuScreen(app);
+		GAME_OVER = new GameOverScreen(app);
 	}
 }

@@ -32,9 +32,12 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		@Override
 		public void onClick(MouseEvent event)
 		{
-			if(Screens.MENU_SCREEN.clip.isActive()) {
+			if(Screens.MENU_SCREEN.clip.isActive())
+			{
 				Screens.MENU_SCREEN.clip.stop();
-			} else {
+			}
+			else
+			{
 				Screens.MENU_SCREEN.clip.start();
 			}
 		}
@@ -127,16 +130,27 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		isInitialized = true;
 	}
 
+	/**
+	 * shows the image that indicates to the player that there are no more moves to
+	 * be made
+	 */
 	public void showNoMoves()
 	{
 		this.add(this.noMovesImage);
 	}
 
+	/**
+	 * hides the image that indicates to the player that there are no more moves to
+	 * be made
+	 */
 	public void hideNoMoves()
 	{
 		this.remove(this.noMovesImage);
 	}
 
+	/**
+	 * starts the score and clock timers
+	 */
 	@Override
 	public void onShow()
 	{
@@ -178,7 +192,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	}
 
 	/**
-	 * This implements the timer count down for TIMED MODE (Not yet implemented)
+	 * Animates the score
 	 */
 	public void actionPerformed(ActionEvent e)
 	{

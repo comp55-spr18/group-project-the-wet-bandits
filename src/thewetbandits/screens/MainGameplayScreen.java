@@ -56,7 +56,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	protected int mins;
 	protected GLabel time;
 	protected GLabel displayScore;
-	protected GImage boardBG; 
+	protected GImage boardBG;
 	protected Timer scoreTimer = new Timer(1, this);
 	protected Timer clockTimer = new Timer(1000, new ActionListener()
 	{

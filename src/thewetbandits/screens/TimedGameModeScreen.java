@@ -1,6 +1,7 @@
 package thewetbandits.screens;
 
 import acm.graphics.GLabel;
+import thewetbandits.Board;
 import thewetbandits.MatchThreeGame;
 
 import javax.swing.*;
@@ -8,24 +9,27 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TimedGameModeScreen extends MainGameplayScreen {
-	
+public class TimedGameModeScreen extends MainGameplayScreen
+{
+
 	private MatchThreeGame game;
 	private Timer countDownTimer = new Timer(1000, new ActionListener()
 	{
 		@Override
-        public void actionPerformed(ActionEvent ae)
-        {
-			if(time != null) {
+		public void actionPerformed(ActionEvent ae)
+		{
+			if(time != null)
+			{
 				time.setLabel(String.format("Time Left: %d:%02d", secs / 60, secs % 60));
 			}
-			if (secs == -1) {
+			if(secs < 0)
+			{
 				time.setLabel("Game Over");
 				scoreTimer.stop();
 				game.switchToScreen(Screens.GAME_OVER);
 			}
 			secs--;
-        }
+		}
 	});
 
 	/**
@@ -69,7 +73,7 @@ public class TimedGameModeScreen extends MainGameplayScreen {
 		countDownTimer.start();
 		scoreTimer.start();
 	}
-	
+
 	/**
 	 * stops the countdown timer
 	 */

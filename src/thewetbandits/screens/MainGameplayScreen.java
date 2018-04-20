@@ -4,9 +4,11 @@ import acm.graphics.GImage;
 import acm.graphics.GLabel;
 import thewetbandits.Board;
 import thewetbandits.MatchThreeGame;
+import thewetbandits.screens.MenuScreen;
 import thewetbandits.utils.ClickAction;
 import thewetbandits.utils.GImageButton;
 
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -27,7 +29,18 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	protected Board board;
 	private MatchThreeGame game;
 
-	private GImageButton pause = new GImageButton("pause.png", 100, 400);
+	private GImageButton mute = new GImageButton("mute.png", 135, 400, new ClickAction()
+	{
+		@Override
+		public void onClick(MouseEvent event)
+		{
+			if(Screens.MENU_SCREEN.clip.isActive()) {
+				Screens.MENU_SCREEN.clip.stop();
+			} else {
+				Screens.MENU_SCREEN.clip.start();
+			}
+		}
+	});
 	private GImageButton quit = new GImageButton("boardquit.png", 100, 500, new ClickAction()
 	{
 		@Override
@@ -143,7 +156,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	 */
 	public void displayButton()
 	{
-		add(pause);
+		add(mute);
 		add(quit);
 	}
 

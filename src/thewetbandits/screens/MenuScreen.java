@@ -16,6 +16,7 @@ import java.net.URL;
 
 /**
  * 
+ * 
  * @author John Thao with help from Austin Whyte
  *
  *         MenuScreen displays the very beginning screen, it consist of the
@@ -32,7 +33,7 @@ public class MenuScreen extends Screen
 	private String music = "default.wav";
 	private URL url;
 	private AudioInputStream audioIn;
-	private Clip clip;
+	protected Clip clip;
 	private Color buttonColor = new Color(255, 154, 0);
 	private GImage background = new GImage("boardBG.PNG", 0, 0);
 	private GImage displayTitle = new GImage("logo.png", 200, 50);

@@ -8,17 +8,16 @@ import java.awt.*;
 public class LimitedMovesModeScreen extends MainGameplayScreen
 {
 
-	/**
-	 * base constructor that initializes the screen
-	 * 
-	 * @param app
-	 *            the application that this screen runs in
-	 */
-	public LimitedMovesModeScreen(MatchThreeGame app)
-	{
+	private int movesLeft;
+	private GLabel moves;
+
+	public LimitedMovesModeScreen(MatchThreeGame app) {
 		super(app);
-		if(!isInitialized)
+		movesLeft = 2;
+		if(!isInitialized) {
 			run();
+		}
+		this.updateMoves();
 	}
 
 	/**
@@ -41,10 +40,28 @@ public class LimitedMovesModeScreen extends MainGameplayScreen
 	 */
 	public void displayMoves()
 	{
-		GLabel moves = new GLabel("Moves left: 50", 500, 75);
+		moves = new GLabel("Moves left: " + this.movesLeft, 500, 75);
 
 		add(moves);
 		moves.setFont("Bold-25");
 		moves.setColor(Color.WHITE);
+	}
+
+
+	public void subtractAndUpdate()
+	{
+		this.movesLeft--;
+		this.updateMoves();
+		if(this.movesLeft == 0){
+			this.displayEnd();
+		}
+	}
+
+	public void updateMoves() {
+		this.moves.setLabel("Moves left: "+this.movesLeft);
+	}
+
+	private void displayEnd() {
+		this.application.switchToScreen(Screens.GAME_OVER);
 	}
 }

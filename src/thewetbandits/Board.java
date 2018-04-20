@@ -1,9 +1,9 @@
 package thewetbandits;
 
 import acm.graphics.*;
+import thewetbandits.screens.LimitedMovesModeScreen;
 import thewetbandits.screens.MainGameplayScreen;
 import thewetbandits.utils.Clickable;
-import thewetbandits.utils.GraphicsPane;
 
 import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
@@ -584,6 +584,10 @@ public class Board extends GCompound implements Clickable
 								// ignore
 							}
 							System.out.println("matching complete");
+							LimitedMovesModeScreen lms = app.getCurrentScreen(LimitedMovesModeScreen.class);
+							if(lms != null) {
+								lms.subtractAndUpdate();
+							}
 						}
 					}, 50, TimeUnit.MILLISECONDS);
 				} else {
@@ -600,14 +604,9 @@ public class Board extends GCompound implements Clickable
 			MatchThreeGame.executor.submit(new Runnable()
 			{
 				@Override
-				public void run()
-				{
-					GraphicsPane p = app.getCurrentPane();
-					MainGameplayScreen s = null;
-					if(p instanceof MainGameplayScreen)
-					{
-						s = (MainGameplayScreen) p;
-
+				public void run() {
+					MainGameplayScreen s = app.getCurrentScreen(MainGameplayScreen.class);
+					if (s != null) {
 						s.showNoMoves();
 
 						try

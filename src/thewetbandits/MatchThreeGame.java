@@ -1,8 +1,11 @@
 package thewetbandits;
 
+import thewetbandits.screens.Screen;
 import thewetbandits.screens.Screens;
 import thewetbandits.utils.GraphicsApplication;
+import thewetbandits.utils.GraphicsPane;
 
+import java.awt.event.MouseEvent;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -34,4 +37,27 @@ public class MatchThreeGame extends GraphicsApplication
 		switchToScreen(Screens.MENU_SCREEN);
 	}
 
+	/**
+	 * default mousePressed() method. it doesn't do anything yet (as of Mar 31,
+	 * 2018)
+	 * 
+	 * @param e
+	 *            the event specifying the details of the click
+	 */
+	@Override
+	public void mousePressed(MouseEvent e)
+	{
+		super.mouseClicked(e);
+	}
+
+
+	public <T extends Screen> T getCurrentScreen(Class<T> clazz){
+		GraphicsPane p = this.getCurrentPane();
+		if(p.getClass().isAssignableFrom(clazz)){
+			return clazz.cast(p);
+		} else {
+			System.out.println("Class is not of right type");
+			return null;
+		}
+	}
 }

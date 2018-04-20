@@ -125,13 +125,12 @@ public class MenuScreen extends Screen
 	}
 
 	/**
-	 * Plays music, defaulting a song right now.
+	 * Plays music
 	 */
 	public void music()
 	{
 		try
 		{
-			// TODO make volume lower
 			url = this.getClass().getClassLoader().getResource(music);
 			audioIn = AudioSystem.getAudioInputStream(url);
 			clip = AudioSystem.getClip();

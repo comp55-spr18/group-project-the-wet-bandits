@@ -501,6 +501,10 @@ public class Board extends GCompound implements Clickable
 		}
 	}
 
+	/**
+	 * Method that handles all clicks on the board and handles swapping, refilling,
+	 * and scoring
+	 */
 	@Override
 	public void onClick(MouseEvent evt)
 	{
@@ -590,19 +594,24 @@ public class Board extends GCompound implements Clickable
 		System.out.println(numberOfPossibleMoves());
 		if(numberOfPossibleMoves() <= 0)
 		{
-			MatchThreeGame.executor.submit(new Runnable() {
+			MatchThreeGame.executor.submit(new Runnable()
+			{
 				@Override
-				public void run() {
+				public void run()
+				{
 					GraphicsPane p = app.getCurrentPane();
 					MainGameplayScreen s = null;
-					if(p instanceof MainGameplayScreen){
+					if(p instanceof MainGameplayScreen)
+					{
 						s = (MainGameplayScreen) p;
 
 						s.showNoMoves();
 
-						try {
+						try
+						{
 							Thread.sleep(1000);
-						} catch (InterruptedException e) {
+						}catch(InterruptedException e)
+						{
 							e.printStackTrace();
 						}
 					}
@@ -610,7 +619,7 @@ public class Board extends GCompound implements Clickable
 					do
 					{
 						shuffleBoard();
-					} while(numberOfMatches() > 0 || numberOfPossibleMoves() <= 0);
+					}while(numberOfMatches() > 0 || numberOfPossibleMoves() <= 0);
 					if(s != null)
 						s.hideNoMoves();
 				}

@@ -1,4 +1,5 @@
 package thewetbandits.screens;
+
 import acm.graphics.GObject;
 import thewetbandits.MatchThreeGame;
 import thewetbandits.utils.Clickable;
@@ -16,13 +17,21 @@ import java.util.ArrayList;
  * @author Austin
  *
  */
-public abstract class Screen extends GraphicsPane {
+public abstract class Screen extends GraphicsPane
+{
 
 	protected final MatchThreeGame application;
 	private final ArrayList<GObject> objects = new ArrayList<>();
 	private final ArrayList<Displayable> displayables = new ArrayList<>();
 
-	public Screen(MatchThreeGame app) {
+	/**
+	 * default constructor for screen
+	 * 
+	 * @param app
+	 *            the {@link MatchThreeGame} that the screen runs in
+	 */
+	public Screen(MatchThreeGame app)
+	{
 		this.application = app;
 	}
 
@@ -32,9 +41,11 @@ public abstract class Screen extends GraphicsPane {
 	 * @param obj
 	 *            The object to add
 	 */
-	protected void add(GObject obj) {
+	protected void add(GObject obj)
+	{
 		this.objects.add(obj);
-		if (this.application.getCurrentPane() == this) {
+		if(this.application.getCurrentPane() == this)
+		{
 			this.application.add(obj);
 		}
 	}
@@ -45,9 +56,11 @@ public abstract class Screen extends GraphicsPane {
 	 * @param displayable
 	 *            The displayable to display
 	 */
-	protected void add(Displayable displayable) {
+	protected void add(Displayable displayable)
+	{
 		this.displayables.add(displayable);
-		if (this.application.getCurrentPane() == this) {
+		if(this.application.getCurrentPane() == this)
+		{
 			displayable.showContents();
 		}
 	}
@@ -58,7 +71,8 @@ public abstract class Screen extends GraphicsPane {
 	 * @param displayable
 	 *            The object to remove
 	 */
-	protected void remove(Displayable displayable) {
+	protected void remove(Displayable displayable)
+	{
 		displayable.hideContents();
 		this.displayables.remove(displayable);
 	}
@@ -69,7 +83,8 @@ public abstract class Screen extends GraphicsPane {
 	 * @param obj
 	 *            The object to remove
 	 */
-	protected void remove(GObject obj) {
+	protected void remove(GObject obj)
+	{
 		this.application.remove(obj);
 		this.objects.remove(obj);
 	}
@@ -77,11 +92,14 @@ public abstract class Screen extends GraphicsPane {
 	/**
 	 * Clears all of the items currently on the screen
 	 */
-	protected void clear() {
-		for (Displayable d : this.displayables) {
+	protected void clear()
+	{
+		for(Displayable d : this.displayables)
+		{
 			d.hideContents();
 		}
-		for (GObject obj : this.objects) {
+		for(GObject obj : this.objects)
+		{
 			this.application.remove(obj);
 		}
 
@@ -89,43 +107,63 @@ public abstract class Screen extends GraphicsPane {
 		this.objects.clear();
 	}
 
+	/**
+	 * shows all contents on the screen
+	 */
 	@Override
-	public void showContents() {
-		for (Displayable d : this.displayables) {
+	public void showContents()
+	{
+		for(Displayable d : this.displayables)
+		{
 			d.showContents();
 		}
-		for (GObject obj : this.objects) {
+		for(GObject obj : this.objects)
+		{
 			this.application.add(obj);
-			System.out.println("Showing "+obj.getClass());
+			System.out.println("Showing " + obj.getClass());
 		}
 		this.onShow();
 	}
 
+	/**
+	 * removes all contents from the screen
+	 */
 	@Override
-	public void hideContents() {
-		for (Displayable d : this.displayables) {
+	public void hideContents()
+	{
+		for(Displayable d : this.displayables)
+		{
 			d.hideContents();
 		}
-		for (GObject obj : this.objects) {
+		for(GObject obj : this.objects)
+		{
 			this.application.remove(obj);
 		}
 		this.onHide();
 	}
-	
+
+	/**
+	 * Calls the onClick() method of an object that is clicked upon
+	 */
 	@Override
-	public void mouseReleased(MouseEvent event) {
+	public void mouseReleased(MouseEvent event)
+	{
 		GObject obj = this.application.getElementAt(event.getX(), event.getY());
-		System.out.println("Clicked on "+obj);
-		if(obj instanceof Clickable) {
+		System.out.println("Clicked on " + obj);
+		if(obj instanceof Clickable)
+		{
 			((Clickable) obj).onClick(event);
 		}
 	}
 
-	public void onShow(){
+	public void onShow()
+	{
 
 	}
 
-	public void onHide(){
+	public void onHide()
+	{
 
 	}
+
 }

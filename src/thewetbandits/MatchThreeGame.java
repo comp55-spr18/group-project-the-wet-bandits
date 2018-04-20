@@ -35,16 +35,4 @@ public class MatchThreeGame extends GraphicsApplication
 		switchToScreen(Screens.MENU_SCREEN);
 	}
 
-	/**
-	 * default mousePressed() method. it doesn't do anything yet (as of Mar 31,
-	 * 2018)
-	 * 
-	 * @param e
-	 *            the event specifying the details of the click
-	 */
-	@Override
-	public void mousePressed(MouseEvent e)
-	{
-		super.mouseClicked(e);
-	}
 }

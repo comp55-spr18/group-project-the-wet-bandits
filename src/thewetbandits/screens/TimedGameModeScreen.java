@@ -2,7 +2,6 @@ package thewetbandits.screens;
 
 import acm.graphics.GLabel;
 import thewetbandits.MatchThreeGame;
-import thewetbandits.screens.MainGameplayScreen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,41 +16,66 @@ public class TimedGameModeScreen extends MainGameplayScreen {
 		@Override
         public void actionPerformed(ActionEvent ae)
         {
-			if(myTime != null) {
-				myTime.setLabel(String.format("Time Left: %d:%02d", secs / 60, secs % 60));
+			if(time != null) {
+				time.setLabel(String.format("Time Left: %d:%02d", secs / 60, secs % 60));
 			}
 			if (secs == -1) {
-				myTime.setLabel("Game Over");
+				time.setLabel("Game Over");
 				scoreTimer.stop();
 				game.switchToScreen(Screens.GAME_OVER);
 			}
 			secs--;
         }
 	});
-	
-	public TimedGameModeScreen(MatchThreeGame app) {
+
+	/**
+	 * initializes this screen
+	 * 
+	 * @param app
+	 *            the application that this screen runs in
+	 */
+	public TimedGameModeScreen(MatchThreeGame app)
+	{
 		super(app);
 		game = app;
-		run();
+		if(!isInitialized)
+			run();
 	}
 
-	public void run() {
+	/**
+	 * displays title, score, time, and buttons
+	 */
+	public void run()
+	{
 		displayTitle();
 		displayScore();
 		displayScore.setLabel("");
-		this.mins = 0;
-		this.secs = 10;
-		myTime = new GLabel("", 350, 40);
-		add(myTime);
-		myTime.setFont("Bold-15");
-		myTime.setColor(Color.WHITE);
+		secs = 180;
+		time = new GLabel("", 500, 75);
+		add(time);
+		time.setFont("Bold-25");
+		time.setColor(Color.WHITE);
 		displayButton();
+		isInitialized = true;
 	}
 
+	/**
+	 * starts the countdown timer and score timer
+	 */
 	@Override
-	public void onShow() {
+	public void onShow()
+	{
 		countDownTimer.setInitialDelay(3);
 		countDownTimer.start();
 		scoreTimer.start();
+	}
+	
+	/**
+	 * stops the countdown timer
+	 */
+	@Override
+	public void onHide()
+	{
+		countDownTimer.stop();
 	}
 }

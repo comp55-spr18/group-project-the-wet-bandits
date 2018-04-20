@@ -28,9 +28,6 @@ public class MenuScreen extends Screen
 {
 	public static final int WINDOW_WIDTH = 1000;
 	public static final int WINDOW_HEIGHT = 700;
-	private GButton playButton;
-	private GButton quitButton;
-	private GButton tutorialButton;
 	private GButton settingButton;
 	private GButton muteButton;
 	private MatchThreeGame game;
@@ -39,7 +36,11 @@ public class MenuScreen extends Screen
 	private AudioInputStream audioIn;
 	private Clip clip;
 	private Color buttonColor = new Color(255, 154, 0);
-	
+	private GImage background = new GImage("background.gif", 0, 0);
+	private GImage displayTitle = new GImage("logo.png", 200, 50);
+	private GImage playButton = new GImage("play.png", 450, 315);
+	private GImage quitButton = new GImage("quit.png", 450, 415);
+	private GImage instructionButton = new GImage("question.png", 900, 615);
 
 	public MenuScreen(MatchThreeGame app)
 	{
@@ -50,16 +51,13 @@ public class MenuScreen extends Screen
 
 	public void run()
 	{
-		GImage background = new GImage("background.gif", 0, 0);
 		background.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		add(background);
 		// TODO 4/18/18: Re-add the godawful loud annoying music
 		// music();
 		displayTitle();
-		showPlayButton();
+		buttons();
 		//showSetting();
-		showQuitButton();
-		showTutorialButton();
 		displayMuteButton();
 	}
 
@@ -68,7 +66,6 @@ public class MenuScreen extends Screen
 	 */
 	public void displayTitle()
 	{
-		GImage displayTitle = new GImage("logo.png", 200, 50);
 		displayTitle.setSize(650, 150);
 		add(displayTitle);
 	}
@@ -76,22 +73,11 @@ public class MenuScreen extends Screen
 	/**
 	 * Displays the playButton, clicking on it would take you to the game
 	 */
-	public void showPlayButton()
+	public void buttons()
 	{
-		GImage playPhoto = new GImage("play.png", 325, 315);
-		add(playPhoto);
-
-		playButton = new GButton("PLAY", 450, 315, 115, 50, new ClickAction()
-		{
-			@Override
-			public void onClick(MouseEvent event)
-			{
-				game.switchToScreen(new ModeSelectScreen(game));
-			}
-		});
-		playButton.setColor(Color.WHITE);
-		playButton.setFillColor(buttonColor);
 		add(playButton);
+		add(quitButton);
+		add(instructionButton);
 	}
 
 	public void showSetting()
@@ -107,52 +93,6 @@ public class MenuScreen extends Screen
 		settingButton.setColor(Color.WHITE);
 		settingButton.setFillColor(buttonColor);
 		add(settingButton);
-	}
-
-	/**
-	 * Displays the quitButton, clicking on it would exit out of the game and close
-	 * it
-	 */
-	public void showQuitButton()
-	{
-
-		GImage quitPhoto = new GImage("quit.png", 325, 415);
-		add(quitPhoto);
-		quitButton = new GButton("QUIT", 450, 440, 115, 50, new ClickAction()
-		{
-			@Override
-			public void onClick(MouseEvent event)
-			{
-				System.out.println("click on quit");
-				System.exit(0);
-			}
-		});
-		quitButton.setColor(Color.WHITE);
-		quitButton.setFillColor(buttonColor);
-		add(quitButton);
-	}
-
-	/**
-	 * Display the tutorialButton, clicking on it would bring you to the
-	 * instructions
-	 */
-	public void showTutorialButton()
-	{
-		GImage tutorialPhoto = new GImage("question.png", 825, 615);
-		add(tutorialPhoto);
-
-		tutorialButton = new GButton("?", 900, 615, 50, 50, new ClickAction()
-		{
-			@Override
-			public void onClick(MouseEvent event)
-			{
-				System.out.println("click on tutorial");
-				game.switchToScreen(new Context(game));
-			}
-		});
-		tutorialButton.setColor(Color.WHITE);
-		tutorialButton.setFillColor(buttonColor);
-		add(tutorialButton);
 	}
 
 	public void displayMuteButton()
@@ -188,4 +128,41 @@ public class MenuScreen extends Screen
 			e.printStackTrace();
 		}
 	}
+	
+	
+	@Override
+	public void mouseReleased(MouseEvent event) {
+	   super.mouseReleased(event);
+
+	   /**
+	    *  Coordinates X and Y for play button
+	    */
+	   if(event.getX() >= 450 && event.getX() <= 550) {
+		   if(event.getY() >= 315 && event.getY() <= 390) {
+			   System.out.println("Release on Play");
+			   game.switchToScreen(new ModeSelectScreen(game));
+		   }
+	   }
+	   
+	   /**
+	    *  Coordinates X and Y for quit button
+	    */
+	   if(event.getX() >= 450 && event.getX() <= 550) {
+		   if(event.getY() >= 415 && event.getY() <= 490) {
+			   System.out.println("Release on Quit");
+			   System.exit(0);
+		   }
+	   }
+
+	   /**
+	    *  Coordinates X and Y for instructions button
+	    */
+	   if(event.getX() >= 900 && event.getX() <= 950) {
+		   if(event.getY() >= 615 && event.getY() <= 665) {
+			   System.out.println("Release on instructions");
+			   game.switchToScreen(new Context(game));
+		   }
+	   }
+	}
+	
 }

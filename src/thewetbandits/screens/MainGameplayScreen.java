@@ -5,7 +5,7 @@ import acm.graphics.GLabel;
 import thewetbandits.Board;
 import thewetbandits.MatchThreeGame;
 import thewetbandits.utils.ClickAction;
-import thewetbandits.utils.GButton;
+import thewetbandits.utils.GImageButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,8 +29,13 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	private int height;
 	private String gameMode;
 
-	private GImage pause = new GImage("pause.png", 100, 400);
-	private GImage quit = new GImage("boardquit.png", 100, 500);
+	private GImageButton pause = new GImageButton("pause.png", 100, 400);
+	private GImageButton quit = new GImageButton("boardquit.png", 100, 500, new ClickAction() {
+		@Override
+		public void onClick(MouseEvent event) {
+			System.exit(0);
+		}
+	});
 	protected int secs = 0;
 	protected int mins;
 	protected GLabel myTime;

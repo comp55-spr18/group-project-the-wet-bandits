@@ -1,11 +1,13 @@
 package thewetbandits;
 
 
-import java.awt.event.MouseEvent;
-
 import acm.graphics.GImage;
 import thewetbandits.screens.MainGameplayScreen;
 import thewetbandits.screens.Screen;
+import thewetbandits.utils.ClickAction;
+import thewetbandits.utils.GImageButton;
+
+import java.awt.event.MouseEvent;
 
 
 public class ModeSelectScreen extends Screen {
@@ -13,9 +15,6 @@ public class ModeSelectScreen extends Screen {
 	public static final int WINDOW_HEIGHT = 700;
 
 	private MatchThreeGame game;
-	private GImage endlessMode = new GImage("endless.png", 400, 200);
-	private GImage timedMode = new GImage("timed.png", 400, 300);
-	private GImage limitedMode = new GImage("limited.png", 400, 400);
 
 	public ModeSelectScreen(MatchThreeGame app) {
 		super(app);
@@ -34,8 +33,26 @@ public class ModeSelectScreen extends Screen {
 	 *  Creates all the game mode buttons
 	 */
 	public void displayMode() {
+		GImageButton endlessMode = new GImageButton("endless.png", 400, 200, new ClickAction() {
+			@Override
+			public void onClick(MouseEvent event) {
+				game.switchToScreen(new MainGameplayScreen(game, WINDOW_WIDTH, MainGameplayScreen.WINDOW_HEIGHT));
+			}
+		});
 		add(endlessMode);
+		GImageButton timedMode = new GImageButton("timed.png", 400, 300, new ClickAction() {
+			@Override
+			public void onClick(MouseEvent event) {
+				game.switchToScreen(new TimedGameModeScreen(game, WINDOW_WIDTH, WINDOW_HEIGHT));
+			}
+		});
 		add(timedMode);
+		GImageButton limitedMode = new GImageButton("limited.png", 400, 400, new ClickAction() {
+			@Override
+			public void onClick(MouseEvent event) {
+				game.switchToScreen(new LimitedMovesModeScreen(game, WINDOW_WIDTH, WINDOW_HEIGHT));
+			}
+		});
 		add(limitedMode);
 	}
 	

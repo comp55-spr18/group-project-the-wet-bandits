@@ -1,15 +1,13 @@
 package thewetbandits;
 
-import thewetbandits.MatchThreeGame;
-import thewetbandits.MenuScreen;
-import thewetbandits.Context;
+import acm.graphics.GImage;
 import thewetbandits.screens.Screen;
 import thewetbandits.utils.ClickAction;
 import thewetbandits.utils.GButton;
+import thewetbandits.utils.GImageButton;
 
-import acm.graphics.GImage;
 import javax.sound.sampled.*;
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
@@ -75,8 +73,26 @@ public class MenuScreen extends Screen
 	 */
 	public void buttons()
 	{
+		GImageButton playButton = new GImageButton("play.png", 450, 315, new ClickAction() {
+			@Override
+			public void onClick(MouseEvent event) {
+				game.switchToScreen(new ModeSelectScreen(game));
+			}
+		});
 		add(playButton);
+		GImageButton quitButton = new GImageButton("quit.png", 450, 415, new ClickAction() {
+			@Override
+			public void onClick(MouseEvent event) {
+				System.exit(0);
+			}
+		});
 		add(quitButton);
+		GImageButton instructionButton = new GImageButton("question.png", 900, 615, new ClickAction() {
+			@Override
+			public void onClick(MouseEvent event) {
+				game.switchToScreen(new Context(game));
+			}
+		});
 		add(instructionButton);
 	}
 
@@ -127,42 +143,6 @@ public class MenuScreen extends Screen
 		{
 			e.printStackTrace();
 		}
-	}
-	
-	
-	@Override
-	public void mouseReleased(MouseEvent event) {
-	   super.mouseReleased(event);
-
-	   /**
-	    *  Coordinates X and Y for play button
-	    */
-	   if(event.getX() >= 450 && event.getX() <= 550) {
-		   if(event.getY() >= 315 && event.getY() <= 390) {
-			   System.out.println("Release on Play");
-			   game.switchToScreen(new ModeSelectScreen(game));
-		   }
-	   }
-	   
-	   /**
-	    *  Coordinates X and Y for quit button
-	    */
-	   if(event.getX() >= 450 && event.getX() <= 550) {
-		   if(event.getY() >= 415 && event.getY() <= 490) {
-			   System.out.println("Release on Quit");
-			   System.exit(0);
-		   }
-	   }
-
-	   /**
-	    *  Coordinates X and Y for instructions button
-	    */
-	   if(event.getX() >= 900 && event.getX() <= 950) {
-		   if(event.getY() >= 615 && event.getY() <= 665) {
-			   System.out.println("Release on instructions");
-			   game.switchToScreen(new Context(game));
-		   }
-	   }
 	}
 	
 }

@@ -40,6 +40,8 @@ public class Board extends GCompound implements Clickable
 	 *            the size (in pixels) of the Screen the Board will be added to
 	 * @param boardLength
 	 *            the length of both sides of the array holding the GamePieces
+	 * @param app
+	 *            the application in which the board resides
 	 */
 	public Board(int screenSize, int boardLength, MatchThreeGame app)
 	{
@@ -419,8 +421,6 @@ public class Board extends GCompound implements Clickable
 
 	/**
 	 * refills all the empty pieces in the topmost rows of the board
-	 * 
-	 * @return whether the refill was successful
 	 */
 	public void refill()
 	{

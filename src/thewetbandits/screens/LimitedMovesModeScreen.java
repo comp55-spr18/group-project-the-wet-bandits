@@ -1,6 +1,7 @@
-package thewetbandits;
+package thewetbandits.screens;
 
 import acm.graphics.GLabel;
+import thewetbandits.MatchThreeGame;
 import thewetbandits.screens.MainGameplayScreen;
 
 import java.awt.*;

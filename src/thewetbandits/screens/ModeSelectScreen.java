@@ -1,7 +1,8 @@
-package thewetbandits;
+package thewetbandits.screens;
 
 
 import acm.graphics.GImage;
+import thewetbandits.MatchThreeGame;
 import thewetbandits.screens.Screen;
 import thewetbandits.screens.Screens;
 import thewetbandits.utils.ClickAction;

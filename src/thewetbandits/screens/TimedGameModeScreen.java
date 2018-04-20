@@ -8,36 +8,55 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TimedGameModeScreen extends MainGameplayScreen {
+public class TimedGameModeScreen extends MainGameplayScreen
+{
 
-	private Timer countDownTimer = new Timer(1001, new ActionListener() {
+	private Timer countdownTimer = new Timer(1001, new ActionListener()
+	{
 		@Override
-		public void actionPerformed(ActionEvent ae) {
-			if (secs > 9) {
+		public void actionPerformed(ActionEvent ae)
+		{
+			if(secs > 9)
+			{
 				myTime.setLabel("Time Left: " + mins + ":" + secs);
 				secs--;
-			} else {
+			}
+			else
+			{
 				myTime.setLabel("Time Left: " + mins + ":0" + secs);
 				secs--;
 			}
-			if (secs < 0) {
+			if(secs < 0)
+			{
 				secs = 59;
 				mins--;
 			}
-			if (mins == 0 && secs == 0) {
+			if(mins == 0 && secs == 0)
+			{
 				myTime.setLabel("Game Over");
 				scoreTimer.stop();
 			}
 		}
 	});
 
-	public TimedGameModeScreen(MatchThreeGame app) {
+	/**
+	 * initializes this screen
+	 * 
+	 * @param app
+	 *            the application that this screen runs in
+	 */
+	public TimedGameModeScreen(MatchThreeGame app)
+	{
 		super(app);
-		if (!isInitialized)
+		if(!isInitialized)
 			run();
 	}
 
-	public void run() {
+	/**
+	 * displays title, score, time, and buttons
+	 */
+	public void run()
+	{
 		displayTitle();
 		displayScore();
 		displayScore.setLabel("");
@@ -50,10 +69,23 @@ public class TimedGameModeScreen extends MainGameplayScreen {
 		isInitialized = true;
 	}
 
+	/**
+	 * starts the countdown timer and score timer
+	 */
 	@Override
-	public void onShow() {
-		countDownTimer.setInitialDelay(3);
-		countDownTimer.start();
+	public void onShow()
+	{
+		countdownTimer.setInitialDelay(3);
+		countdownTimer.start();
 		scoreTimer.start();
+	}
+	
+	/**
+	 * stops the countdown timer
+	 */
+	@Override
+	public void onHide()
+	{
+		countdownTimer.stop();
 	}
 }

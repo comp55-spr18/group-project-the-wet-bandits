@@ -28,9 +28,11 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	private String gameMode;
 
 	private GImageButton pause = new GImageButton("pause.png", 100, 400);
-	private GImageButton quit = new GImageButton("boardquit.png", 100, 500, new ClickAction() {
+	private GImageButton quit = new GImageButton("boardquit.png", 100, 500, new ClickAction()
+	{
 		@Override
-		public void onClick(MouseEvent event) {
+		public void onClick(MouseEvent event)
+		{
 			System.exit(0);
 		}
 	});
@@ -44,7 +46,8 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			myTime.setLabel(String.format("Time Elapsed: %d:%02d", secs / 60, secs % 60));
+			if(myTime != null)
+				myTime.setLabel(String.format("Time Elapsed: %d:%02d", secs / 60, secs % 60));
 			secs++;
 		}
 	});
@@ -104,7 +107,8 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	}
 
 	@Override
-	public void onShow() {
+	public void onShow()
+	{
 		clockTimer.setInitialDelay(3);
 		scoreTimer.start();
 		clockTimer.start();

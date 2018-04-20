@@ -23,7 +23,7 @@ public class ModeSelectScreen extends Screen {
 	}
 
 	private void run() {
-		GImage background = new GImage("background.gif" ,0, 0);
+		GImage background = new GImage("boardBG.PNG" ,0, 0);
 		background.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		add(background);
 		displayMode();

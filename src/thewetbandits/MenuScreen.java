@@ -13,7 +13,6 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 
-
 /**
  * 
  * @author John Thao with help from Austin Whyte
@@ -34,7 +33,7 @@ public class MenuScreen extends Screen
 	private AudioInputStream audioIn;
 	private Clip clip;
 	private Color buttonColor = new Color(255, 154, 0);
-	private GImage background = new GImage("background.gif", 0, 0);
+	private GImage background = new GImage("boardBG.PNG", 0, 0);
 	private GImage displayTitle = new GImage("logo.png", 200, 50);
 
 	public MenuScreen(MatchThreeGame app)
@@ -48,8 +47,7 @@ public class MenuScreen extends Screen
 	{
 		background.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		add(background);
-		// TODO 4/18/18: Re-add the godawful loud annoying music
-		// music();
+		music();
 		displayTitle();
 		buttons();
 		//showSetting();
@@ -69,31 +67,42 @@ public class MenuScreen extends Screen
 	 */
 	public void buttons()
 	{
-		GImageButton playButton = new GImageButton("play.png", 450, 315, new ClickAction() {
+		GImageButton playButton = new GImageButton("play.png", 450, 315, new ClickAction()
+		{
 			@Override
-			public void onClick(MouseEvent event) {
+			public void onClick(MouseEvent event)
+			{
 				game.switchToScreen(Screens.MODE_SELECT_SCREEN);
 			}
 		});
 		add(playButton);
-		GImageButton quitButton = new GImageButton("quit.png", 450, 415, new ClickAction() {
+		GImageButton quitButton = new GImageButton("quit.png", 450, 415, new ClickAction()
+		{
 			@Override
-			public void onClick(MouseEvent event) {
+			public void onClick(MouseEvent event)
+			{
 				System.exit(0);
 			}
 		});
 		add(quitButton);
-		GImageButton instructionButton = new GImageButton("question.png", 900, 615, new ClickAction() {
+		GImageButton instructionButton = new GImageButton("question.png", 900, 615, new ClickAction()
+		{
 			@Override
-			public void onClick(MouseEvent event) {
+			public void onClick(MouseEvent event)
+			{
 				game.switchToScreen(Screens.TUTORIAL_SCREEN);
 			}
 		});
 		add(instructionButton);
-		GImageButton muteButton = new GImageButton("mute.png", 900, 515, new ClickAction() {
+		GImageButton muteButton = new GImageButton("mute.png", 900, 515, new ClickAction()
+		{
 			@Override
-			public void onClick(MouseEvent event) {
-				clip.stop();
+			public void onClick(MouseEvent event)
+			{
+				if(clip.isActive())
+					clip.stop();
+				else
+					clip.start();
 			}
 		});
 		add(muteButton);
@@ -106,7 +115,8 @@ public class MenuScreen extends Screen
 			@Override
 			public void onClick(MouseEvent event)
 			{
-				//game.switchToScreen(new MainGameplayScreen(game, WINDOW_WIDTH, WINDOW_HEIGHT));
+				// game.switchToScreen(new MainGameplayScreen(game, WINDOW_WIDTH,
+				// WINDOW_HEIGHT));
 			}
 		});
 		settingButton.setColor(Color.WHITE);
@@ -132,5 +142,5 @@ public class MenuScreen extends Screen
 			e.printStackTrace();
 		}
 	}
-	
+
 }

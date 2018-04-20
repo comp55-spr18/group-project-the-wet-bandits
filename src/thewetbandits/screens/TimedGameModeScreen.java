@@ -9,51 +9,73 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class TimedGameModeScreen extends MainGameplayScreen {
-
-	private Timer countDownTimer = new Timer(1001, new ActionListener() {
+	
+	private MatchThreeGame game;
+	private Timer countDownTimer = new Timer(1000, new ActionListener()
+	{
 		@Override
-		public void actionPerformed(ActionEvent ae) {
-			if (secs > 9) {
-				myTime.setLabel("Time Left: " + mins + ":" + secs);
-				secs--;
-			} else {
-				myTime.setLabel("Time Left: " + mins + ":0" + secs);
-				secs--;
+        public void actionPerformed(ActionEvent ae)
+        {
+			if(time != null) {
+				time.setLabel(String.format("Time Left: %d:%02d", secs / 60, secs % 60));
 			}
-			if (secs < 0) {
-				secs = 59;
-				mins--;
-			}
-			if (mins == 0 && secs == 0) {
-				myTime.setLabel("Game Over");
+			if (secs == -1) {
+				time.setLabel("Game Over");
 				scoreTimer.stop();
+				game.switchToScreen(Screens.GAME_OVER);
 			}
-		}
+			secs--;
+        }
 	});
 
-	public TimedGameModeScreen(MatchThreeGame app) {
+	/**
+	 * initializes this screen
+	 * 
+	 * @param app
+	 *            the application that this screen runs in
+	 */
+	public TimedGameModeScreen(MatchThreeGame app)
+	{
 		super(app);
-		if (!isInitialized)
+		game = app;
+		if(!isInitialized)
 			run();
 	}
 
-	public void run() {
+	/**
+	 * displays title, score, time, and buttons
+	 */
+	public void run()
+	{
 		displayTitle();
 		displayScore();
 		displayScore.setLabel("");
-		this.mins = 3;
-		myTime = new GLabel("", 500, 75);
-		add(myTime);
-		myTime.setFont("Bold-25");
-		myTime.setColor(Color.WHITE);
+		secs = 180;
+		time = new GLabel("", 500, 75);
+		add(time);
+		time.setFont("Bold-25");
+		time.setColor(Color.WHITE);
 		displayButton();
 		isInitialized = true;
 	}
 
+	/**
+	 * starts the countdown timer and score timer
+	 */
 	@Override
-	public void onShow() {
+	public void onShow()
+	{
 		countDownTimer.setInitialDelay(3);
 		countDownTimer.start();
 		scoreTimer.start();
+	}
+	
+	/**
+	 * stops the countdown timer
+	 */
+	@Override
+	public void onHide()
+	{
+		countDownTimer.stop();
 	}
 }

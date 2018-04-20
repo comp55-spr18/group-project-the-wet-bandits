@@ -7,6 +7,8 @@ import java.awt.event.MouseEvent;
 
 public class GImageButton extends GCompound implements Clickable {
 
+	private static final long serialVersionUID = -4303608991720369295L;
+
 	private ClickAction action;
 
 	private GImage image;

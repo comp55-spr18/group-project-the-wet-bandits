@@ -32,9 +32,12 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		@Override
 		public void onClick(MouseEvent event)
 		{
-			if(Screens.MENU_SCREEN.clip.isActive()) {
+			if(Screens.MENU_SCREEN.clip.isActive())
+			{
 				Screens.MENU_SCREEN.clip.stop();
-			} else {
+			}
+			else
+			{
 				Screens.MENU_SCREEN.clip.start();
 			}
 		}
@@ -48,26 +51,26 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		}
 	});
 
-	private GImage noMovesImage = new GImage("no_moves.png");
+	protected GImage noMovesImage = new GImage("no_moves.png");
 	protected int secs = 0;
 	protected int mins;
-	protected GLabel myTime;
+	protected GLabel time;
 	protected GLabel displayScore;
+	protected GImage boardBG; 
 	protected Timer scoreTimer = new Timer(1, this);
 	protected Timer clockTimer = new Timer(1000, new ActionListener()
 	{
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			if(myTime != null)
-				myTime.setLabel(String.format("Time Elapsed: %d:%02d", secs / 60, secs % 60));
+			if(time != null)
+				time.setLabel(String.format("Time Elapsed: %d:%02d", secs / 60, secs % 60));
 			secs++;
 		}
 	});
 
-	private int frameNum = 0;
 	private int score;
-	private int displayedScore;
+	protected int displayedScore;
 
 	protected boolean isInitialized = false;
 
@@ -82,7 +85,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	{
 		super(app);
 		game = app;
-		GImage boardBG = new GImage("boardBG.png", 0, 0);
+		boardBG = new GImage("boardBG.png", 0, 0);
 		boardBG.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		add(boardBG);
 
@@ -120,29 +123,49 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		displayScore();
 		displayButton();
 		this.mins = 0;
-		myTime = new GLabel("Time Elapsed: ", 500, 75);
-		add(myTime);
-		myTime.setFont("Bold-25");
-		myTime.setColor(Color.WHITE);
+		time = new GLabel("Time Elapsed: ", 500, 75);
+		add(time);
+		time.setFont("Bold-25");
+		time.setColor(Color.WHITE);
 		isInitialized = true;
 	}
 
+	/**
+	 * shows the image that indicates to the player that there are no more moves to
+	 * be made
+	 */
 	public void showNoMoves()
 	{
 		this.add(this.noMovesImage);
 	}
 
+	/**
+	 * hides the image that indicates to the player that there are no more moves to
+	 * be made
+	 */
 	public void hideNoMoves()
 	{
 		this.remove(this.noMovesImage);
 	}
 
+	/**
+	 * starts the score and clock timers
+	 */
 	@Override
 	public void onShow()
 	{
 		clockTimer.setInitialDelay(3);
 		scoreTimer.start();
 		clockTimer.start();
+	}
+
+	/**
+	 * pauses the clock timer
+	 */
+	@Override
+	public void onHide()
+	{
+		clockTimer.stop();
 	}
 
 	/**
@@ -178,7 +201,7 @@ public class MainGameplayScreen extends Screen implements ActionListener
 	}
 
 	/**
-	 * This implements the timer count down for TIMED MODE (Not yet implemented)
+	 * Animates the score
 	 */
 	public void actionPerformed(ActionEvent e)
 	{
@@ -199,7 +222,6 @@ public class MainGameplayScreen extends Screen implements ActionListener
 		if(displayedScore > score)
 			displayedScore = score;
 		displayScore.setLabel("Score: " + displayedScore);
-		frameNum++;
 	}
 
 }

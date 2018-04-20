@@ -21,8 +21,10 @@ public class GamePiece extends GCompound
 	private static final int MOVEMENT_FREQUENCY = 13;
 	private static final Random random = new Random();
 
-	// Store a list of weak references (so the pieces can be garbage collected
-	// correctly) of pieces to update
+	/*
+	 * Store a list of weak references (so the pieces can be garbage collected
+	 * correctly) of pieces to update
+	 */
 	private static final ArrayList<WeakReference<GamePiece>> pieces = new ArrayList<>();
 
 	static

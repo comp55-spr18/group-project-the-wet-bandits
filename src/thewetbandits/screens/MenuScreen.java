@@ -13,8 +13,6 @@ import java.io.IOException;
 import java.net.URL;
 
 /**
- * 
- * 
  * @author John Thao with help from Austin Whyte
  *
  *         MenuScreen displays the very beginning screen, it consist of the
@@ -34,6 +32,12 @@ public class MenuScreen extends Screen
 	private GImage background = new GImage("boardBG.PNG", 0, 0);
 	private GImage displayTitle = new GImage("logo1.png", 200, 50);
 
+	/**
+	 * initializes the screen and adds it to the application
+	 * 
+	 * @param app
+	 *            the application that this screen runs in
+	 */
 	public MenuScreen(MatchThreeGame app)
 	{
 		super(app);
@@ -41,6 +45,9 @@ public class MenuScreen extends Screen
 		run();
 	}
 
+	/**
+	 * initializes the background, music, title, and buttons
+	 */
 	public void run()
 	{
 		background.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -63,11 +70,10 @@ public class MenuScreen extends Screen
 	 */
 	public void buttons()
 	{
-		
+
 		/**
-		 *  Displays the playButton, clicking on it would take you to the game
+		 * Displays the playButton, clicking on it would take you to the game
 		 */
-		
 		GImageButton playButton = new GImageButton("play.png", 450, 315, new ClickAction()
 		{
 			@Override
@@ -77,9 +83,9 @@ public class MenuScreen extends Screen
 			}
 		});
 		add(playButton);
-		
+
 		/**
-		 *  Displays the quitButton, click on it exits out of the game
+		 * Displays the quitButton, click on it exits out of the game
 		 */
 		GImageButton quitButton = new GImageButton("quit.png", 450, 415, new ClickAction()
 		{
@@ -90,12 +96,11 @@ public class MenuScreen extends Screen
 			}
 		});
 		add(quitButton);
-		
+
 		/**
-		 *  Displays the instructionButton, clicking on it takes you to a different
-		 *  screen that display instructions for the game
+		 * Displays the instructionButton, clicking on it takes you to a different
+		 * screen that display instructions for the game
 		 */
-		
 		GImageButton instructionButton = new GImageButton("question.png", 900, 615, new ClickAction()
 		{
 			@Override
@@ -105,9 +110,9 @@ public class MenuScreen extends Screen
 			}
 		});
 		add(instructionButton);
-		
+
 		/**
-		 *  Displays the muteButton, it can be toggle on/off
+		 * Displays the muteButton, it can be toggle on/off
 		 */
 		GImageButton muteButton = new GImageButton("mute.png", 900, 515, new ClickAction()
 		{

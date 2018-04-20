@@ -40,6 +40,8 @@ public class Board extends GCompound implements Clickable
 	 *            the size (in pixels) of the Screen the Board will be added to
 	 * @param boardLength
 	 *            the length of both sides of the array holding the GamePieces
+	 * @param app
+	 *            the application in which the board resides
 	 */
 	public Board(int screenSize, int boardLength, MatchThreeGame app)
 	{
@@ -419,12 +421,9 @@ public class Board extends GCompound implements Clickable
 
 	/**
 	 * refills all the empty pieces in the topmost rows of the board
-	 * 
-	 * @return whether the refill was successful
 	 */
 	public void refill()
 	{
-		boolean refilled = false;
 		for(int screenCol = 0; screenCol < this.boardLength; screenCol++)
 		{
 			int screenRow = 0;
@@ -434,7 +433,6 @@ public class Board extends GCompound implements Clickable
 						screenCol, screenRow);
 				add(piece);
 				this.setPiece(piece, screenRow, screenCol);
-				refilled = true;
 			}
 		}
 	}
@@ -501,6 +499,10 @@ public class Board extends GCompound implements Clickable
 		}
 	}
 
+	/**
+	 * Method that handles all clicks on the board and handles swapping, refilling,
+	 * and scoring
+	 */
 	@Override
 	public void onClick(MouseEvent evt)
 	{
@@ -595,19 +597,24 @@ public class Board extends GCompound implements Clickable
 
 		if(numberOfPossibleMoves() <= 0)
 		{
-			MatchThreeGame.executor.submit(new Runnable() {
+			MatchThreeGame.executor.submit(new Runnable()
+			{
 				@Override
-				public void run() {
+				public void run()
+				{
 					GraphicsPane p = app.getCurrentPane();
 					MainGameplayScreen s = null;
-					if(p instanceof MainGameplayScreen){
+					if(p instanceof MainGameplayScreen)
+					{
 						s = (MainGameplayScreen) p;
 
 						s.showNoMoves();
 
-						try {
+						try
+						{
 							Thread.sleep(1000);
-						} catch (InterruptedException e) {
+						}catch(InterruptedException e)
+						{
 							e.printStackTrace();
 						}
 					}
@@ -615,7 +622,7 @@ public class Board extends GCompound implements Clickable
 					do
 					{
 						shuffleBoard();
-					} while(numberOfMatches() > 0 || numberOfPossibleMoves() <= 0);
+					}while(numberOfMatches() > 0 || numberOfPossibleMoves() <= 0);
 					if(s != null)
 						s.hideNoMoves();
 				}

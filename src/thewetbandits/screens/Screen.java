@@ -120,7 +120,6 @@ public abstract class Screen extends GraphicsPane
 		for(GObject obj : this.objects)
 		{
 			this.application.add(obj);
-			System.out.println("Showing " + obj.getClass());
 		}
 		this.onShow();
 	}
@@ -149,7 +148,6 @@ public abstract class Screen extends GraphicsPane
 	public void mouseReleased(MouseEvent event)
 	{
 		GObject obj = this.application.getElementAt(event.getX(), event.getY());
-		System.out.println("Clicked on " + obj);
 		if(obj instanceof Clickable)
 		{
 			((Clickable) obj).onClick(event);

@@ -56,7 +56,6 @@ public class MatchThreeGame extends GraphicsApplication
 		if(p.getClass().isAssignableFrom(clazz)){
 			return clazz.cast(p);
 		} else {
-			System.out.println("Class is not of right type");
 			return null;
 		}
 	}

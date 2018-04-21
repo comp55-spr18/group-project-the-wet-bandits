@@ -278,7 +278,6 @@ public class Board extends GCompound implements Clickable
 	 */
 	private void removeMatches()
 	{
-		System.out.println("removeMatches() called");
 		GamePiece p;
 		for(int r = 0; r < boardLength; r++)
 		{
@@ -532,14 +531,12 @@ public class Board extends GCompound implements Clickable
 					this.updatePieceLocations();
 					if(this.numberOfMatches() < 1)
 					{
-						System.out.println("No matches");
 						// no matches
 						MatchThreeGame.executor.schedule(new Runnable()
 						{
 							@Override
 							public void run()
 							{
-								System.out.println("Swapping back");
 								swapPiece(clickedPiece.getR(), clickedPiece.getC(), targetRow, targetCol);
 								updatePieceLocations();
 							}
@@ -583,20 +580,15 @@ public class Board extends GCompound implements Clickable
 							{
 								// ignore
 							}
-							System.out.println("matching complete");
 							LimitedMovesModeScreen lms = app.getCurrentScreen(LimitedMovesModeScreen.class);
 							if(lms != null) {
 								lms.subtractAndUpdate();
 							}
 						}
 					}, 50, TimeUnit.MILLISECONDS);
-				} else {
-					System.out.println("Clicked on an out-of bounds piece");
 				}
 				selectedPiece = null;
 			}
-		} else {
-			System.out.println("Clicked on nothing");
 		}
 
 		if(numberOfPossibleMoves() <= 0)

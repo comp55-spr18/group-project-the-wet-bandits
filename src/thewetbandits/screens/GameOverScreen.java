@@ -4,21 +4,20 @@ import acm.graphics.GLabel;
 import thewetbandits.MatchThreeGame;
 import thewetbandits.utils.ClickAction;
 import thewetbandits.utils.GImageButton;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public class GameOverScreen extends Screen {
+	public static int score = 0;
 	private MatchThreeGame game;
 	private GLabel finalScore;
 	private GImageButton mainMenu;
 
-
-	public static int score = 0;
 	/**
 	 * base constructor that initializes the screen
 	 *
-	 * @param app
-	 *            the MatchThreeGame that this Screen will be added to
+	 * @param app the MatchThreeGame that this Screen will be added to
 	 */
 	public GameOverScreen(MatchThreeGame app) {
 		super(app);
@@ -29,8 +28,7 @@ public class GameOverScreen extends Screen {
 	/**
 	 * adds the background and displays the score and buttons
 	 */
-	private void run()
-	{
+	private void run() {
 		add(Screens.GAMEPLAY_ENDLESS_SCREEN.boardBG);
 		displayFinalScore();
 		displayMainMenuButton();
@@ -60,6 +58,7 @@ public class GameOverScreen extends Screen {
 				});
 		add(mainMenu);
 	}
+
 	@Override
 	public void onShow() {
 		finalScore.setLabel("Your final score was " + score);

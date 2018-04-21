@@ -7,7 +7,7 @@ package thewetbandits.utils;
  * GraphicsApplication.  GraphicsApplication is different
  * than GraphicsPane because the Application is responsible
  * for switching between different panes.
- * 
+ *
  * In subclassing GraphicsApplication, think of this as the starting
  * point for your entire application.  This is what
  * you can think of as being your initial graphicsprogram.
@@ -115,7 +115,7 @@ public abstract class GraphicsApplication extends GraphicsProgram {
 
 	/**
 	 * Gets the currently active pane
-	 * 
+	 *
 	 * @return The currently active {@link GraphicsPane}
 	 */
 	public GraphicsPane getCurrentPane() {

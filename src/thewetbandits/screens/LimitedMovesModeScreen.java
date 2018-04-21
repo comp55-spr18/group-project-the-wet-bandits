@@ -5,18 +5,15 @@ import thewetbandits.MatchThreeGame;
 
 import java.awt.*;
 
-public class LimitedMovesModeScreen extends MainGameplayScreen
-{
+public class LimitedMovesModeScreen extends MainGameplayScreen {
 
 	private int movesLeft;
 	private GLabel moves;
 
-	public LimitedMovesModeScreen(MatchThreeGame app)
-	{
+	public LimitedMovesModeScreen(MatchThreeGame app) {
 		super(app);
 		movesLeft = 50;
-		if(!isInitialized)
-		{
+		if (!isInitialized) {
 			run();
 		}
 		this.updateMoves();
@@ -26,8 +23,7 @@ public class LimitedMovesModeScreen extends MainGameplayScreen
 	 * displays the title, score, number of moves dialogue, and starts the timer for
 	 * the score updater
 	 */
-	public void run()
-	{
+	public void run() {
 		displayTitle();
 		displayScore();
 		displayMoves();
@@ -40,8 +36,7 @@ public class LimitedMovesModeScreen extends MainGameplayScreen
 	/**
 	 * Displays the time and moves left
 	 */
-	public void displayMoves()
-	{
+	public void displayMoves() {
 		moves = new GLabel("Moves left: " + this.movesLeft, 500, 75);
 
 		add(moves);
@@ -49,23 +44,19 @@ public class LimitedMovesModeScreen extends MainGameplayScreen
 		moves.setColor(Color.WHITE);
 	}
 
-	public void subtractAndUpdate()
-	{
+	public void subtractAndUpdate() {
 		this.movesLeft--;
 		this.updateMoves();
-		if(this.movesLeft == 0)
-		{
+		if (this.movesLeft == 0) {
 			this.displayEnd();
 		}
 	}
 
-	public void updateMoves()
-	{
+	public void updateMoves() {
 		this.moves.setLabel("Moves left: " + this.movesLeft);
 	}
 
-	private void displayEnd()
-	{
+	private void displayEnd() {
 		GameOverScreen.score = this.board.getScore();
 		this.application.switchToScreen(Screens.GAME_OVER);
 	}

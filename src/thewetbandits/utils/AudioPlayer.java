@@ -5,10 +5,11 @@ package thewetbandits.utils;
  * ----------------------------------
  * AudioPlayer myAudio = AudioPlayer.getInstance()
  * myAudio.playSound("music", "funk.mp3")
- * 
+ *
  * AudioPlayer supports mp3 files and is based on the javafx MediaPlayer class
  * Questions can be sent to ojimenez@pacific.edu
  */
+
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.media.Media;
@@ -21,11 +22,6 @@ import java.util.Map;
 public final class AudioPlayer {
 	private final Map<String, MediaPlayer> players;
 
-	private static class AudioPlayerInit {
-		public static final AudioPlayer instance = new AudioPlayer();
-	}
-	
-
 	private AudioPlayer() {
 		final JFXPanel fxPanel = new JFXPanel();
 		players = new HashMap<String, MediaPlayer>();
@@ -34,7 +30,7 @@ public final class AudioPlayer {
 	/**
 	 * Think of this like the constructor for getting the audioplayer Usage:
 	 * AudioPlayer myPlayer = AudioPlayer.getInstance();
-	 * 
+	 *
 	 * @return instance of the AudioPlayer
 	 */
 	public static AudioPlayer getInstance() {
@@ -45,12 +41,10 @@ public final class AudioPlayer {
 	 * Plays a sound based on the foldername and filename given in the
 	 * parameters Will only play the sound once. If the sound isn't finished and
 	 * the exact same sound is played again, playSound will restart the sound.
-	 * 
-	 * @param folder
-	 *            folder where the sound is inside of media, leave as empty
-	 *            string if in the main media folder
-	 * @param filename
-	 *            filename for the sound, make sure to include the extension
+	 *
+	 * @param folder   folder where the sound is inside of media, leave as empty
+	 *                 string if in the main media folder
+	 * @param filename filename for the sound, make sure to include the extension
 	 */
 	public void playSound(String folder, String filename) {
 		playSound(folder, filename, false);
@@ -58,14 +52,11 @@ public final class AudioPlayer {
 
 	/**
 	 * same as the original play sound, but has the option to loop the sound
-	 * 
-	 * @param folder
-	 *            folder where the sound is inside of media, leave as empty
-	 *            string if in the main media folder
-	 * @param filename
-	 *            filename for the sound, make sure to include the extension
-	 * @param shouldLoop
-	 *            true will loop the sound.
+	 *
+	 * @param folder     folder where the sound is inside of media, leave as empty
+	 *                   string if in the main media folder
+	 * @param filename   filename for the sound, make sure to include the extension
+	 * @param shouldLoop true will loop the sound.
 	 */
 	public void playSound(final String folder, final String filename, final boolean shouldLoop) {
 		Platform.runLater(new Runnable() {
@@ -129,12 +120,10 @@ public final class AudioPlayer {
 	 * Stops the sound when the media is playing, does nothing otherwise Calling
 	 * playSound after stopping the sound will cause the sound to start from the
 	 * beginning
-	 * 
-	 * @param folder
-	 *            folder where the sound is inside of media, leave as empty
-	 *            string if in the main media folder
-	 * @param filename
-	 *            filename for the sound, make sure to include the extension
+	 *
+	 * @param folder   folder where the sound is inside of media, leave as empty
+	 *                 string if in the main media folder
+	 * @param filename filename for the sound, make sure to include the extension
 	 */
 	public void stopSound(final String folder, final String filename) {
 		Platform.runLater(new Runnable() {
@@ -151,12 +140,10 @@ public final class AudioPlayer {
 	 * Pauses the sound when the media is playing, does nothing otherwise
 	 * Calling playSound after pausing the sound will cause the sound to play
 	 * where it left off
-	 * 
-	 * @param folder
-	 *            folder where the sound is inside of media, leave as empty
-	 *            string if in the main media folder
-	 * @param filename
-	 *            filename for the sound, make sure to include the extension
+	 *
+	 * @param folder   folder where the sound is inside of media, leave as empty
+	 *                 string if in the main media folder
+	 * @param filename filename for the sound, make sure to include the extension
 	 */
 	public void pauseSound(final String folder, final String filename) {
 		Platform.runLater(new Runnable() {
@@ -167,5 +154,9 @@ public final class AudioPlayer {
 				}
 			}
 		});
+	}
+
+	private static class AudioPlayerInit {
+		public static final AudioPlayer instance = new AudioPlayer();
 	}
 }

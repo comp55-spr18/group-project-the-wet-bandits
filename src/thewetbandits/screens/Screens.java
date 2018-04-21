@@ -1,9 +1,8 @@
 package thewetbandits.screens;
 
-import thewetbandits.*;
+import thewetbandits.MatchThreeGame;
 
-public class Screens
-{
+public class Screens {
 
 	public static MainGameplayScreen GAMEPLAY_ENDLESS_SCREEN;
 	public static LimitedMovesModeScreen GAMEPLAY_LIMITED_SCREEN;
@@ -16,12 +15,10 @@ public class Screens
 
 	/**
 	 * Calls constructor for all screens in the application
-	 * 
-	 * @param app
-	 *            the application in which all screens will reside
+	 *
+	 * @param app the application in which all screens will reside
 	 */
-	public static void initialize(MatchThreeGame app)
-	{
+	public static void initialize(MatchThreeGame app) {
 		GAMEPLAY_ENDLESS_SCREEN = new MainGameplayScreen(app);
 		MODE_SELECT_SCREEN = new ModeSelectScreen(app);
 		GAMEPLAY_LIMITED_SCREEN = new LimitedMovesModeScreen(app);

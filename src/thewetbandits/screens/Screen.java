@@ -13,12 +13,10 @@ import java.util.ArrayList;
  * A class extending the functionality of {@link GraphicsPane} by automatically
  * handling the addition and removal of objects to the screen when it becomes
  * active or inactive
- * 
- * @author Austin
  *
+ * @author Austin
  */
-public abstract class Screen extends GraphicsPane
-{
+public abstract class Screen extends GraphicsPane {
 
 	protected final MatchThreeGame application;
 	private final ArrayList<GObject> objects = new ArrayList<>();
@@ -26,65 +24,53 @@ public abstract class Screen extends GraphicsPane
 
 	/**
 	 * default constructor for screen
-	 * 
-	 * @param app
-	 *            the {@link MatchThreeGame} that the screen runs in
+	 *
+	 * @param app the {@link MatchThreeGame} that the screen runs in
 	 */
-	public Screen(MatchThreeGame app)
-	{
+	public Screen(MatchThreeGame app) {
 		this.application = app;
 	}
 
 	/**
 	 * Adds a {@link GObject} to the screen to be displayed
-	 * 
-	 * @param obj
-	 *            The object to add
+	 *
+	 * @param obj The object to add
 	 */
-	protected void add(GObject obj)
-	{
+	protected void add(GObject obj) {
 		this.objects.add(obj);
-		if(this.application.getCurrentPane() == this)
-		{
+		if (this.application.getCurrentPane() == this) {
 			this.application.add(obj);
 		}
 	}
 
 	/**
 	 * Adds a {@link Displayable} to the screen to be displayed when the screen is
-	 * 
-	 * @param displayable
-	 *            The displayable to display
+	 *
+	 * @param displayable The displayable to display
 	 */
-	protected void add(Displayable displayable)
-	{
+	protected void add(Displayable displayable) {
 		this.displayables.add(displayable);
-		if(this.application.getCurrentPane() == this)
-		{
+		if (this.application.getCurrentPane() == this) {
 			displayable.showContents();
 		}
 	}
 
 	/**
 	 * Removes the object from the screen
-	 * 
-	 * @param displayable
-	 *            The object to remove
+	 *
+	 * @param displayable The object to remove
 	 */
-	protected void remove(Displayable displayable)
-	{
+	protected void remove(Displayable displayable) {
 		displayable.hideContents();
 		this.displayables.remove(displayable);
 	}
 
 	/**
 	 * Removes the object from the screen
-	 * 
-	 * @param obj
-	 *            The object to remove
+	 *
+	 * @param obj The object to remove
 	 */
-	protected void remove(GObject obj)
-	{
+	protected void remove(GObject obj) {
 		this.application.remove(obj);
 		this.objects.remove(obj);
 	}
@@ -92,14 +78,11 @@ public abstract class Screen extends GraphicsPane
 	/**
 	 * Clears all of the items currently on the screen
 	 */
-	protected void clear()
-	{
-		for(Displayable d : this.displayables)
-		{
+	protected void clear() {
+		for (Displayable d : this.displayables) {
 			d.hideContents();
 		}
-		for(GObject obj : this.objects)
-		{
+		for (GObject obj : this.objects) {
 			this.application.remove(obj);
 		}
 
@@ -111,14 +94,11 @@ public abstract class Screen extends GraphicsPane
 	 * shows all contents on the screen
 	 */
 	@Override
-	public void showContents()
-	{
-		for(Displayable d : this.displayables)
-		{
+	public void showContents() {
+		for (Displayable d : this.displayables) {
 			d.showContents();
 		}
-		for(GObject obj : this.objects)
-		{
+		for (GObject obj : this.objects) {
 			this.application.add(obj);
 		}
 		this.onShow();
@@ -128,14 +108,11 @@ public abstract class Screen extends GraphicsPane
 	 * removes all contents from the screen
 	 */
 	@Override
-	public void hideContents()
-	{
-		for(Displayable d : this.displayables)
-		{
+	public void hideContents() {
+		for (Displayable d : this.displayables) {
 			d.hideContents();
 		}
-		for(GObject obj : this.objects)
-		{
+		for (GObject obj : this.objects) {
 			this.application.remove(obj);
 		}
 		this.onHide();
@@ -145,22 +122,18 @@ public abstract class Screen extends GraphicsPane
 	 * Calls the onClick() method of an object that is clicked upon
 	 */
 	@Override
-	public void mouseReleased(MouseEvent event)
-	{
+	public void mouseReleased(MouseEvent event) {
 		GObject obj = this.application.getElementAt(event.getX(), event.getY());
-		if(obj instanceof Clickable)
-		{
+		if (obj instanceof Clickable) {
 			((Clickable) obj).onClick(event);
 		}
 	}
 
-	public void onShow()
-	{
+	public void onShow() {
 
 	}
 
-	public void onHide()
-	{
+	public void onHide() {
 
 	}
 

@@ -4,26 +4,25 @@ package thewetbandits.utils;
  * ---------------------
  * Simple utility to allow you to create multiple Glabels
  * should you want them to go across multiple lines
- * To have new labels that go directly below older ones, 
- * just use a new line sequence in the string.  
- * 
- * For the sake of simplicity, GParagraph does not 
- * support text wrapping, you will manually have to 
+ * To have new labels that go directly below older ones,
+ * just use a new line sequence in the string.
+ *
+ * For the sake of simplicity, GParagraph does not
+ * support text wrapping, you will manually have to
  * split the text.  It does have support for fonts.
  */
-
-import java.awt.Color;
-import java.awt.Font;
-import java.util.ArrayList;
-import java.util.List;
 
 import acm.graphics.GCompound;
 import acm.graphics.GLabel;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class GParagraph extends GCompound {
-	
-	private static final long serialVersionUID = -7166818694276146795L;
+
 	public static final String NEWLINE = "\n";
+	private static final long serialVersionUID = -7166818694276146795L;
 	private double startX;
 	private double startY;
 	private String allText;

@@ -8,21 +8,16 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TimedGameModeScreen extends MainGameplayScreen
-{
+public class TimedGameModeScreen extends MainGameplayScreen {
 
 	private MatchThreeGame game;
-	private Timer countDownTimer = new Timer(1000, new ActionListener()
-	{
+	private Timer countDownTimer = new Timer(1000, new ActionListener() {
 		@Override
-		public void actionPerformed(ActionEvent ae)
-		{
-			if(time != null)
-			{
+		public void actionPerformed(ActionEvent ae) {
+			if (time != null) {
 				time.setLabel(String.format("Time Left: %d:%02d", secs / 60, secs % 60));
 			}
-			if(secs < 0)
-			{
+			if (secs < 0) {
 				time.setLabel("Game Over");
 				scoreTimer.stop();
 				GameOverScreen.score = board.getScore();
@@ -34,23 +29,20 @@ public class TimedGameModeScreen extends MainGameplayScreen
 
 	/**
 	 * initializes this screen
-	 * 
-	 * @param app
-	 *            the application that this screen runs in
+	 *
+	 * @param app the application that this screen runs in
 	 */
-	public TimedGameModeScreen(MatchThreeGame app)
-	{
+	public TimedGameModeScreen(MatchThreeGame app) {
 		super(app);
 		game = app;
-		if(!isInitialized)
+		if (!isInitialized)
 			run();
 	}
 
 	/**
 	 * displays title, score, time, and buttons
 	 */
-	public void run()
-	{
+	public void run() {
 		displayTitle();
 		displayScore();
 		displayScore.setLabel("");
@@ -67,8 +59,7 @@ public class TimedGameModeScreen extends MainGameplayScreen
 	 * starts the countdown timer and score timer
 	 */
 	@Override
-	public void onShow()
-	{
+	public void onShow() {
 		countDownTimer.setInitialDelay(3);
 		countDownTimer.start();
 		scoreTimer.start();
@@ -78,8 +69,7 @@ public class TimedGameModeScreen extends MainGameplayScreen
 	 * stops the countdown timer
 	 */
 	@Override
-	public void onHide()
-	{
+	public void onHide() {
 		countDownTimer.stop();
 	}
 }
